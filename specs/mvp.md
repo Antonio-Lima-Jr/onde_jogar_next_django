@@ -171,10 +171,10 @@ Now the most important part: **execution order**.
 
 ### 🧱 Phase 1 — Setup (Day 1)
 
-- [ ]  Create repository
-- [ ]  Define monorepo
-- [ ]  Create a simple README
-- [ ]  Bring up an empty project
+- [x]  Create repository
+- [x]  Define monorepo
+- [x]  Create a simple README
+- [x]  Bring up an empty project
 
 👉 **No features yet.**
 
@@ -182,8 +182,8 @@ Now the most important part: **execution order**.
 
 ### 🧱 Phase 2 — Raw backend (Day 2)
 
-- [ ]  Django initialized
-- [ ]  Postgres connected
+- [x]  Django initialized
+- [x]  Postgres connected
 - [ ]  `/health` endpoint
 - [ ]  Admin accessible
 

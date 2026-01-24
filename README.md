@@ -79,7 +79,7 @@ onde-jogar/
 │           └── skill.md
 │
 ├── apps/
-│   ├── api/                     # Django Backend (API + Admin)
+│   ├── backend/                     # Django Backend (API + Admin)
 │   │   ├── config/              # Django Project
 │   │   │   ├── __init__.py
 │   │   │   ├── settings.py
@@ -113,7 +113,7 @@ onde-jogar/
 │   │   ├── requirements.txt
 │   │   └── .env.example
 │   │
-│   ├── web/                     # Next.js Frontend
+│   ├── frontend/                     # Next.js Frontend
 │   │   ├── app/
 │   │   │   ├── page.tsx          # Landing
 │   │   │   ├── events/
