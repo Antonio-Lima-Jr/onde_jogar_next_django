@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SportDiscovery - Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df20d", // Neon Green
+                        "dark-charcoal": "#1A1A1A",
+                        "readable-gray": "#4B5563",
+                        "light-gray": "#F3F4F6",
+                        "footer-bg": "#F9FAFB",
+                        "border-light": "#E5E7EB",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFFFF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E5E7EB;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0df20d;
+        }
+    </style>
+</head>
+<body class="bg-white text-dark-charcoal min-h-screen">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-border-light px-4 md:px-10 py-3 sticky top-0 bg-white/95 backdrop-blur-xl z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-extrabold leading-tight tracking-[-0.015em] text-dark-charcoal">SportDiscovery</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors text-primary" href="#">Discover</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors text-dark-charcoal" href="#">My Games</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors text-dark-charcoal" href="#">Groups</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors text-dark-charcoal" href="#">Venues</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full">
+<div class="text-readable-gray flex border-none bg-light-gray items-center justify-center pl-4 rounded-l-full">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-light-gray focus:outline-0 focus:ring-0 h-full placeholder:text-readable-gray px-4 rounded-r-full text-base font-normal text-dark-charcoal" placeholder="Search sports, venues..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-light-gray hover:bg-primary/20 transition-colors text-dark-charcoal">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+</div>
+<button class="bg-primary text-black px-6 py-2 rounded-full text-sm font-bold hover:scale-105 transition-transform">Login</button>
+</div>
+</header>
+<main>
+<section class="relative w-full h-[600px] flex items-center overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.4) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8mI1lWgW6fjkHctpPHOueHLPJujw3w5FNjmKmzfvqVhiAGBlLvxCO-rBkpGp12WcagN07UJ6dX6xXQp9-B72B9jvg09FMBLB5sCrkNC70raOo1o3OyNSp4H5m4y8NaPyvtaEhlBSFlEF0PpjQH5l_UCs2fiGTPNiWm4hS_p2zPEr3byA6zTal0MSE226NJhpn2P6A0efn4RMmoShaRIsB0XQcduKQdNmHGe5zrCF1trmd771pc1nne6t0-IUq9DA5oWPYKVepkHo");'></div>
+<div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10 w-full">
+<div class="max-w-2xl flex flex-col gap-6">
+<div class="flex h-8 w-fit items-center justify-center gap-x-2 rounded-full bg-primary/10 border border-primary/30 px-4 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[16px] text-primary filled-icon">bolt</span>
+<p class="text-primary text-[10px] font-black uppercase tracking-[0.2em]">New: Shoreditch Leagues Open</p>
+</div>
+<h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight text-dark-charcoal">
+                    Find your <span class="text-primary">next game</span> in seconds
+                </h1>
+<p class="text-lg text-readable-gray leading-relaxed max-w-lg">
+                    Connect with local athletes, join community matches, and book top-tier venues across the city. The ultimate platform for sports discovery.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-primary text-black px-10 py-4 rounded-full text-lg font-black tracking-tight shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-[1.02] active:scale-95">
+                        JOIN FOR FREE
+                    </button>
+<button class="bg-white/80 backdrop-blur-md border border-border-light px-10 py-4 rounded-full text-lg font-bold text-dark-charcoal hover:bg-white transition-all shadow-sm">
+                        Explore Events
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-[1280px] mx-auto px-4 md:px-10 py-20">
+<div class="flex flex-col gap-10">
+<div class="flex justify-between items-end">
+<div class="flex flex-col gap-2">
+<h2 class="text-3xl font-extrabold text-dark-charcoal">Popular Sports</h2>
+<p class="text-readable-gray">Whatever your game, find players to match your skill level.</p>
+</div>
+<button class="text-primary font-bold flex items-center gap-2 hover:underline">
+                    View All <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<div class="bg-white border border-border-light p-8 rounded-2xl flex flex-col items-center gap-4 hover:border-primary hover:shadow-md transition-all cursor-pointer group">
+<div class="size-16 rounded-full bg-light-gray flex items-center justify-center text-dark-charcoal group-hover:bg-primary/10 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[32px] filled-icon">sports_soccer</span>
+</div>
+<span class="font-bold text-dark-charcoal">Soccer</span>
+</div>
+<div class="bg-white border border-border-light p-8 rounded-2xl flex flex-col items-center gap-4 hover:border-primary hover:shadow-md transition-all cursor-pointer group">
+<div class="size-16 rounded-full bg-light-gray flex items-center justify-center text-dark-charcoal group-hover:bg-primary/10 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[32px] filled-icon">sports_basketball</span>
+</div>
+<span class="font-bold text-dark-charcoal">Basketball</span>
+</div>
+<div class="bg-white border border-border-light p-8 rounded-2xl flex flex-col items-center gap-4 hover:border-primary hover:shadow-md transition-all cursor-pointer group">
+<div class="size-16 rounded-full bg-light-gray flex items-center justify-center text-dark-charcoal group-hover:bg-primary/10 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[32px] filled-icon">sports_tennis</span>
+</div>
+<span class="font-bold text-dark-charcoal">Tennis</span>
+</div>
+<div class="bg-white border border-border-light p-8 rounded-2xl flex flex-col items-center gap-4 hover:border-primary hover:shadow-md transition-all cursor-pointer group">
+<div class="size-16 rounded-full bg-light-gray flex items-center justify-center text-dark-charcoal group-hover:bg-primary/10 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[32px] filled-icon">sports_volleyball</span>
+</div>
+<span class="font-bold text-dark-charcoal">Volleyball</span>
+</div>
+<div class="bg-white border border-border-light p-8 rounded-2xl flex flex-col items-center gap-4 hover:border-primary hover:shadow-md transition-all cursor-pointer group">
+<div class="size-16 rounded-full bg-light-gray flex items-center justify-center text-dark-charcoal group-hover:bg-primary/10 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[32px] filled-icon">fitness_center</span>
+</div>
+<span class="font-bold text-dark-charcoal">Training</span>
+</div>
+<div class="bg-white border border-border-light p-8 rounded-2xl flex flex-col items-center gap-4 hover:border-primary hover:shadow-md transition-all cursor-pointer group">
+<div class="size-16 rounded-full bg-light-gray flex items-center justify-center text-dark-charcoal group-hover:bg-primary/10 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[32px] filled-icon">hiking</span>
+</div>
+<span class="font-bold text-dark-charcoal">Hiking</span>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-[1280px] mx-auto px-4 md:px-10 py-20 bg-footer-bg rounded-t-[3rem] border-t border-border-light">
+<div class="flex flex-col gap-10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">trending_up</span>
+<h2 class="text-3xl font-extrabold text-dark-charcoal">Trending Events</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-white rounded-2xl overflow-hidden border border-border-light hover:border-primary transition-all group shadow-sm hover:shadow-xl">
+<div class="h-48 relative overflow-hidden">
+<img alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8mI1lWgW6fjkHctpPHOueHLPJujw3w5FNjmKmzfvqVhiAGBlLvxCO-rBkpGp12WcagN07UJ6dX6xXQp9-B72B9jvg09FMBLB5sCrkNC70raOo1o3OyNSp4H5m4y8NaPyvtaEhlBSFlEF0PpjQH5l_UCs2fiGTPNiWm4hS_p2zPEr3byA6zTal0MSE226NJhpn2P6A0efn4RMmoShaRIsB0XQcduKQdNmHGe5zrCF1trmd771pc1nne6t0-IUq9DA5oWPYKVepkHo"/>
+<div class="absolute top-4 left-4 bg-primary text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Soccer</div>
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold border border-border-light text-dark-charcoal">8:00 PM Tonight</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors text-dark-charcoal">Friday Night 5-a-side</h3>
+<div class="flex items-center gap-3 text-readable-gray text-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            PowerLeague Shoreditch
+                        </div>
+<div class="flex justify-between items-center pt-4 border-t border-border-light">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-white bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBr3lAO0HUsXPRoX3B7_gS-qxpmZ5oW_2j-V38dZpEnEksIctPKVzQ5-7TMhOt95yKwEMvHcxZF4TdWmoYDC3q2ZtUyCsoQYTkdo1EGHzQ4e5f4S4yfFD70uk_xQdWD18hYlMoOu7jczZpeGj80ZhWGGcXIVG19MyfaoqSCzbyXg--ECNpj2Wv91uHJ64JXlXAOFEVlQ76KDxADYm7iPdMxCy3qSaZZ9vT49Ie1aifGKBFkcc2jiejPgGJk5sTi-hgLiFUvkb5ANt0");'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQ6aCmr28-mOrmlsbdXF5U-TkScMU6zdkFGDNTPajw79j3wiCMVKGGWQAgfHU-qeKeN182WOQv6zmw_c4gSlBm3woNeSfTAxieIWTjzYZ7Da7DS1bIuojlNh_Hi29lp8wScHRogYhDhdBkMfpAyVCya5jRmq0D-KRm8LnjAB16hb4EtAztbnN3RIwFkmZ_Cf9lGlTHOmWsgp5-M0-7qTzA0rIfP024VWHde6E5EBDfZCWxlq7AWLPiAVEihfPjEWTZJwhIpybu-5Y");'></div>
+<div class="size-8 rounded-full border-2 border-white bg-light-gray flex items-center justify-center text-[10px] font-bold text-readable-gray">+10</div>
+</div>
+<span class="text-primary font-black text-sm">$8.00</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden border border-border-light hover:border-primary transition-all group shadow-sm hover:shadow-xl">
+<div class="h-48 relative overflow-hidden">
+<img alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6bWFFW39ZGlZle2_vW4tAOs0btQCC5DdfDuTlvMntgd6SjfGDPBtWz0JWd0RC5cWycj56o5gOF9z4L0xdfIKJcvV9hgzeJXDhJdVQExL3U4R9_ypc6l-lAQ6Cz6TWjaHAMdEhpIV-1DdYlSW0o6OHDxkszLPIt67RKdkp-3NSq-dpg26yc3bsSKsaHM2ETlwAsjZ_rQwF_BJ174Ekxek0AJvib9DTYyNV6kt7r3v_5aVeH4pAh7Nxc4iUKUo9K8RD7OL_sH2lrUE"/>
+<div class="absolute top-4 left-4 bg-primary text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Tennis</div>
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold border border-border-light text-dark-charcoal">10:00 AM Sat</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors text-dark-charcoal">Advanced Mixed Doubles</h3>
+<div class="flex items-center gap-3 text-readable-gray text-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Regent's Park Tennis
+                        </div>
+<div class="flex justify-between items-center pt-4 border-t border-border-light">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-white bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyGqfXGWhrqDPHr-Dn3j9e5haYUbVscAWEeQvpN4qkbLoRW7JyGmTHgIAzNgFVlGa9AxhQJD6dE8M0n0HXWL4HnUkhJfADl7t2PkDhabidCjxkl2DA1udBvIPZkI7tjQFDTC9l-jMsX-tMsMMKloo-CLvxX4MV2T4whAa4z2FgMnuV_S9lL_tQEg9RbIVB8Ly2YMJ2a2EcgZC6CKT9kaBcoXROCk-MTOSIBUzJLxFWWG1XgQkZiagJ9XnWhENeeeFWKnVHezqmJAA");'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8p62Gy-VHXbMsuj5MB5nV5_03SpME3EowxmOiOf8VG_gvfPhIwnpphKhBJjg5N1ra_AJJxxSySis8U70YfdDjZ75oB-OQ372-_b-nZjaZYAUKMv_aMwb2nopUhLp7ZUE5nPMpco2iHZ_Zu9bSbFQHoPB8WvazFNM_gHIbuHbKgpWQfvnkZ7cBU7e9MtL55T8KIV4Pj_zKewyZzlCdA72EtU5pQe9o2xowjsFbf9NvNlgXdQOpr1ZZ7Sfw4wkx1MnRW--QZCWduLA");'></div>
+<div class="size-8 rounded-full border-2 border-white bg-light-gray flex items-center justify-center text-[10px] font-bold text-readable-gray">+2</div>
+</div>
+<span class="text-primary font-black text-sm">FREE</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden border border-border-light hover:border-primary transition-all group shadow-sm hover:shadow-xl">
+<div class="h-48 relative overflow-hidden">
+<img alt="Event" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr3lAO0HUsXPRoX3B7_gS-qxpmZ5oW_2j-V38dZpEnEksIctPKVzQ5-7TMhOt95yKwEMvHcxZF4TdWmoYDC3q2ZtUyCsoQYTkdo1EGHzQ4e5f4S4yfFD70uk_xQdWD18hYlMoOu7jczZpeGj80ZhWGGcXIVG19MyfaoqSCzbyXg--ECNpj2Wv91uHJ64JXlXAOFEVlQ76KDxADYm7iPdMxCy3qSaZZ9vT49Ie1aifGKBFkcc2jiejPgGJk5sTi-hgLiFUvkb5ANt0"/>
+<div class="absolute top-4 left-4 bg-primary text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Basketball</div>
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold border border-border-light text-dark-charcoal">6:30 PM Sun</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors text-dark-charcoal">Sunset 3v3 Tournament</h3>
+<div class="flex items-center gap-3 text-readable-gray text-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Haggerston Courts
+                        </div>
+<div class="flex justify-between items-center pt-4 border-t border-border-light">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-white bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7UWur2uhsjro4RAKpi4mLhp9maYSdLemOP64PsBCPy3-Pd9F8USAjm2pCin2IXv9r3I3pO4BmUud5OY0k-0KO-ciqVyc1HEgnlkcsG9qut65DjQt7IoGAxQNd19nNFBV4eAuIAi70_v5r22Vt7z04YpwfSU3hsA7j9QqbVaVmgkoK6si5BZDGAzxdphyhTt94rhF8o8NnLQ_A-91OOYVLQSoTp4jB3z6HzL_g_eFSsBC-0TTxyTyAZ1g3LW52FJsxexlYYtaDWNo");'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAY9PAl8pVFzIf16ymlfGeZwZAs6yec7OK0r-OeCaXGWVBcjvzgYBf-MZXWcQ3Cp8SgNfTiEKAZlGXwKEz2LxeBOOa9kBgyzTcKVFVfYl2YaQBR5H1zPqhLmHuX9zUyAvA7SBe5eJdKEdgrbYPLMfQTVX1dNbiEklI8IOPCIVgElo2lp4CQ1jAvCuxyg5I5ENLM9FMa131qKHbf2DddNXPsgJ8bGIJNtZ2p8hXwS5a9eaGVS-XSYX8fiY885zxiJyMewh5hKH7a1Cw");'></div>
+<div class="size-8 rounded-full border-2 border-white bg-light-gray flex items-center justify-center text-[10px] font-bold text-readable-gray">+6</div>
+</div>
+<span class="text-primary font-black text-sm">$15.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-border-light py-16 bg-footer-bg">
+<div class="max-w-[1280px] mx-auto px-4 md:px-10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-extrabold tracking-tight text-dark-charcoal">SportDiscovery</h2>
+</div>
+<p class="text-readable-gray text-sm leading-relaxed">
+                    The leading platform for finding and booking sports events. Connect with players, form teams, and discover the best courts near you.
+                </p>
+</div>
+<div class="flex flex-col gap-6">
+<h4 class="font-bold text-dark-charcoal uppercase tracking-widest text-xs">Explore</h4>
+<ul class="flex flex-col gap-4 text-sm text-readable-gray">
+<li><a class="hover:text-primary transition-colors" href="#">Discovery</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Popular Sports</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Trending Games</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Venues</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-6">
+<h4 class="font-bold text-dark-charcoal uppercase tracking-widest text-xs">Support</h4>
+<ul class="flex flex-col gap-4 text-sm text-readable-gray">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Safety Rules</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Organizer Guide</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-6">
+<h4 class="font-bold text-dark-charcoal uppercase tracking-widest text-xs">Legal</h4>
+<ul class="flex flex-col gap-4 text-sm text-readable-gray">
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-12 border-t border-border-light flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-readable-gray">
+<p>© 2024 SportDiscovery. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="hover:text-dark-charcoal transition-colors" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
+<a class="hover:text-dark-charcoal transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="hover:text-dark-charcoal transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

@@ -38,6 +38,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${lexend.variable} antialiased bg-[color:var(--color-background)] text-[color:var(--color-text)] min-h-screen`}
+        suppressHydrationWarning={true}
       >
         <ThemeProvider>
           <AuthProvider>{children}</AuthProvider>
