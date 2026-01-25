@@ -108,3 +108,16 @@ export async function fetchUser(id: string, token?: string): Promise<any> {
     return response.json();
 }
 
+export async function updateProfile(id: string, data: any, token: string): Promise<any> {
+    const response = await fetch(`${API_BASE_URL}/api/users/profile/${id}/`, {
+        method: 'PATCH',
+        headers: getHeaders(token),
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(Object.values(errorData).flat()[0] as string || 'Failed to update profile');
+    }
+    return response.json();
+}
+

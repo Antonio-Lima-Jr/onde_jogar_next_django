@@ -3,6 +3,8 @@ import Footer from "@/app/components/ui/Footer";
 import { fetchUser, fetchEvents } from "@/lib/api";
 import Link from "next/link";
 import EventCard from "@/app/components/EventCard";
+import EditProfileButton from "@/app/components/EditProfileButton";
+import AddSportButton from "@/app/components/AddSportButton";
 
 interface UserProfile {
     id: number;
@@ -84,9 +86,7 @@ export default async function ProfilePage({
                             <button className="flex-1 md:flex-none min-w-[140px] cursor-pointer items-center justify-center rounded-full h-12 px-8 bg-primary text-background-dark text-base font-black transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
                                 FOLLOW
                             </button>
-                            <button className="flex-1 md:flex-none min-w-[140px] cursor-pointer items-center justify-center rounded-full h-12 px-8 bg-black/40 text-white text-base font-bold hover:bg-white/5 border border-white/10 transition-colors">
-                                MESSAGE
-                            </button>
+                            <EditProfileButton profileId={id} />
                         </div>
                     </div>
 
@@ -122,9 +122,7 @@ export default async function ProfilePage({
                         ) : (
                             <p className="text-slate-500 text-sm font-medium italic">No favorite sports listed yet.</p>
                         )}
-                        <button className="flex items-center justify-center size-11 rounded-full border border-dashed border-slate-700 text-slate-500 hover:text-primary hover:border-primary/50 transition-all">
-                            <span className="material-symbols-outlined">add</span>
-                        </button>
+                        <AddSportButton profileId={id} />
                     </div>
                 </section>
 

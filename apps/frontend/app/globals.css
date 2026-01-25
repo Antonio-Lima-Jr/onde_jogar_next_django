@@ -1,17 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0df20d;
-  --color-background-dark: #050a05;
-  --color-surface-dark: #121812;
-  --color-border-dark: #1f291f;
+  --color-primary: #59f20d;
+  --color-background-dark: #0a0c0a;
+  --color-surface-dark: #161b14;
+  --color-border-dark: #2a3624;
+  --color-accent-gray: #94a3b8;
 
-  --color-dark-bg: #121212;
-  --color-dark-card: #1E1E1E;
-  --color-dark-border: #2E2E2E;
+  --color-dark-bg: #0a0c0a;
+  --color-dark-card: #161b14;
+  --color-dark-border: #2a3624;
 
-  --font-lexend: Lexend, sans-serif;
-  --font-sans: Lexend, sans-serif;
+  --font-lexend: "Lexend", sans-serif;
+  --font-display: "Lexend", sans-serif;
+  --font-sans: "Lexend", sans-serif;
+}
+
+@utility form-input-dark {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border-dark);
+  border-radius: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  color: white;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: #6e8a60;
+  }
 }
 
 /* Material Symbols classes */

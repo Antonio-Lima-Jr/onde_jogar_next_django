@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit User Profile - Dark Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#59f20d",
+                        "background-dark": "#0a0c0a",
+                        "surface-dark": "#161b14",
+                        "border-dark": "#2a3624",
+                        "accent-gray": "#94a3b8"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Lexend', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-dark {
+            @apply w-full bg-black/40 border-border-dark rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-[#6e8a60];
+        }
+    </style>
+</head>
+<body class="bg-background-dark min-h-screen text-[#f1f5f0]">
+<header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-md border-b border-border-dark px-4 md:px-10 py-3">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between gap-8">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<div class="size-8">
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] hidden sm:block">SportsConnect</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Discover</a>
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Communities</a>
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Events</a>
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Leagues</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full bg-surface-dark border border-border-dark">
+<div class="text-[#6e8a60] flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-[#6e8a60] px-4 pl-2 text-sm font-normal text-white" placeholder="Search sports, athletes..."/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full size-10 bg-surface-dark text-white border border-border-dark">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgY03tXvamvINBQehvaxZJnXosIVGQ2-pDuNwzfARQho4aveJsur0M7h8AhIPiIJGa6w9PoUJ89sqAD1QejYIHq5AY9NrURtysFbfJchESX0K7jv5N77fs0nwWIQAGFicIUvuk78wbh-4nGo-SbDRkRqAeCpC3dXeiY0VEDw6GergCzhGH-QoXX5pBOV3KX3KRJVhuFYDgsGoksCdNwI3YGbUOquh_SA71nAnVU1zvOpO4Lb1PhSOgCwV9wffveWfo-49oAilvDtg");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1100px] mx-auto px-4 py-10">
+<div class="flex flex-col md:flex-row gap-10">
+<aside class="w-full md:w-64 shrink-0">
+<h1 class="text-white text-2xl font-bold mb-8">Settings</h1>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-dark border border-primary/20 text-primary rounded-xl font-medium" href="#">
+<span class="material-symbols-outlined">person</span>
+                        Public Profile
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#6e8a60] hover:text-white hover:bg-surface-dark rounded-xl font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+                        Account Settings
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#6e8a60] hover:text-white hover:bg-surface-dark rounded-xl font-medium transition-colors" href="#">
+<span class="material-symbols-outlined">lock</span>
+                        Privacy
+                    </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#6e8a60] hover:text-white hover:bg-surface-dark rounded-xl font-medium transition-colors mt-8" href="#">
+<span class="material-symbols-outlined text-red-400">logout</span>
+                        Sign Out
+                    </a>
+</nav>
+</aside>
+<div class="flex-1">
+<section class="bg-surface-dark rounded-2xl p-8 border border-border-dark">
+<div class="mb-10">
+<h3 class="text-white text-lg font-bold mb-6">Profile Photo</h3>
+<div class="flex items-center gap-8">
+<div class="relative group cursor-pointer">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 ring-4 ring-primary shadow-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBa5P2YJtrqiRuRFKKQytF6JwJYFCvEGtuL2NEPQR0YGLs8jIGOfiDCdxmedx5QMaApZVJJagpgLaAznqWD4vKPba_cs9u3kD2VWYtF9lHmAjjgVEhTmiKQfF0ZwyBTN_eOZYmSncfYLE_xkKOFmqNCH0-JdBFVnddMEXx9k5FwEFZkXZpKulS92hAC0elUIQhzeijVOm_N4i-Y_jC3obdF04hZ96Q6fgMX-xA03diUIY0g65ZmQWm0u6iw3YLitgu4Apo5fM5f3To");'></div>
+<div class="absolute inset-0 bg-black/60 rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-3xl mb-1">photo_camera</span>
+<span class="text-[10px] text-white font-bold uppercase tracking-wider">Change</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<p class="text-white font-medium">Upload new image</p>
+<p class="text-[#6e8a60] text-sm">JPG, GIF or PNG. Max size of 800K</p>
+<div class="flex gap-3 mt-2">
+<button class="bg-border-dark hover:bg-border-dark/80 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors">Choose File</button>
+<button class="text-[#6e8a60] hover:text-red-400 text-xs font-bold transition-colors">Remove</button>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-bold text-[#6e8a60] uppercase tracking-wider">Display Name</label>
+<input class="form-input-dark" placeholder="Your name" type="text" value="Alex Rivera"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-[#6e8a60] uppercase tracking-wider">Username (@)</label>
+<input class="form-input-dark" placeholder="username" type="text" value="arivera_sports"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-[#6e8a60] uppercase tracking-wider">Bio</label>
+<textarea class="form-input-dark" placeholder="Tell us about your sporting journey..." rows="4">Sports enthusiast &amp; amateur marathon runner based in Seattle. Always looking for a pickup game or a long distance training buddy!</textarea>
+</div>
+<div class="space-y-4 pt-4">
+<label class="text-sm font-bold text-[#6e8a60] uppercase tracking-wider">Favorite Sports</label>
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-2 bg-black/40 border border-primary/40 rounded-full px-4 py-2 text-primary">
+<span class="material-symbols-outlined text-lg">directions_run</span>
+<span class="text-sm font-semibold">Running</span>
+<button class="material-symbols-outlined text-sm hover:text-white">close</button>
+</div>
+<div class="flex items-center gap-2 bg-black/40 border border-border-dark rounded-full px-4 py-2 text-white/80">
+<span class="material-symbols-outlined text-[#6e8a60] text-lg">sports_basketball</span>
+<span class="text-sm font-medium">Basketball</span>
+<button class="material-symbols-outlined text-sm hover:text-red-400">close</button>
+</div>
+<div class="flex items-center gap-2 bg-black/40 border border-border-dark rounded-full px-4 py-2 text-white/80">
+<span class="material-symbols-outlined text-[#6e8a60] text-lg">sports_tennis</span>
+<span class="text-sm font-medium">Tennis</span>
+<button class="material-symbols-outlined text-sm hover:text-red-400">close</button>
+</div>
+<div class="flex items-center gap-2 bg-black/40 border border-border-dark rounded-full px-4 py-2 text-white/80">
+<span class="material-symbols-outlined text-[#6e8a60] text-lg">sports_soccer</span>
+<span class="text-sm font-medium">Soccer</span>
+<button class="material-symbols-outlined text-sm hover:text-red-400">close</button>
+</div>
+<button class="flex items-center gap-2 bg-transparent border border-dashed border-border-dark rounded-full px-4 py-2 text-[#6e8a60] hover:text-primary hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-lg">add</span>
+<span class="text-sm font-medium">Add Sport</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4 pt-10 border-t border-border-dark mt-10">
+<button class="flex-1 md:flex-none min-w-[160px] bg-primary hover:brightness-110 active:scale-[0.98] text-background-dark font-black py-4 px-8 rounded-full text-base transition-all shadow-lg shadow-primary/20">
+                                Save Changes
+                            </button>
+<button class="flex-1 md:flex-none min-w-[120px] bg-border-dark hover:bg-[#35452d] text-white font-bold py-4 px-8 rounded-full text-base transition-colors border border-white/5">
+                                Cancel
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="mt-20 py-12 border-t border-border-dark bg-background-dark">
+<div class="max-w-[1200px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2 text-primary opacity-70">
+<div class="size-6">
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+</svg>
+</div>
+<h2 class="text-white text-md font-bold">SportsConnect</h2>
+</div>
+<p class="text-[#6e8a60] text-sm font-medium">© 2024 SportsConnect. Empowering local communities.</p>
+<div class="flex gap-8">
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+
+</body></html>

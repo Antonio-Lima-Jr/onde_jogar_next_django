@@ -36,7 +36,7 @@ class CustomAuthToken(ObtainAuthToken):
             'username': user.username
         })
 
-class UserDetailView(generics.RetrieveAPIView):
+class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
