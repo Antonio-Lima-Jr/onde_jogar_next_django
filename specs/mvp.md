@@ -184,8 +184,8 @@ Now the most important part: **execution order**.
 
 - [x]  Django initialized
 - [x]  Postgres connected
-- [ ]  `/health` endpoint
-- [ ]  Admin accessible
+- [x]  `/health` endpoint
+- [x]  Admin accessible
 
 👉 Backend runs on its own.
 
