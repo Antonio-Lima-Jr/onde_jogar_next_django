@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile - Main (Dark Mode)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#59f20d",
+                        "background-dark": "#0a0c0a",
+                        "surface-dark": "#161b14",
+                        "border-dark": "#2a3624",
+                        "accent-gray": "#94a3b8"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Lexend', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-dark min-h-screen text-[#f1f5f0]">
+<header class="sticky top-0 z-50 bg-background-dark/95 backdrop-blur-md border-b border-border-dark px-4 md:px-10 py-3">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between gap-8">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<div class="size-8">
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] hidden sm:block">SportsConnect</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Discover</a>
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Communities</a>
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Events</a>
+<a class="text-white/80 text-sm font-medium hover:text-primary transition-colors" href="#">Leagues</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full bg-surface-dark border border-border-dark">
+<div class="text-[#6e8a60] flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-[#6e8a60] px-4 pl-2 text-sm font-normal text-white" placeholder="Search sports, athletes..."/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full size-10 bg-surface-dark text-white border border-border-dark">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgY03tXvamvINBQehvaxZJnXosIVGQ2-pDuNwzfARQho4aveJsur0M7h8AhIPiIJGa6w9PoUJ89sqAD1QejYIHq5AY9NrURtysFbfJchESX0K7jv5N77fs0nwWIQAGFicIUvuk78wbh-4nGo-SbDRkRqAeCpC3dXeiY0VEDw6GergCzhGH-QoXX5pBOV3KX3KRJVhuFYDgsGoksCdNwI3YGbUOquh_SA71nAnVU1zvOpO4Lb1PhSOgCwV9wffveWfo-49oAilvDtg");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[960px] mx-auto px-4 py-6">
+<div class="flex flex-wrap gap-2 py-2 mb-4">
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Sports Discovery</a>
+<span class="text-[#6e8a60] text-sm font-medium">/</span>
+<span class="text-white text-sm font-medium">Alex Rivera</span>
+</div>
+<section class="bg-surface-dark rounded-xl p-8 border border-border-dark mb-6">
+<div class="flex @container">
+<div class="flex w-full flex-col gap-8 @[520px]:flex-row @[520px]:justify-between @[520px]:items-start">
+<div class="flex flex-col @[520px]:flex-row gap-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 ring-4 ring-primary shadow-[0_0_20px_rgba(89,242,13,0.2)]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBa5P2YJtrqiRuRFKKQytF6JwJYFCvEGtuL2NEPQR0YGLs8jIGOfiDCdxmedx5QMaApZVJJagpgLaAznqWD4vKPba_cs9u3kD2VWYtF9lHmAjjgVEhTmiKQfF0ZwyBTN_eOZYmSncfYLE_xkKOFmqNCH0-JdBFVnddMEXx9k5FwEFZkXZpKulS92hAC0elUIQhzeijVOm_N4i-Y_jC3obdF04hZ96Q6fgMX-xA03diUIY0g65ZmQWm0u6iw3YLitgu4Apo5fM5f3To");'></div>
+<div class="flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<h1 class="text-white text-3xl font-bold leading-tight tracking-[-0.015em]">Alex Rivera</h1>
+<span class="material-symbols-outlined text-primary text-2xl fill-1">verified</span>
+</div>
+<p class="text-primary text-lg font-medium opacity-90">@arivera_sports</p>
+<p class="text-white/70 mt-3 max-w-md text-base font-normal leading-relaxed">
+                                Sports enthusiast &amp; amateur marathon runner based in Seattle. Always looking for a pickup game or a long distance training buddy!
+                            </p>
+</div>
+</div>
+<div class="flex flex-row @[520px]:flex-col w-full max-w-[480px] gap-3 @[520px]:w-auto @[520px]:items-end">
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-full h-12 px-8 bg-primary text-background-dark text-base font-bold transition-all hover:brightness-110 active:scale-95 shadow-lg shadow-primary/20">
+<span class="truncate">Follow</span>
+</button>
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-full h-12 px-8 bg-border-dark text-white text-base font-bold hover:bg-[#35452d] border border-white/10 transition-colors">
+<span class="truncate">Message</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-4 mt-8 pt-8 border-t border-border-dark">
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl border border-border-dark p-4 items-center bg-black/40">
+<p class="text-primary tracking-light text-2xl font-bold">1.2k</p>
+<p class="text-[#6e8a60] text-xs uppercase tracking-wider font-bold">Followers</p>
+</div>
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl border border-border-dark p-4 items-center bg-black/40">
+<p class="text-primary tracking-light text-2xl font-bold">850</p>
+<p class="text-[#6e8a60] text-xs uppercase tracking-wider font-bold">Following</p>
+</div>
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl border border-border-dark p-4 items-center bg-black/40">
+<p class="text-primary tracking-light text-2xl font-bold">42</p>
+<p class="text-[#6e8a60] text-xs uppercase tracking-wider font-bold">Events Attended</p>
+</div>
+</div>
+</section>
+<section class="mb-8">
+<h3 class="text-white text-lg font-bold px-1 mb-4">Favorite Sports</h3>
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-2 bg-surface-dark border border-primary/40 rounded-full px-5 py-2.5 text-primary">
+<span class="material-symbols-outlined text-xl">directions_run</span>
+<span class="font-semibold">Running</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-dark border border-border-dark rounded-full px-5 py-2.5 text-white/80 hover:border-white/20 transition-colors">
+<span class="material-symbols-outlined text-[#6e8a60] text-xl">sports_basketball</span>
+<span class="font-medium">Basketball</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-dark border border-border-dark rounded-full px-5 py-2.5 text-white/80 hover:border-white/20 transition-colors">
+<span class="material-symbols-outlined text-[#6e8a60] text-xl">sports_tennis</span>
+<span class="font-medium">Tennis</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-dark border border-border-dark rounded-full px-5 py-2.5 text-white/80 hover:border-white/20 transition-colors">
+<span class="material-symbols-outlined text-[#6e8a60] text-xl">sports_soccer</span>
+<span class="font-medium">Soccer</span>
+</div>
+<button class="flex items-center justify-center size-11 rounded-full border border-dashed border-border-dark text-[#6e8a60] hover:text-primary hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</section>
+<section>
+<div class="flex border-b border-border-dark mb-6">
+<button class="px-8 py-4 border-b-2 border-primary text-white font-bold text-base bg-white/5">Upcoming Events</button>
+<button class="px-8 py-4 text-[#6e8a60] font-medium text-base hover:text-white transition-colors">Past Events</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-dark rounded-xl overflow-hidden shadow-xl border border-border-dark group hover:border-primary/30 transition-all duration-300">
+<div class="h-44 w-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDK_O1NpUUvVFBaZ2tA12xrnZpBJt4CqSTLbjPAyCMHuj8Pw1OBZ7rLJaiqFQYuhNhOqfEVn4J0r_SiBe3fZ2GAO6nLfD6TyPj8qdLP8dF8k5vEioKlBe7IeldVZYReZ3-uP1cfCGXjJdXR0CvAQuyUyyfdc7sUboVAyU3ln_8J2xw97kFI39ME3xqC0y-y1H4gGIIo3w7v9n05vfTFvanJHnA6WWXY3-9nYfipP-jKu8OXR4Kp6STGg4Ys5cdpIhjImu4W53iXW6k');"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-primary/20 text-primary text-[10px] tracking-widest font-black px-2.5 py-1 rounded">MARATHON</span>
+<span class="text-[#6e8a60] text-xs font-bold uppercase tracking-tight">Oct 12, 2024</span>
+</div>
+<h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors text-white">Seattle City Run 2024</h4>
+<div class="flex items-center gap-2 text-[#6e8a60] text-sm mb-6">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>Downtown Seattle</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-9 rounded-full border-2 border-surface-dark bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwSKY1B_Z7E6TJ6xRGlqCfpe5lpAPgl07vD_jic08ZFDYT5w_nQ-6LD1_LRV6WiuSCixruKnAKEaJTRH-2r0Y8Ek-5VYbXWahpBfJ0m2VBCZdnksoG2zB8TcVeJWNVR4mnI0AyevEHElbklbSVOEVHMjKUSFYXTtbFrUvX4GAAdCJNRB8lKxsjfQhwq6jAGN1eDk7jCQMFO8Np4bqah1y4Xnc1Hl_iIuLQtvwjEB1YI4FHXz_U6vD5_KfUO78i7MyrHvrE8QPSiK0')"></div>
+<div class="size-9 rounded-full border-2 border-surface-dark bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqcoGzEl00nBnA8KZaANRg-PUr1p1efFEMzBFj4tjvTZbpFwoMnUQ7osj61qDMc4i-ALEQEw84EYFObVM7DSs5rREllPF0kpfAaSYOil5ZpeSggui9YHKtS4XyDhItG_LwyjIUW_MsUk2L8aCrpTRrXliKKdWJKExZ5lXI7nz0uKM672TWbIuERhZnm9GvD6PT-k34SbR8yzy-ennmf3TYn41Ql_8nt4kYYuNsLAaLDiMqVna93LSqUqT8gEpmBxzazoywhrh7o2Q')"></div>
+<div class="size-9 rounded-full border-2 border-surface-dark flex items-center justify-center bg-border-dark text-[10px] font-bold text-white/70">+12</div>
+</div>
+<button class="bg-primary hover:brightness-110 text-background-dark font-black py-2.5 px-6 rounded-full text-sm transition-all shadow-lg shadow-primary/10">
+                                Join Event
+                            </button>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark rounded-xl overflow-hidden shadow-xl border border-border-dark group hover:border-primary/30 transition-all duration-300">
+<div class="h-44 w-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCu9mIV3igIJWtLk-PHFGTjRD43wrsYSyWT1TKgxcZd0OlS-BFErefPb-9jy0r1hoTwVkRPb0mVjN9xzFvZYdL6YBf78a80MKAQ5xoTIwX4Qca-uv1JDzTWMxBJxVRInbFVO53TN3XntH7bv3irayYhnrm78RhGirzjuCm7EeYWkoWoVWYIJIVmHhj44XCUKfrT-aWxuxMv3ydjzt5YOz-uWip6RBcJqM2WWcXYiT4AJCOecf24uEn8Y_PMq3wRe40F0v0vHb74alk');"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-primary/20 text-primary text-[10px] tracking-widest font-black px-2.5 py-1 rounded">PICKUP GAME</span>
+<span class="text-[#6e8a60] text-xs font-bold uppercase tracking-tight">Oct 15, 2024</span>
+</div>
+<h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors text-white">3v3 Open Court Sessions</h4>
+<div class="flex items-center gap-2 text-[#6e8a60] text-sm mb-6">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>Green Lake Courts</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-9 rounded-full border-2 border-surface-dark bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCE46OlmQzpliUd35pGdi4aNZTyz9Eazp1ncFEM-ot6TTVvvxeoh2t_2VpMFXs07k8WTXC_5Irs0QRgI4x8-CiyuivMX-wmNzRDarEbghkBkzMtP13WKo2rARMSDaPr7WnWrUeiPH6CMRD4hH7kHMKFa1zGvlwKDgb_MHFVEh2CJ8UA8EQ5_2vGMBGuQo5a9Y2kmSu1BrFpJ_b-vfzn75QDrtbwmTV11D-2H_QIueGxBd4qUaufwascdkkO_Kd12WFIR3rR8JKQpm0')"></div>
+<div class="size-9 rounded-full border-2 border-surface-dark flex items-center justify-center bg-border-dark text-[10px] font-bold text-white/70">+5</div>
+</div>
+<button class="bg-primary hover:brightness-110 text-background-dark font-black py-2.5 px-6 rounded-full text-sm transition-all shadow-lg shadow-primary/10">
+                                Join Event
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="mt-12 py-12 border-t border-border-dark bg-background-dark">
+<div class="max-w-[1200px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2 text-primary opacity-70">
+<div class="size-6">
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z"></path>
+</svg>
+</div>
+<h2 class="text-white text-md font-bold">SportsConnect</h2>
+</div>
+<p class="text-[#6e8a60] text-sm font-medium">© 2024 SportsConnect. Empowering local communities.</p>
+<div class="flex gap-8">
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-[#6e8a60] text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+
+</body></html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Details - Standard (Dark Mode)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df20d", // Neon Green
+                        "background-dark": "#050a05", // Deeper dark background
+                        "surface-dark": "#121812", // Surface for cards
+                        "border-dark": "#1f291f", // Subtle borders
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050a05;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f291f;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0df20d;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white min-h-screen">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-border-dark px-4 md:px-10 py-3 sticky top-0 bg-background-dark/90 backdrop-blur-xl z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-extrabold leading-tight tracking-[-0.015em]">SportDiscovery</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Discover</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">My Games</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Groups</a>
+<a class="text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Venues</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full">
+<div class="text-[#9cba9c] flex border-none bg-surface-dark items-center justify-center pl-4 rounded-l-full">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-surface-dark focus:outline-0 focus:ring-0 h-full placeholder:text-slate-500 px-4 rounded-r-full text-base font-normal text-white" placeholder="Search sports, venues..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-surface-dark hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-surface-dark hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary shadow-[0_0_10px_rgba(13,242,13,0.3)]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBr3lAO0HUsXPRoX3B7_gS-qxpmZ5oW_2j-V38dZpEnEksIctPKVzQ5-7TMhOt95yKwEMvHcxZF4TdWmoYDC3q2ZtUyCsoQYTkdo1EGHzQ4e5f4S4yfFD70uk_xQdWD18hYlMoOu7jczZpeGj80ZhWGGcXIVG19MyfaoqSCzbyXg--ECNpj2Wv91uHJ64JXlXAOFEVlQ76KDxADYm7iPdMxCy3qSaZZ9vT49Ie1aifGKBFkcc2jiejPgGJk5sTi-hgLiFUvkb5ANt0");'></div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-4 md:px-10 py-8">
+<div class="relative w-full mb-10">
+<div class="aspect-[21/9] w-full bg-cover bg-center rounded-2xl overflow-hidden shadow-2xl relative" style='background-image: linear-gradient(0deg, rgba(5, 10, 5, 0.95) 0%, rgba(5, 10, 5, 0) 70%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8mI1lWgW6fjkHctpPHOueHLPJujw3w5FNjmKmzfvqVhiAGBlLvxCO-rBkpGp12WcagN07UJ6dX6xXQp9-B72B9jvg09FMBLB5sCrkNC70raOo1o3OyNSp4H5m4y8NaPyvtaEhlBSFlEF0PpjQH5l_UCs2fiGTPNiWm4hS_p2zPEr3byA6zTal0MSE226NJhpn2P6A0efn4RMmoShaRIsB0XQcduKQdNmHGe5zrCF1trmd771pc1nne6t0-IUq9DA5oWPYKVepkHo");'>
+<div class="absolute bottom-6 left-6 md:bottom-12 md:left-12 flex flex-col gap-4">
+<div class="flex gap-3">
+<div class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-primary px-4 shadow-[0_0_20px_rgba(13,242,13,0.6)]">
+<span class="material-symbols-outlined text-[18px] text-black filled-icon">sports_soccer</span>
+<p class="text-black text-xs font-black uppercase tracking-widest">Soccer</p>
+</div>
+<div class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-white/10 backdrop-blur-md px-4 border border-white/20">
+<p class="text-white text-xs font-bold uppercase tracking-widest">Competitive</p>
+</div>
+</div>
+<h1 class="text-white text-4xl md:text-6xl font-extrabold leading-none tracking-tight">Friday Night 5-a-side</h1>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-8 flex flex-col gap-10">
+<div class="flex gap-4">
+<button class="flex-1 min-w-[200px] cursor-pointer items-center justify-center rounded-full h-16 px-8 bg-primary text-black text-xl font-black leading-normal tracking-tight shadow-[0_0_40px_rgba(13,242,13,0.4)] hover:shadow-[0_0_50px_rgba(13,242,13,0.6)] hover:scale-[1.02] active:scale-95 transition-all">
+<span class="truncate">JOIN GAME</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-16 w-16 bg-surface-dark border border-border-dark hover:border-red-500/50 hover:text-red-500 transition-colors group">
+<span class="material-symbols-outlined text-[28px] group-hover:filled-icon">favorite</span>
+</button>
+</div>
+<div class="bg-surface-dark p-8 rounded-2xl border border-border-dark shadow-xl">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[28px]">description</span>
+                        Event Description
+                    </h3>
+<div class="text-slate-300 space-y-6 leading-relaxed font-normal">
+<p class="text-lg">Weekly Friday night 5-a-side friendly game at the PowerLeague Shoreditch. We play on a high-quality 4G synthetic turf pitch. This game is open to players of intermediate level. We focus on fair play and having a good run-out!</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm font-medium">1-hour game session</span>
+</div>
+<div class="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm font-medium">Bibs and balls provided</span>
+</div>
+<div class="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm font-medium">Shower &amp; Changing rooms</span>
+</div>
+<div class="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+<span class="material-symbols-outlined text-primary text-sm">info</span>
+<span class="text-sm font-medium">Strictly no slide tackling</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<h3 class="text-xl font-bold flex items-center gap-3 px-2">
+<span class="material-symbols-outlined text-primary">forum</span>
+                        Discussion <span class="text-slate-500 font-normal ml-1">(14)</span>
+</h3>
+<div class="flex gap-4 items-start bg-surface-dark p-6 rounded-2xl border border-border-dark shadow-lg">
+<div class="size-12 rounded-full bg-cover bg-center shrink-0 border border-border-dark" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA6bWFFW39ZGlZle2_vW4tAOs0btQCC5DdfDuTlvMntgd6SjfGDPBtWz0JWd0RC5cWycj56o5gOF9z4L0xdfIKJcvV9hgzeJXDhJdVQExL3U4R9_ypc6l-lAQ6Cz6TWjaHAMdEhpIV-1DdYlSW0o6OHDxkszLPIt67RKdkp-3NSq-dpg26yc3bsSKsaHM2ETlwAsjZ_rQwF_BJ174Ekxek0AJvib9DTYyNV6kt7r3v_5aVeH4pAh7Nxc4iUKUo9K8RD7OL_sH2lrUE");'></div>
+<div class="flex-1 flex flex-col gap-4">
+<textarea class="w-full bg-background-dark border border-border-dark rounded-xl focus:ring-1 focus:ring-primary/50 focus:border-primary p-4 text-base placeholder:text-slate-600 resize-none transition-all" placeholder="Ask a question or share a thought..." rows="3"></textarea>
+<div class="flex justify-end">
+<button class="px-8 py-2.5 bg-primary text-black hover:bg-primary/90 transition-all rounded-full text-sm font-bold shadow-[0_0_15px_rgba(13,242,13,0.3)]">Post Comment</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6 px-2">
+<div class="flex gap-4 p-4 rounded-2xl hover:bg-surface-dark transition-colors border border-transparent hover:border-border-dark">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0 border border-border-dark" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQ6aCmr28-mOrmlsbdXF5U-TkScMU6zdkFGDNTPajw79j3wiCMVKGGWQAgfHU-qeKeN182WOQv6zmw_c4gSlBm3woNeSfTAxieIWTjzYZ7Da7DS1bIuojlNh_Hi29lp8wScHRogYhDhdBkMfpAyVCya5jRmq0D-KRm8LnjAB16hb4EtAztbnN3RIwFkmZ_Cf9lGlTHOmWsgp5-M0-7qTzA0rIfP024VWHde6E5EBDfZCWxlq7AWLPiAVEihfPjEWTZJwhIpybu-5Y");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<span class="font-bold text-sm text-white">David Chen</span>
+<span class="text-[10px] text-slate-500 uppercase font-black tracking-widest">2h ago</span>
+</div>
+<p class="text-sm text-slate-300">Are we still playing if it rains tonight? Pitch 4 has some shelter but 6 doesn't.</p>
+<div class="flex gap-6 mt-1">
+<button class="text-[11px] font-bold text-primary hover:text-white transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">reply</span> Reply</button>
+<button class="text-[11px] font-bold text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">thumb_up</span> 4</button>
+</div>
+</div>
+</div>
+<div class="flex gap-4 p-4 rounded-2xl hover:bg-surface-dark transition-colors border border-transparent hover:border-border-dark">
+<div class="size-10 rounded-full bg-cover bg-center shrink-0 border border-border-dark" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8p62Gy-VHXbMsuj5MB5nV5_03SpME3EowxmOiOf8VG_gvfPhIwnpphKhBJjg5N1ra_AJJxxSySis8U70YfdDjZ75oB-OQ372-_b-nZjaZYAUKMv_aMwb2nopUhLp7ZUE5nPMpco2iHZ_Zu9bSbFQHoPB8WvazFNM_gHIbuHbKgpWQfvnkZ7cBU7e9MtL55T8KIV4Pj_zKewyZzlCdA72EtU5pQe9o2xowjsFbf9NvNlgXdQOpr1ZZ7Sfw4wkx1MnRW--QZCWduLA");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<span class="font-bold text-sm text-white">Sarah Jenkins</span>
+<span class="text-[10px] text-slate-500 uppercase font-black tracking-widest">4h ago</span>
+</div>
+<p class="text-sm text-slate-300">Can't wait! First time playing with this group. See you all at 8pm.</p>
+<div class="flex gap-6 mt-1">
+<button class="text-[11px] font-bold text-primary hover:text-white transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">reply</span> Reply</button>
+<button class="text-[11px] font-bold text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">thumb_up</span> 2</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<aside class="lg:col-span-4 flex flex-col gap-8 sticky top-24">
+<div class="bg-surface-dark border border-border-dark rounded-2xl p-6 shadow-xl">
+<div class="flex items-center gap-4 mb-8">
+<div class="relative">
+<div class="size-16 rounded-full bg-cover bg-center border-2 border-primary p-0.5 shadow-[0_0_15px_rgba(13,242,13,0.3)]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyGqfXGWhrqDPHr-Dn3j9e5haYUbVscAWEeQvpN4qkbLoRW7JyGmTHgIAzNgFVlGa9AxhQJD6dE8M0n0HXWL4HnUkhJfADl7t2PkDhabidCjxkl2DA1udBvIPZkI7tjQFDTC9l-jMsX-tMsMMKloo-CLvxX4MV2T4whAa4z2FgMnuV_S9lL_tQEg9RbIVB8Ly2YMJ2a2EcgZC6CKT9kaBcoXROCk-MTOSIBUzJLxFWWG1XgQkZiagJ9XnWhENeeeFWKnVHezqmJAA");'></div>
+<div class="absolute -bottom-0 -right-0 bg-primary text-black rounded-full size-6 flex items-center justify-center border-2 border-surface-dark">
+<span class="material-symbols-outlined text-[14px] font-bold filled-icon">verified</span>
+</div>
+</div>
+<div class="flex flex-col">
+<h4 class="text-xl font-bold leading-tight">Alex Morgan</h4>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="text-[10px] text-primary font-black tracking-widest uppercase">Pro Organizer</span>
+<span class="text-slate-500">•</span>
+<span class="text-xs font-bold text-yellow-400">4.9 ★</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary text-black hover:bg-primary/90 transition-all py-3 rounded-full text-sm font-black shadow-[0_0_20px_rgba(13,242,13,0.2)]">MESSAGE</button>
+<button class="w-full bg-white/5 hover:bg-white/10 text-white transition-all py-3 rounded-full text-sm font-bold border border-white/10">FOLLOW ORGANIZER</button>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-2xl overflow-hidden shadow-xl">
+<div class="p-6 flex flex-col gap-8">
+<div class="flex items-start gap-4">
+<div class="size-11 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 border border-primary/20">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+</div>
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Date &amp; Time</p>
+<p class="font-bold text-lg">Friday, October 24</p>
+<p class="text-sm text-slate-400">8:00 PM - 9:00 PM GMT</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="size-11 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 border border-primary/20">
+<span class="material-symbols-outlined text-[22px]">location_on</span>
+</div>
+<div class="flex-1">
+<p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Venue</p>
+<p class="font-bold text-lg leading-tight">PowerLeague Shoreditch</p>
+<p class="text-sm text-slate-400 mb-6">Pitch 4, Braithwaite St, London</p>
+<div class="w-full aspect-[4/3] rounded-2xl relative overflow-hidden bg-black border border-border-dark group cursor-pointer">
+<div class="absolute inset-0 opacity-40 mix-blend-screen grayscale brightness-75 contrast-125 transition-transform duration-700 group-hover:scale-110" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDml0zGxmWpsYHv58JqKcrr8OPwX5PJhy8tkQ7l8oJicklSrY4pVnqDDbJEKnLidtA_Psc_nnqNuW8T1l88se0_v2-JfH-M6QtwfqpsxHOA_cb_THMMTWGw44GRFBhzyJF_BywJkaOWcHuwUJCT31nLpoa3xOQGRV7Y38zzKbGjXtyUbLfDA-fpwx0FzM1fvDU_07p9j2FNVTJxNdlaCUklO86lOBUwLP9YwVtfgupdLwr3iw2RPPlp0H247wbrKwgDEY25InpRsos"); background-size: cover; background-position: center;'></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="relative">
+<span class="material-symbols-outlined text-primary text-5xl animate-bounce drop-shadow-[0_0_15px_rgba(13,242,13,0.8)]">location_on</span>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-1.5 bg-black/60 blur-sm rounded-full"></div>
+</div>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+<button class="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 bg-primary/90 text-black border border-primary/20 rounded-full text-[11px] font-black uppercase tracking-wider flex items-center gap-2 backdrop-blur-sm hover:bg-primary transition-all">
+                                        Open in Maps <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-2xl p-6 shadow-xl">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-bold flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">group</span>
+                            Participants
+                        </h4>
+<span class="text-[10px] font-black bg-primary/10 text-primary border border-primary/20 px-3 py-1.5 rounded-full tracking-widest uppercase">12 / 14 joined</span>
+</div>
+<div class="grid grid-cols-6 gap-3">
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7UWur2uhsjro4RAKpi4mLhp9maYSdLemOP64PsBCPy3-Pd9F8USAjm2pCin2IXv9r3I3pO4BmUud5OY0k-0KO-ciqVyc1HEgnlkcsG9qut65DjQt7IoGAxQNd19nNFBV4eAuIAi70_v5r22Vt7z04YpwfSU3hsA7j9QqbVaVmgkoK6si5BZDGAzxdphyhTt94rhF8o8NnLQ_A-91OOYVLQSoTp4jB3z6HzL_g_eFSsBC-0TTxyTyAZ1g3LW52FJsxexlYYtaDWNo");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAY9PAl8pVFzIf16ymlfGeZwZAs6yec7OK0r-OeCaXGWVBcjvzgYBf-MZXWcQ3Cp8SgNfTiEKAZlGXwKEz2LxeBOOa9kBgyzTcKVFVfYl2YaQBR5H1zPqhLmHuX9zUyAvA7SBe5eJdKEdgrbYPLMfQTVX1dNbiEklI8IOPCIVgElo2lp4CQ1jAvCuxyg5I5ENLM9FMa131qKHbf2DddNXPsgJ8bGIJNtZ2p8hXwS5a9eaGVS-XSYX8fiY885zxiJyMewh5hKH7a1Cw");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3OxFzvhMFQIz7VV2_KyOLAU7geQt8ndwb55AyGW3BXNpzpXQrKbKRDostnuzrDiYzrYuBL-2zbiUd09egCmo1VEimX8avqStuPr5pieZHuoro3ce2MAizJmX8TYejMyyeqC9ryaTTygMulFfFBs9R77TcXdkxI9TD1rr2rbYH7lSvt65DIdjysR7fCFrnOSMFs0xogHpjiNhaaE-f_HvUxCGWxHI9ZJoAOP34Zl7X9Ihnxqw46cAQbwugATwf28KzitLtceJchKE");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBb0YYOYArBL30jx6b2ipiOCTceXqsM3yCHX3KPn_fKkp-0jPew95ZOWbWrPbB07LzYF3M61zf3niCU5KmuAtno4J9b0qzrRK_m4cEW1aaRe92X3kinQQFFeBF81_G_wO-WD7WzUSBg0txJEsqzo4CPRMy9w457iyG_d7RW75kU-mIwsw_f7D67FzUSj2a20ua2tbvusFVKkoaJyxp2xr0oBkY2m35OmOzyQzLMqz4uDBSH7Mz44gsuN7Mxn61eIaFbDZT1lG3N8Vo");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCXHMqyM0CAn1vIbBvpZ6dhvCCBJHZlRxgvJcRBOu4NL0lNQLIAw1TJ37tB23w6tJgITEvGKIB2a5S3fK743jgQljT40tvI57CFT_XUxazEHkXPOM3n3RkRIg8K6G2NN9hB2cYj7tvqJdR3yyfp3I2WzZAAnnOIjGG4xrL_DW5DAskQcux1zr0iAoGeWQ09mEL-VQTyNUA3Vi691zqoT-q3Aqg53--4kebEw3_WEMGHYMkDB7Ia_Fn5TF1pnoIw7Ej_joD6oFQS8Kg");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJT-EsbtkFBEM5Tbgac0OoQTR5nGFZNQ-YcIEEfQ0r4EABofJpdpsUbEqlKInBV0O68fl9q4bajKHe5usqLd8PjmRk8Q6DslsgVI7A_fn67VkMnFKD0GM2qbh6N82v09zeeLldN7GzCqbDRY4Tvu1a1YoD9MUigbF5hTY1X5tWiYrzt08PLaaG5YWA64dd3c6-H1Hm5YNB1AT-Ym1cbvYqVtRTAe2x9OymUz-Jq5pzQf4WwmkIrc3hivONICnjPBvfiEngMmZ5J_o");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDlJLNoLVHoEN8d6uYEBVRMW-KO7Phphuqg_tGHDCDnM5rUVxefX-uq_8rkSOqTvDUskuNrtObiFQ-Iwz4HfL-69WDaxpZo77PA3AzDy3p2RS6tbtutNbJVC-Npo8IxykCye1EUiLsza4tH72QQfsBGRkgvgg2B1r2auZAEJ2f9qlCHGDkfFUoM9fSUPGOIJ9uSGHog_WMBXiBn89gS0M5VK1N_8mIvvMXYGroBx0k0Toj492f9YLN08ieB1hpBlirXFWv6leZHbxs");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAvdSaXT6YCVEQrsRTR05Tz69RCABj9GWFEe6zsRDplvIEQz7fF0saTI5gTQ4QPYrKNjyVsr8cxT8tB7LvDPm45nGR2_f6gQuN61yWVJoE6wcnIfYjHBHJA_tYZVTsLPfQhJrJnH8LGVhpeq048A3eS3BxndCzX-rTw2MnF9hbty3erCwJnR4a6f7vRytn3nukLvg-gO3E49OszNs3rDPz4AgeTnCXGuWzq6zQgkDj0Ymr_CIiTgJHhYnIpmLVxhP0a7cv75izYqdg");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDeH0e2XRmcorNtS2NP83cBuI0FN7V8WkU91k9v9J5up-AK_4aZ9AYUhEdkIR5keRLkaivco9X_7Qnwzld74RGFMLgrkmfSOrBqM2MaqoC8S_8D4PYuZrtKmq2ogEhBXm7Ekt4R92AT9JUpy7aG-ly4NR9g2enJW4-Pv8eJCzjFd2-_8LCK_RGi444ZVrK2mJWzeN3J_l6GYQH2btJgZq3mET5dJWPbYrUBL463JUSe9I7Fg6sCB1D2frEReFixVRfV2XTuXH7AyK8");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDfXrQbpmWZfyF1aZRMPsjvR4O-L-5okSbd99a9lYhp2tLxG4qAY6x8Pa_M4d_Rj90723aAES_sZ3vi4Dfmmw4nYVF_C-Cowi0-mfNXyAOnHNaOy3czwUsMW6cEnEEp8fPbcx5G4D6xSuoQhOdUeWqTYp0dA18mEFrEjR5WfP0Fa5VCk0F2VKmgMSE87vi2mn1Nul6jxb2afwx0kH-Zw2zrMdkyMyajyfQcFgeT4C7sDWOi5yyGWJV1MMRg0mopMbwNRNdRi80sG0Y");'></div>
+<div class="aspect-square rounded-full bg-cover bg-center border border-white/10 hover:border-primary transition-all cursor-pointer hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5uRcGBU-FiEX2xWB5sWPnaflNLCgfLtAvgHxxxo8AbeQJU_G_kDAMW8vx4URZu8rrAx0RbHrsbqn4y5QmwGkrziQMn5dhNngPJlOIZq3Gw3at0LVBxJryOM9s9jntKDglW2_BoCuIjds38ioh-qASJddH9gX7nOr2PwebRuVw77qZ0WYcs_qTk_YqrtmG2kDi3yvcPOiaZY-fEwVWic99rhDb0ZG7CCVwJMOR0UsSct2LBfvG54zzzutRttwl32yy8hNV2bKeaqk");'></div>
+<div class="aspect-square rounded-full bg-background-dark flex items-center justify-center border border-dashed border-primary/30 group hover:border-primary transition-all cursor-pointer">
+<span class="text-[12px] font-black text-primary group-hover:scale-110 transition-transform">+2</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<footer class="mt-20 border-t border-border-dark py-12 bg-surface-dark">
+<div class="max-w-[1280px] mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-base font-extrabold tracking-tight">SportDiscovery <span class="text-slate-500 font-medium text-sm ml-2">© 2024</span></span>
+</div>
+<div class="flex gap-10 text-sm text-slate-400 font-bold uppercase tracking-widest">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+<a class="hover:text-primary transition-colors" href="#">Careers</a>
+</div>
+</div>
+</footer>
+
+</body></html>

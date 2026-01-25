@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Social Activity Feed &amp; Discovery - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f906",
+                        "background-light": "#f5f8f5",
+                        "background-dark": "#080c08",
+                        "card-dark": "#121812",
+                        "border-dark": "#1d291d",
+                        "surface-dark": "#1a241a"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Lexend', sans-serif;
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080c08;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1d291d;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2a3b2a;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white transition-colors duration-300">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-card-dark/80 backdrop-blur-md px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 flex items-center justify-center bg-primary rounded-full shadow-[0_0_15px_rgba(6,249,6,0.3)]">
+<span class="material-symbols-outlined text-black font-bold">sports_score</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] font-display">SportDiscovery</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full">
+<div class="text-[#5f8c5f] flex border-none bg-surface-dark items-center justify-center pl-4 rounded-l-full border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-white focus:outline-0 focus:ring-0 border-none bg-surface-dark focus:border-none h-full placeholder:text-[#5f8c5f] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search athletes, matches..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-sm font-medium leading-normal text-white hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-medium leading-normal text-[#8ba88b] hover:text-primary transition-colors" href="#">Explore</a>
+<a class="text-sm font-medium leading-normal text-[#8ba88b] hover:text-primary transition-colors" href="#">Messages</a>
+<a class="text-sm font-medium leading-normal text-[#8ba88b] hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-surface-dark text-white hover:text-primary transition-colors border border-border-dark">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-surface-dark text-white hover:text-primary transition-colors border border-border-dark">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="User profile avatar portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1iOj3-Bj5JaohRI9QGNAV6nmtPXWaoz-pL8p3fL8rJMgO0hb79Su41KZ6TDEdJY_5Ekwk6yaS_4mv21gedS9IQgnjwQEX7PQtdL3gPBzWTp0t0dpYpbuML9Z4PpB6axFlrF4stdH30tcy0AwjcOIuSyFe1TUD83xj9guBctrolBpktLLhejnUR7PfJWinr5UW9b2eo5xPHsk_xAk7AyvrP8ZFWGSE-wgwX5jm6Cmm4YJ-admtHCtZOFJG4Pd23Ezz6TIC3ZMGc9w");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-8 px-4 md:px-10 lg:px-20 gap-8">
+<aside class="hidden lg:flex flex-col w-64 gap-6 sticky top-24 h-fit">
+<div class="flex flex-col bg-card-dark p-6 rounded-xl border border-border-dark shadow-xl">
+<div class="flex flex-col items-center gap-3 text-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-20 border-4 border-primary/10" data-alt="Main user profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuByBBgaI2mnF_SCnLNKyhjLIe3izK1F7vt123jPF7t2KvBg4cDgtNnelNXgP49ZIyLXJo92muNznQrPPLfJE2gIFiaR-RdYW1pyfEPJXISFgvnKSE9_IP1DVd7mdYzQ3-vAFZSIo7oUZW11U2mv3mDzjr9RvnigB2VjzKbCX4b_awF8W0_Akd3P9FyMt-65tKHH83FgepYuCwhCJCRuGYDtdaIbZuDBvJUotosTDhW6VJWmySGAgqUiLZewwg-NoAO8aZT8XW9gRWc");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-lg font-bold leading-normal">Your Dashboard</h1>
+<p class="text-primary text-sm font-medium">@marcus_fit</p>
+</div>
+</div>
+<div class="flex justify-around mt-6 py-4 border-y border-border-dark">
+<div class="flex flex-col items-center">
+<span class="text-xl font-bold text-primary">124</span>
+<span class="text-xs font-medium text-[#5f8c5f]">Following</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-xl font-bold text-primary">89</span>
+<span class="text-xs font-medium text-[#5f8c5f]">Followers</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-6">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full bg-primary text-black font-bold text-sm shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined text-xl">person_add</span>
+<span>Following</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-dark text-white font-medium text-sm transition-colors border border-transparent hover:border-border-dark" href="#">
+<span class="material-symbols-outlined text-xl">groups</span>
+<span>Followers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-surface-dark text-white font-medium text-sm transition-colors border border-transparent hover:border-border-dark" href="#">
+<span class="material-symbols-outlined text-xl">bookmark</span>
+<span>Saved Activities</span>
+</a>
+</div>
+<button class="mt-8 flex w-full cursor-pointer items-center justify-center rounded-full h-11 px-4 border-2 border-primary text-primary text-sm font-bold hover:bg-primary hover:text-black transition-all">
+                            View Profile
+                        </button>
+</div>
+</aside>
+<section class="flex flex-col max-w-[600px] flex-1">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-white tracking-tight text-2xl font-bold leading-tight px-4 font-display">Activity Feed</h3>
+<div class="flex gap-4 px-4">
+<span class="text-primary font-bold text-sm cursor-pointer border-b-2 border-primary pb-1">Recent</span>
+<span class="text-[#5f8c5f] font-medium text-sm cursor-pointer hover:text-primary transition-colors pb-1">Nearby</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-4 pt-0">
+<div class="bg-card-dark rounded-xl border border-border-dark overflow-hidden shadow-2xl hover:border-primary/30 transition-all duration-300">
+<div class="p-5 flex gap-4">
+<div class="size-12 rounded-full bg-cover bg-center shrink-0 border border-border-dark" data-alt="Avatar of Alex" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvFwgS5V9UDY0wbyEI2QFrDwD5GPE1te6kolb3pSu1VuEK4MF0K-V3JopaLs1tMhr9V_L0dc7rZJ7u3iJLkkbGByiylVov3I-6HQ2RvUUJzH748_7Ox5jnhEi8JNVyGEbOmTdnuEKDNMCYqitIzVlVM5N50dkxoudLUJiKRc_Yb_CBa2WATGaQuXzUe1750OuWdKMQ0fUGxDuVwqji3AwhN8RUr3AZG_x8WKrHAltB7_HE7Aoilp3GJlZdo_escRDbABMISsjPjOI');"></div>
+<div class="flex flex-col w-full">
+<div class="flex justify-between items-start">
+<p class="text-white text-lg font-bold leading-tight font-display">Alex joined a <span class="text-primary">Basketball</span> match</p>
+<span class="text-[12px] text-[#5f8c5f] font-medium">2h ago</span>
+</div>
+<p class="text-[#8ba88b] text-sm mt-1">Today at 4:30 PM • Downtown Court</p>
+<div class="mt-4 rounded-xl overflow-hidden aspect-video relative group border border-border-dark">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+<img alt="Indoor basketball court view" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbD5uNMa4McpMdgWCDlkefk6aIStNKaKvGlRK5P6EoDg3gm7-Yg7lQtxDT8cj_EUu3C77EvqVR7A45DZigzaZvmP-fZl8-cTJcR6KpWC4N0nUE_1uuR2bKj431eMo7fPRubOK3w6Tww3led_-estN0ysBjUnU-TYY7MPC-_XZTrG0a_8_LG-xtfsXMORiyRmeDXkneSNHMR-KfU9PyxdkzyWZ-AyClYWyXh_Dsf6V-DNoUT7PXEjIlUPx4JsXKBwyGQux93x_tu-s"/>
+<div class="absolute bottom-3 left-3 bg-black/80 backdrop-blur-md border border-border-dark px-3 py-1.5 rounded-full flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary">location_on</span>
+<span class="text-[11px] font-bold text-white">Downtown Arena</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-5">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 text-[#5f8c5f] hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-xl group-active:scale-125 transition-transform text-primary">back_hand</span>
+<span class="text-xs font-bold">12 High-fives</span>
+</button>
+<button class="flex items-center gap-2 text-[#5f8c5f] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+<span class="text-xs font-bold">4 Comments</span>
+</button>
+</div>
+<button class="flex items-center justify-center rounded-full h-9 px-5 bg-primary text-black text-xs font-bold hover:shadow-[0_0_15px_rgba(6,249,6,0.4)] transition-all">
+                                            High-five
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-card-dark rounded-xl border border-border-dark overflow-hidden shadow-2xl hover:border-primary/30 transition-all duration-300">
+<div class="p-5 flex gap-4">
+<div class="size-12 rounded-full bg-cover bg-center shrink-0 border border-border-dark" data-alt="Avatar of Sarah" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDtYGgGiPO8G3ArfESQ7s5_YefY08D8G9-lPSkThWYsWzZREth-1127K1oFq6Iuu_bnC2Ac_8JK_L8DdC8weDKWEzS8chsUF35k5ILmQB4K-6Uql2Rt0v-Ob1ODoEBV8yC166gG12ra18g93IC-YOLejvsTEXW9Z-xczXgj47tNvQrX_xa33mCNijT_esFFgGev1Cdzqz8RyUh77HJIsy39L_51-3wuF3tvq2D7T4soO-yopDWmFM4EsNKvJPOU1psua8-caPsReeU');"></div>
+<div class="flex flex-col w-full">
+<div class="flex justify-between items-start">
+<p class="text-white text-lg font-bold leading-tight font-display">Sarah created a <span class="text-primary">5k Run</span></p>
+<span class="text-[12px] text-[#5f8c5f] font-medium">5h ago</span>
+</div>
+<p class="text-[#8ba88b] text-sm mt-1">Tomorrow at 7:00 AM • Riverside Trail</p>
+<div class="mt-4 flex gap-3">
+<div class="bg-surface-dark border border-border-dark px-4 py-3 rounded-xl flex-1 text-center group hover:border-primary/40 transition-colors">
+<p class="text-[10px] text-[#5f8c5f] font-bold uppercase tracking-wider mb-1">Distance</p>
+<p class="text-lg font-bold text-primary">5.2 km</p>
+</div>
+<div class="bg-surface-dark border border-border-dark px-4 py-3 rounded-xl flex-1 text-center group hover:border-primary/40 transition-colors">
+<p class="text-[10px] text-[#5f8c5f] font-bold uppercase tracking-wider mb-1">Elevation</p>
+<p class="text-lg font-bold text-primary">45 m</p>
+</div>
+<div class="bg-surface-dark border border-border-dark px-4 py-3 rounded-xl flex-1 text-center group hover:border-primary/40 transition-colors">
+<p class="text-[10px] text-[#5f8c5f] font-bold uppercase tracking-wider mb-1">Avg. Pace</p>
+<p class="text-lg font-bold text-primary">5'10"/km</p>
+</div>
+</div>
+<div class="flex items-center justify-between mt-5">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 text-[#5f8c5f] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl text-primary">back_hand</span>
+<span class="text-xs font-bold">28</span>
+</button>
+<button class="flex items-center gap-2 text-[#5f8c5f] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+<span class="text-xs font-bold">9</span>
+</button>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-full h-9 px-5 bg-surface-dark border border-border-dark text-white text-xs font-bold hover:bg-border-dark transition-colors">
+                                                Join Run
+                                            </button>
+<button class="flex items-center justify-center rounded-full h-9 px-5 bg-primary text-black text-xs font-bold hover:shadow-[0_0_15px_rgba(6,249,6,0.4)] transition-all">
+                                                High-five
+                                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<aside class="hidden xl:flex flex-col w-72 gap-6 sticky top-24 h-fit">
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark shadow-xl">
+<h4 class="text-white text-md font-bold mb-6 font-display border-b border-border-dark pb-3">Suggested Players</h4>
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between gap-3 group">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-cover bg-center shrink-0 border border-border-dark group-hover:border-primary/50 transition-colors" data-alt="Portrait of Mike D." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwiUk1gYUoQJiQcw-H4-A0rNSDEKtRs_cA0m5AZqcPzWcZKti6YWTjzfDoQFSeaw3I2ZFHoDmQUFTXu9s_0o-poiOIu7DNuVNMJ5udNrF2RvBI9169PRu3MzAUQr_3QqYUMnE-uO-DpyVOwoIr5OYdYywbFBFegtmu-sa7C6Jz90ddhajLT0PNodGdWWV-amY7p-Rjk4C9WJWC3z1YZcoa7nkefSqBnlzFzQr8nPtv4Szzfi6ij9ucuihiqsnIAtLeXJarQlR-cws');"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold leading-tight text-white group-hover:text-primary transition-colors">Mike D.</p>
+<p class="text-[11px] text-[#8ba88b] font-medium">Tennis, Padel</p>
+<p class="text-[10px] text-primary font-bold mt-0.5">3 Mutual Friends</p>
+</div>
+</div>
+<button class="h-8 px-4 rounded-full bg-primary/10 text-primary text-[11px] font-bold border border-primary/20 hover:bg-primary hover:text-black transition-all">
+                                    Follow
+                                </button>
+</div>
+<div class="flex items-center justify-between gap-3 group">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-cover bg-center shrink-0 border border-border-dark group-hover:border-primary/50 transition-colors" data-alt="Portrait of Chloe R." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCtkil8zfIbkzztFOXRk4Tled3tr3bniKyHqHHOvZQe2XFommic3Z3Soecxw8cHkdaO7EN-_BY618_4hKfDXk1fP15S_oVApE4L9cAL8DtFwQc9lq-74O3zPYH76zGvxeaI0xq6rjYZf_cvMiidGus1EB0b8cDZjMwM8BGOMlzhTZfvRZicczHvoUQVOIetFPWP4YNC7Sz0-_XYmB-7fLV9U9GurGGzTkGX7tf0KeqBeiSm6lXSIOme2x61LymUwFyGucZiWb6L32A');"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold leading-tight text-white group-hover:text-primary transition-colors">Chloe R.</p>
+<p class="text-[11px] text-[#8ba88b] font-medium">Running, Yoga</p>
+<p class="text-[10px] text-primary font-bold mt-0.5">8 Mutual Friends</p>
+</div>
+</div>
+<button class="h-8 px-4 rounded-full bg-primary/10 text-primary text-[11px] font-bold border border-primary/20 hover:bg-primary hover:text-black transition-all">
+                                    Follow
+                                </button>
+</div>
+<div class="flex items-center justify-between gap-3 group">
+<div class="flex items-center gap-3">
+<div class="size-11 rounded-full bg-cover bg-center shrink-0 border border-border-dark group-hover:border-primary/50 transition-colors" data-alt="Portrait of David L." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4gNDNrwU4xJHJr1Pou4Y79zDzBrYqjOjdtwneaL86Ki0oD3RRBnxJzqAr0lYOkzJjvmRLe7JDQv39clbPfLeVAZcf9ElU1RJ8_piTq-trL4_J_INSkxUvv01gDYe72TYQs-JfaQ7AuB41ENujXsjgiPodi6lNYWQqkiLoHYaNelpoNubGXwTwCB0CAh-sXsELQN8Veb0wBQRJ03IbrRFqNrdpcp05B0xdfUGKW4O2WZ6eeqrVc9-wxDveha87E00P1SgnaH5Vp6I');"></div>
+<div class="flex flex-col">
+<p class="text-sm font-bold leading-tight text-white group-hover:text-primary transition-colors">David L.</p>
+<p class="text-[11px] text-[#8ba88b] font-medium">Cycling</p>
+<p class="text-[10px] text-primary font-bold mt-0.5">12 Mutual Friends</p>
+</div>
+</div>
+<button class="h-8 px-4 rounded-full bg-primary/10 text-primary text-[11px] font-bold border border-primary/20 hover:bg-primary hover:text-black transition-all">
+                                    Follow
+                                </button>
+</div>
+</div>
+<button class="w-full mt-8 text-xs font-bold text-[#5f8c5f] hover:text-primary transition-colors py-3 border-t border-border-dark flex items-center justify-center gap-2">
+                            Show More Suggestions
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<div class="bg-primary p-6 rounded-xl shadow-[0_10px_30px_rgba(6,249,6,0.2)] relative overflow-hidden group cursor-pointer">
+<div class="absolute -right-6 -bottom-6 opacity-30 group-hover:scale-125 transition-transform duration-500">
+<span class="material-symbols-outlined text-[120px] text-black">workspace_premium</span>
+</div>
+<h4 class="text-black text-lg font-extrabold mb-2 relative z-10">Premium Clubs</h4>
+<p class="text-black/80 text-sm mb-5 relative z-10 leading-relaxed font-medium">Join elite sports communities and access private sessions.</p>
+<button class="bg-black text-white px-6 py-2.5 rounded-full text-xs font-bold relative z-10 hover:bg-white hover:text-black transition-all shadow-lg">
+                            Upgrade Now
+                        </button>
+</div>
+</aside>
+</main>
+</div>
+</div>
+
+</body></html>

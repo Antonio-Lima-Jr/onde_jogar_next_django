@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explore Events - SportSync (Dark Mode)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df20d",
+                        "dark-bg": "#121212",
+                        "dark-card": "#1E1E1E",
+                        "dark-border": "#2E2E2E",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body { 
+                @apply bg-dark-bg text-slate-100 font-display transition-colors duration-300; 
+                font-family: 'Lexend', sans-serif;
+            }
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }.dark-map-overlay {
+            filter: invert(90%) hue-rotate(180deg) brightness(30%) contrast(100%);
+        }
+    </style>
+</head>
+<body class="dark overflow-hidden">
+<div class="flex flex-col h-screen overflow-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-dark-border bg-dark-bg px-6 py-3 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white">
+<div class="size-8 bg-primary rounded-full flex items-center justify-center text-dark-bg">
+<span class="material-symbols-outlined font-bold">exercise</span>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">SportSync</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full">
+<div class="text-slate-400 flex border-none bg-dark-card items-center justify-center pl-4 rounded-l-full">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-dark-card focus:ring-0 h-full placeholder:text-slate-500 px-4 rounded-r-full text-sm font-normal text-white" placeholder="Find a game or court" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="flex items-center gap-8">
+<a class="text-white text-sm font-semibold border-b-2 border-primary pb-1" href="#">Explore</a>
+<a class="text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">My Events</a>
+<a class="text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Groups</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark-card text-white hover:bg-dark-border transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark-card text-white hover:bg-dark-border transition-colors">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-dark-border" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLc0SdVwuraNK4JuptPoZRTvfWx95dvC4WiI8UO4MxI0JtUTZMMLDEB0_Xcm_PoObgg4wwbb41dRCPD6UbLJX9NKoI-Yykk58-Lt7_n8oCzS0l-FcCgv4GOs2hlFXiGi5Wezo7b--lrTST2-P_1RME8SHx-yfVLg2yayKoRn--rx-6bclWl-5oOShP2Wr4Cbim_KuHbBh27okGXF0vsSJQa520wtiVMNeMb_WiuSsrv9gWUl-SpXcAXE_xR-pt8mml3IeSdshHtvs");'></div>
+</div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<div class="w-[450px] flex flex-col border-r border-dark-border bg-dark-bg z-40">
+<div class="p-4 border-b border-dark-border">
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/20 border border-primary/40 px-4">
+<span class="text-primary text-xs font-semibold">Sport Type</span>
+<span class="material-symbols-outlined text-sm text-primary">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-dark-card border border-dark-border px-4 hover:border-slate-500 transition-colors">
+<span class="text-slate-300 text-xs font-semibold">Distance</span>
+<span class="material-symbols-outlined text-sm text-slate-400">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-dark-card border border-dark-border px-4 hover:border-slate-500 transition-colors">
+<span class="text-slate-300 text-xs font-semibold">Date</span>
+<span class="material-symbols-outlined text-sm text-slate-400">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-dark-card border border-dark-border px-4 hover:border-slate-500 transition-colors">
+<span class="text-slate-300 text-xs font-semibold">Skill</span>
+<span class="material-symbols-outlined text-sm text-slate-400">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 bg-dark-bg/50">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-lg font-bold text-white">24 Events Nearby</h3>
+<span class="text-xs text-slate-500 uppercase font-bold tracking-widest">Sort: Popular</span>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-xl bg-dark-card p-4 shadow-xl transition-all border border-transparent hover:border-primary/40">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="size-12 bg-orange-900/40 rounded-full flex items-center justify-center text-orange-400 border border-orange-900/60">
+<span class="material-symbols-outlined text-2xl">sports_basketball</span>
+</div>
+<div>
+<h4 class="text-base font-bold text-white leading-tight">3v3 Streetball Showdown</h4>
+<p class="text-xs font-medium text-primary mt-1">Intermediate • Basketball</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-white">6:00 PM</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Today</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-sm text-slate-400">
+<span class="material-symbols-outlined text-lg text-primary">location_on</span>
+<span class="truncate">Downtown Courts, Main St.</span>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-dark-border">
+<div class="flex flex-col gap-1 w-1/2">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-slate-400">
+<span class="text-primary">8/10 Joined</span>
+<span>2 slots left</span>
+</div>
+<div class="h-1.5 w-full bg-dark-bg rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 80%"></div>
+</div>
+</div>
+<button class="bg-primary hover:brightness-110 text-dark-bg px-6 py-2 rounded-full font-bold text-sm transition-all transform active:scale-95 shadow-[0_0_15px_rgba(13,242,13,0.3)]">
+                            Join
+                        </button>
+</div>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-xl bg-dark-card p-4 shadow-xl transition-all border border-transparent hover:border-primary/40">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="size-12 bg-blue-900/40 rounded-full flex items-center justify-center text-blue-400 border border-blue-900/60">
+<span class="material-symbols-outlined text-2xl">sports_tennis</span>
+</div>
+<div>
+<h4 class="text-base font-bold text-white leading-tight">Morning Mixed Doubles</h4>
+<p class="text-xs font-medium text-primary mt-1">Advanced • Tennis</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-white">8:30 AM</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Tomorrow</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-sm text-slate-400">
+<span class="material-symbols-outlined text-lg text-primary">location_on</span>
+<span class="truncate">Green Valley Club</span>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-dark-border">
+<div class="flex flex-col gap-1 w-1/2">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-slate-400">
+<span class="text-primary">3/4 Joined</span>
+<span>1 slot left</span>
+</div>
+<div class="h-1.5 w-full bg-dark-bg rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 75%"></div>
+</div>
+</div>
+<button class="bg-primary hover:brightness-110 text-dark-bg px-6 py-2 rounded-full font-bold text-sm transition-all transform active:scale-95 shadow-[0_0_15px_rgba(13,242,13,0.3)]">
+                            Join
+                        </button>
+</div>
+</div>
+<div class="group relative flex flex-col gap-4 rounded-xl bg-dark-card p-4 shadow-xl transition-all border border-transparent hover:border-primary/40">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="size-12 bg-green-900/40 rounded-full flex items-center justify-center text-green-400 border border-green-900/60">
+<span class="material-symbols-outlined text-2xl">directions_run</span>
+</div>
+<div>
+<h4 class="text-base font-bold text-white leading-tight">Park 5K Fun Run</h4>
+<p class="text-xs font-medium text-primary mt-1">Open • Running</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-white">6:30 PM</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Thu, Oct 12</p>
+</div>
+</div>
+<div class="flex items-center gap-2 text-sm text-slate-400">
+<span class="material-symbols-outlined text-lg text-primary">location_on</span>
+<span class="truncate">Central Park North Entrance</span>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-dark-border">
+<div class="flex flex-col gap-1 w-1/2">
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-slate-400">
+<span class="text-primary">12/50 Joined</span>
+<span>Unlimited</span>
+</div>
+<div class="h-1.5 w-full bg-dark-bg rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 24%"></div>
+</div>
+</div>
+<button class="bg-primary hover:brightness-110 text-dark-bg px-6 py-2 rounded-full font-bold text-sm transition-all transform active:scale-95 shadow-[0_0_15px_rgba(13,242,13,0.3)]">
+                            Join
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 relative bg-dark-bg">
+<div class="absolute inset-0 bg-cover bg-center dark-map-overlay opacity-60" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaBkAeLzBqPVhNjE7rJ_klu-xP4_t3Z8CIiT6qjYRmeVvVmP2v8Z2KTilrfbw2Q1cUbDx9T6Hh5bQ6oWY6d_wQRK-AyQvFfMeEiaL9H49iQzrfBIdfTmFwIprPNVJKYmR1fpLQ2mTn5SCu-uu2DwBGyIUN4n_PPi3ak-I-wS7wWZwzQNw1aYskLhwuFQgg67n4Ul-zh5vY2ysaE_pM_6_TQCOIA0VXytAPAUDWXqySf7-vS7XOLf9fGtr2LpmIq8eJhNwIOcO5Ptk");'>
+</div>
+<div class="relative w-full h-full flex items-center justify-center">
+<div class="absolute top-6 left-1/2 -translate-x-1/2 w-[320px] shadow-2xl z-10">
+<div class="flex w-full items-stretch rounded-full h-12 bg-dark-card px-2 border border-dark-border">
+<div class="text-primary flex items-center justify-center pl-3">
+<span class="material-symbols-outlined">near_me</span>
+</div>
+<input class="form-input flex w-full border-none bg-transparent focus:ring-0 h-full text-sm font-medium text-white placeholder-slate-500" placeholder="Search this area..."/>
+</div>
+</div>
+<div class="absolute top-[40%] left-[35%] group">
+<div class="flex flex-col items-center">
+<div class="bg-dark-card px-3 py-1.5 rounded-full shadow-2xl border-2 border-primary mb-1 scale-100 group-hover:scale-110 transition-transform cursor-pointer">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500 text-lg">sports_basketball</span>
+<span class="text-[10px] font-bold text-white">3v3 Streetball</span>
+</div>
+</div>
+<div class="w-1 h-3 bg-primary rounded-full shadow-[0_0_8px_rgba(13,242,13,0.5)]"></div>
+</div>
+</div>
+<div class="absolute top-[60%] left-[60%] group">
+<div class="flex flex-col items-center">
+<div class="bg-dark-card px-3 py-1.5 rounded-full shadow-2xl border border-dark-border mb-1 scale-100 group-hover:scale-110 transition-transform cursor-pointer group-hover:border-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400 text-lg">sports_tennis</span>
+<span class="text-[10px] font-bold text-white">Tennis Doubles</span>
+</div>
+</div>
+<div class="w-1 h-3 bg-slate-600 rounded-full shadow-sm group-hover:bg-primary transition-colors"></div>
+</div>
+</div>
+<div class="absolute top-[25%] left-[55%] group">
+<div class="flex flex-col items-center">
+<div class="bg-dark-card px-3 py-1.5 rounded-full shadow-2xl border border-dark-border mb-1 scale-100 group-hover:scale-110 transition-transform cursor-pointer group-hover:border-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-400 text-lg">directions_run</span>
+<span class="text-[10px] font-bold text-white">Fun Run 5K</span>
+</div>
+</div>
+<div class="w-1 h-3 bg-slate-600 rounded-full shadow-sm group-hover:bg-primary transition-colors"></div>
+</div>
+</div>
+<div class="absolute bottom-10 right-10 flex flex-col gap-3">
+<div class="flex flex-col bg-dark-card rounded-full shadow-2xl border border-dark-border overflow-hidden">
+<button class="p-3 hover:bg-dark-border transition-colors border-b border-dark-border">
+<span class="material-symbols-outlined text-white">add</span>
+</button>
+<button class="p-3 hover:bg-dark-border transition-colors">
+<span class="material-symbols-outlined text-white">remove</span>
+</button>
+</div>
+<button class="size-12 bg-dark-card rounded-full shadow-2xl border border-dark-border flex items-center justify-center hover:bg-dark-border transition-colors">
+<span class="material-symbols-outlined text-primary">my_location</span>
+</button>
+</div>
+<div class="absolute bottom-10 left-10 bg-dark-card/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-2xl border border-white/10">
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Map Legend</p>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-orange-500 shadow-[0_0_5px_rgba(249,115,22,0.5)]"></span>
+<span class="text-xs font-medium text-slate-300">Ball Sports</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-blue-500 shadow-[0_0_5px_rgba(59,130,246,0.5)]"></span>
+<span class="text-xs font-medium text-slate-300">Racket</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]"></span>
+<span class="text-xs font-medium text-slate-300">Fitness</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
