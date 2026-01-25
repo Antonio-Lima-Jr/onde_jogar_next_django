@@ -1,4 +1,5 @@
 from rest_framework import generics, status, permissions
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -9,6 +10,15 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from .services import UserService
+
+
+class IsSelfOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        if request.user and request.user.is_authenticated:
+            return request.user.is_superuser or obj == request.user
+        return False
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
@@ -47,11 +57,9 @@ class CustomAuthToken(ObtainAuthToken):
 class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsSelfOrReadOnly]
     lookup_field = 'pk'
 
     def perform_update(self, serializer):
         # Instead of generic serializer.save(), we use our service
         UserService.update_user_profile(self.get_object(), serializer.validated_data)
-
-
