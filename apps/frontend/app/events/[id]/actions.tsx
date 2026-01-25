@@ -1,84 +1,63 @@
 "use client";
 
-import { useState } from "react";
-import { Event } from "@/types";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { joinEvent, leaveEvent } from "@/lib/api";
 
 interface EventActionsProps {
     eventId: number;
     initialParticipations: number[]; // List of user IDs
-    currentUserId?: number | null; // Pass from parent or auth context
 }
 
-export default function EventActions({ eventId, initialParticipations, currentUserId }: EventActionsProps) {
+export default function EventActions({ eventId, initialParticipations }: EventActionsProps) {
     const [participations, setParticipations] = useState<number[]>(initialParticipations);
     const [loading, setLoading] = useState(false);
+    const [userId, setUserId] = useState<number | null>(null);
+    const [token, setToken] = useState<string | null>(null);
+    const router = useRouter();
 
-    // Check if current user is in the list. 
-    // detailed check requires knowing the user ID. 
-    // For MVP without full auth context on frontend, we might struggle here.
-    // But let's assume we can determine it, or we rely on API response.
+    useEffect(() => {
+        // Retrieve auth info from localStorage on mount
+        const storedUserId = localStorage.getItem("user_id");
+        const storedToken = localStorage.getItem("token");
 
-    // Actually, without knowing who I am, I can't know if "I" joined.
-    // Workaround for MVP partial implementation: 
-    // IF we have a token in localStorage, we can assume we are logged in.
-    // But strictly, the Server Component doesn't know.
-    // The Client Component can check localStorage or a Context.
+        if (storedUserId) setUserId(parseInt(storedUserId));
+        if (storedToken) setToken(storedToken);
+    }, []);
 
-    // Let's implement basics:
-    const isJoined = currentUserId ? participations.includes(currentUserId) : false;
+    const isJoined = userId ? participations.includes(userId) : false;
 
     const handleJoin = async () => {
-        if (!currentUserId) {
-            alert("Please login first (Auth not fully implemented in frontend MVP yet)");
+        if (!token || !userId) {
+            alert("Please login first to join events.");
+            // Optional: window.location.href = "/login";
             return;
         }
+
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:8000/api/events/${eventId}/join/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // "Authorization": `Token ${token}` // We need the token!
-                },
-            });
-
-            if (res.ok) {
-                setParticipations([...participations, currentUserId]);
-            } else {
-                const data = await res.json();
-                alert(data.detail || "Failed to join");
-            }
-        } catch (error) {
+            await joinEvent(eventId, token);
+            setParticipations([...participations, userId]);
+            router.refresh();
+        } catch (error: any) {
             console.error(error);
-            alert("Error joining event");
+            alert(error.message || "Failed to join event");
         } finally {
             setLoading(false);
         }
     };
 
     const handleLeave = async () => {
-        if (!currentUserId) {
-            return;
-        }
+        if (!token || !userId) return;
+
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:8000/api/events/${eventId}/leave/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // "Authorization": `Token ${token}`
-                },
-            });
-
-            if (res.ok) {
-                setParticipations(participations.filter(id => id !== currentUserId));
-            } else {
-                const data = await res.json();
-                alert(data.detail || "Failed to leave");
-            }
-        } catch (error) {
+            await leaveEvent(eventId, token);
+            setParticipations(participations.filter(id => id !== userId));
+            router.refresh();
+        } catch (error: any) {
             console.error(error);
-            alert("Error leaving event");
+            alert(error.message || "Failed to leave event");
         } finally {
             setLoading(false);
         }

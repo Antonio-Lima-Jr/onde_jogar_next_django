@@ -1,5 +1,6 @@
 import TopNav from "@/app/components/ui/TopNav";
 import EventActions from "./actions";
+import Footer from "@/app/components/ui/Footer";
 
 interface Participation {
     id: number;
@@ -105,7 +106,6 @@ export default async function EventDetailPage({
                         <EventActions
                             eventId={event.id}
                             initialParticipations={event.participations.map((p) => p.user.id)}
-                            currentUserId={null}
                         />
 
                         {/* Description */}
@@ -314,6 +314,7 @@ export default async function EventDetailPage({
                     </aside>
                 </div>
             </main>
+            <Footer />
         </>
     );
 }

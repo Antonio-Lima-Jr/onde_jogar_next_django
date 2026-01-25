@@ -6,6 +6,10 @@
   --color-surface-dark: #121812;
   --color-border-dark: #1f291f;
 
+  --color-dark-bg: #121212;
+  --color-dark-card: #1E1E1E;
+  --color-dark-border: #2E2E2E;
+
   --font-lexend: Lexend, sans-serif;
   --font-sans: Lexend, sans-serif;
 }
@@ -60,7 +64,17 @@
 }
 
 body {
-  background-color: var(--color-background-dark);
+  background-color: var(--color-dark-bg);
   color: white;
   font-family: var(--font-lexend);
+}
+
+/* Hide scrollbar utility */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

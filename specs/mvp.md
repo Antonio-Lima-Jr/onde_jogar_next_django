@@ -216,10 +216,16 @@ Now the most important part: **execution order**.
 
 ### 🧱 Phase 5 — Functional frontend (Days 5–6)
 
-- [ ]  Event list
-- [ ]  Event detail
-- [ ]  Create event
-- [ ]  Join / leave
+- [x]  Event list
+- [x]  Event detail
+- [x]  Create event
+- [x]  Join / leave
+
+👉 Simple UI, but functional.
+
+---
+
+### 🧱 Phase 6.1 — Criar a landpage com links de login
 
 👉 Simple UI, but functional.
 
