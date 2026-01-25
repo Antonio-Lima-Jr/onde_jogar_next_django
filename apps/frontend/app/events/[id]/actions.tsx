@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { joinEvent, leaveEvent } from "@/lib/api";
+import AuthModal from "@/app/components/AuthModal";
 
 interface EventActionsProps {
     eventId: number;
@@ -14,6 +15,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
     const [loading, setLoading] = useState(false);
     const [userId, setUserId] = useState<number | null>(null);
     const [token, setToken] = useState<string | null>(null);
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -29,8 +31,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
 
     const handleJoin = async () => {
         if (!token || !userId) {
-            alert("Please login first to join events.");
-            // Optional: window.location.href = "/login";
+            setIsAuthModalOpen(true);
             return;
         }
 
@@ -82,11 +83,21 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
                     <span className="truncate">{loading ? "LEAVING..." : "LEAVE GAME"}</span>
                 </button>
             )}
-            <button className="flex items-center justify-center rounded-full h-16 w-16 bg-surface-dark border border-border-dark hover:border-red-500/50 hover:text-red-500 transition-colors group">
+            <button
+                onClick={() => !token && setIsAuthModalOpen(true)}
+                className="flex items-center justify-center rounded-full h-16 w-16 bg-surface-dark border border-border-dark hover:border-red-500/50 hover:text-red-500 transition-colors group"
+            >
                 <span className="material-symbols-outlined text-[28px] group-hover:filled-icon">
                     favorite
                 </span>
             </button>
+
+            <AuthModal
+                isOpen={isAuthModalOpen}
+                onClose={() => setIsAuthModalOpen(false)}
+                title="Join this Event"
+                message="Please login or create an account to join this match and see other players."
+            />
         </div>
     );
 }

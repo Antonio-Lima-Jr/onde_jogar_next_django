@@ -38,9 +38,11 @@ export default function RegisterPage() {
                 <div className="absolute -top-24 -right-24 size-48 bg-primary/10 rounded-full blur-3xl"></div>
 
                 <div className="text-center mb-10 relative">
-                    <div className="size-12 bg-primary rounded-full flex items-center justify-center text-background-dark mx-auto mb-6 shadow-[0_0_20px_rgba(13,242,13,0.4)]">
-                        <span className="material-symbols-outlined font-black text-2xl">exercise</span>
-                    </div>
+                    <Link href="/" className="inline-block group">
+                        <div className="size-12 bg-primary rounded-full flex items-center justify-center text-background-dark mx-auto mb-6 shadow-[0_0_20px_rgba(13,242,13,0.4)] group-hover:scale-110 transition-transform">
+                            <span className="material-symbols-outlined font-black text-2xl">exercise</span>
+                        </div>
+                    </Link>
                     <h1 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Join the Game</h1>
                     <p className="text-slate-400 font-medium">Create an account to start playing</p>
                 </div>

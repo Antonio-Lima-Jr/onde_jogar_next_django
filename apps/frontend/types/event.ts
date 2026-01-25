@@ -1,3 +1,16 @@
+export interface User {
+    id: number;
+    username: string;
+    email: string;
+}
+
+export interface Participation {
+    id: number;
+    user: User;
+    event: number;
+    joined_at: string;
+}
+
 export interface Event {
     id: number;
     title: string;
@@ -5,22 +18,11 @@ export interface Event {
     date: string;
     location: string;
     slots: number;
-    created_by: number;
+    created_by: User;
     created_at: string;
     updated_at: string;
     participants_count?: number;
     is_authenticated_user_joined?: boolean;
+    participations?: Participation[];
 }
 
-export interface Participation {
-    id: number;
-    user: number;
-    event: number;
-    joined_at: string;
-}
-
-export interface User {
-    id: number;
-    username: string;
-    email: string;
-}

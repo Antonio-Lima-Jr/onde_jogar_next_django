@@ -225,9 +225,7 @@ Now the most important part: **execution order**.
 
 ---
 
-### 🧱 Phase 6.1 — Criar a landpage com links de login
-
-👉 Simple UI, but functional.
+### 🧱 Phase 6.1 — Landing Page (Login Entry Point) ✅ DONE
 
 ---
 

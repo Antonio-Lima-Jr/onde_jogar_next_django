@@ -1,6 +1,8 @@
 import TopNav from "@/app/components/ui/TopNav";
 import EventActions from "./actions";
 import Footer from "@/app/components/ui/Footer";
+import DiscussionSection from "./discussion";
+import SidebarActions from "./sidebar_actions";
 
 interface Participation {
     id: number;
@@ -148,33 +150,7 @@ export default async function EventDetailPage({
                         </div>
 
                         {/* Discussion Section */}
-                        <div className="flex flex-col gap-6">
-                            <h3 className="text-xl font-bold flex items-center gap-3 px-2">
-                                <span className="material-symbols-outlined text-primary">forum</span>
-                                Discussion <span className="text-slate-500 font-normal ml-1">(0)</span>
-                            </h3>
-                            <div className="flex gap-4 items-start bg-surface-dark p-6 rounded-2xl border border-border-dark shadow-lg">
-                                <div
-                                    className="size-12 rounded-full bg-cover bg-center shrink-0 border border-border-dark"
-                                    style={{
-                                        backgroundImage:
-                                            'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA6bWFFW39ZGlZle2_vW4tAOs0btQCC5DdfDuTlvMntgd6SjfGDPBtWz0JWd0RC5cWycj56o5gOF9z4L0xdfIKJcvV9hgzeJXDhJdVQExL3U4R9_ypc6l-lAQ6Cz6TWjaHAMdEhpIV-1DdYlSW0o6OHDxkszLPIt67RKdkp-3NSq-dpg26yc3bsSKsaHM2ETlwAsjZ_rQwF_BJ174Ekxek0AJvib9DTYyNV6kt7r3v_5aVeH4pAh7Nxc4iUKUo9K8RD7OL_sH2lrUE")',
-                                    }}
-                                ></div>
-                                <div className="flex-1 flex flex-col gap-4">
-                                    <textarea
-                                        className="w-full bg-background-dark border border-border-dark rounded-xl focus:ring-1 focus:ring-primary/50 focus:border-primary p-4 text-base placeholder:text-slate-600 resize-none transition-all"
-                                        placeholder="Ask a question or share a thought..."
-                                        rows={3}
-                                    ></textarea>
-                                    <div className="flex justify-end">
-                                        <button className="px-8 py-2.5 bg-primary text-black hover:bg-primary/90 transition-all rounded-full text-sm font-bold shadow-[0_0_15px_rgba(13,242,13,0.3)]">
-                                            Post Comment
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <DiscussionSection eventId={event.id} />
                     </div>
 
                     {/* Right Sidebar */}
@@ -209,14 +185,7 @@ export default async function EventDetailPage({
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-3">
-                                <button className="w-full bg-primary text-black hover:bg-primary/90 transition-all py-3 rounded-full text-sm font-black shadow-[0_0_20px_rgba(13,242,13,0.2)]">
-                                    MESSAGE
-                                </button>
-                                <button className="w-full bg-white/5 hover:bg-white/10 text-white transition-all py-3 rounded-full text-sm font-bold border border-white/10">
-                                    FOLLOW ORGANIZER
-                                </button>
-                            </div>
+                            <SidebarActions />
                         </div>
 
                         {/* Event Details Card */}
