@@ -105,39 +105,39 @@ export default async function EventDetailPage({
                         />
 
                         {/* Description */}
-                        <div className="bg-surface-dark p-8 rounded-2xl border border-border-dark shadow-xl">
-                            <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                        <div className="bg-[color:var(--color-surface)] p-8 rounded-2xl border border-[color:var(--color-border)] shadow-xl">
+                            <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-[color:var(--color-text)]">
                                 <span className="material-symbols-outlined text-primary text-[28px]">
                                     description
                                 </span>
                                 Event Description
                             </h3>
-                            <div className="text-slate-300 space-y-6 leading-relaxed font-normal">
-                                <p className="text-lg">{event.description}</p>
+                            <div className="text-[color:var(--color-muted)] space-y-6 leading-relaxed font-normal">
+                                <p className="text-lg text-[color:var(--color-text)]">{event.description}</p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
                                         <span className="material-symbols-outlined text-primary text-sm">
                                             check_circle
                                         </span>
-                                        <span className="text-sm font-medium">1-hour game session</span>
+                                        <span className="text-sm font-medium text-[color:var(--color-text)]">1-hour game session</span>
                                     </div>
-                                    <div className="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
                                         <span className="material-symbols-outlined text-primary text-sm">
                                             check_circle
                                         </span>
-                                        <span className="text-sm font-medium">Bibs and balls provided</span>
+                                        <span className="text-sm font-medium text-[color:var(--color-text)]">Bibs and balls provided</span>
                                     </div>
-                                    <div className="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
                                         <span className="material-symbols-outlined text-primary text-sm">
                                             check_circle
                                         </span>
-                                        <span className="text-sm font-medium">Shower & Changing rooms</span>
+                                        <span className="text-sm font-medium text-[color:var(--color-text)]">Shower & Changing rooms</span>
                                     </div>
-                                    <div className="flex items-center gap-3 bg-background-dark/50 p-4 rounded-xl border border-border-dark">
+                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
                                         <span className="material-symbols-outlined text-primary text-sm">
                                             info
                                         </span>
-                                        <span className="text-sm font-medium">Strictly no slide tackling</span>
+                                        <span className="text-sm font-medium text-[color:var(--color-text)]">Strictly no slide tackling</span>
                                     </div>
                                 </div>
                             </div>

@@ -41,116 +41,103 @@ export default function CreateEventPage() {
     };
 
     return (
-        <div className="flex flex-col h-screen overflow-hidden bg-background-dark font-display">
+        <div className="min-h-screen bg-[color:var(--color-background)] font-display text-[color:var(--color-text)]">
             <TopNav />
-            <main className="flex-1 overflow-y-auto">
-                <div className="max-w-3xl mx-auto px-6 py-12 text-white">
-                    <div className="mb-10 text-center sm:text-left">
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">Create New Event</h1>
-                        <p className="text-slate-400 font-medium text-lg">Organize your next game and find players near you.</p>
+            <main className="max-w-[800px] mx-auto px-4 py-12">
+                <div className="mb-10 text-center">
+                    <h1 className="text-4xl font-bold text-[color:var(--color-text)] mb-8">Create New Event</h1>
+                    <div className="relative flex items-center justify-between max-w-md mx-auto">
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-[color:var(--color-border)]"></div>
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/2 h-0.5 bg-primary"></div>
+                        <div className="relative flex flex-col items-center">
+                            <div className="size-4 rounded-full bg-primary shadow-[0_0_10px_rgba(89,242,13,0.3)]"></div>
+                            <span className="text-[10px] font-bold mt-2 text-[color:var(--color-text)] uppercase">Details</span>
+                        </div>
+                        <div className="relative flex flex-col items-center">
+                            <div className="size-4 rounded-full bg-primary shadow-[0_0_10px_rgba(89,242,13,0.3)]"></div>
+                            <span className="text-[10px] font-bold mt-2 text-[color:var(--color-text)] uppercase">Location</span>
+                        </div>
+                        <div className="relative flex flex-col items-center">
+                            <div className="size-4 rounded-full bg-[color:var(--color-border)]"></div>
+                            <span className="text-[10px] font-bold mt-2 text-[color:var(--color-muted)] uppercase">Review</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSubmit} className="bg-[color:var(--color-surface)] rounded-2xl border border-[color:var(--color-border)] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] space-y-8">
+                    <div>
+                        <label htmlFor="title" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Event Title</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            required
+                            className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none"
+                            placeholder="e.g. Saturday Morning 3v3 Scrimmage"
+                        />
                     </div>
 
-                    <form onSubmit={handleSubmit} className="bg-surface-dark rounded-[2rem] p-8 md:p-12 border border-border-dark shadow-2xl relative overflow-hidden">
-                        <div className="absolute -top-24 -right-24 size-48 bg-primary/5 rounded-full blur-3xl"></div>
+                    <div>
+                        <label htmlFor="description" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Description</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            required
+                            rows={4}
+                            className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none resize-none"
+                            placeholder="What players should know about the game..."
+                        />
+                    </div>
 
-                        <div className="space-y-8 relative">
-                            {/* Title */}
-                            <div>
-                                <label htmlFor="title" className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 ml-1">
-                                    Event Title
-                                </label>
-                                <input
-                                    type="text"
-                                    id="title"
-                                    name="title"
-                                    required
-                                    className="w-full bg-background-dark border border-border-dark rounded-2xl px-5 py-4 text-white placeholder:text-slate-700 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all outline-none"
-                                    placeholder="e.g., 3v3 Basketball Showdown"
-                                />
-                            </div>
-
-                            {/* Description */}
-                            <div>
-                                <label htmlFor="description" className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 ml-1">
-                                    Description
-                                </label>
-                                <textarea
-                                    id="description"
-                                    name="description"
-                                    required
-                                    rows={4}
-                                    className="w-full bg-background-dark border border-border-dark rounded-2xl px-5 py-4 text-white placeholder:text-slate-700 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all resize-none outline-none"
-                                    placeholder="What players should know about the game..."
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {/* Date & Time */}
-                                <div>
-                                    <label htmlFor="date" className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 ml-1">
-                                        Date & Time
-                                    </label>
-                                    <input
-                                        type="datetime-local"
-                                        id="date"
-                                        name="date"
-                                        required
-                                        className="w-full bg-background-dark border border-border-dark rounded-2xl px-5 py-4 text-white focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all outline-none [color-scheme:dark]"
-                                    />
-                                </div>
-
-                                {/* Slots */}
-                                <div>
-                                    <label htmlFor="slots" className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 ml-1">
-                                        Number of Slots
-                                    </label>
-                                    <input
-                                        type="number"
-                                        id="slots"
-                                        name="slots"
-                                        required
-                                        min="1"
-                                        className="w-full bg-background-dark border border-border-dark rounded-2xl px-5 py-4 text-white placeholder:text-slate-700 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all outline-none"
-                                        placeholder="e.g., 10"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Location */}
-                            <div>
-                                <label htmlFor="location" className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3 ml-1">
-                                    Venue/Location
-                                </label>
-                                <input
-                                    type="text"
-                                    id="location"
-                                    name="location"
-                                    required
-                                    className="w-full bg-background-dark border border-border-dark rounded-2xl px-5 py-4 text-white placeholder:text-slate-700 focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all outline-none"
-                                    placeholder="e.g., Downtown Courts, Main St."
-                                />
-                            </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label htmlFor="date" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Date & Time</label>
+                            <input
+                                type="datetime-local"
+                                id="date"
+                                name="date"
+                                required
+                                className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none [color-scheme:light]"
+                            />
                         </div>
 
-                        {/* Actions */}
-                        <div className="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-border-dark relative">
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="flex-1 bg-primary text-background-dark px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all transform active:scale-[0.98] shadow-[0_0_30px_rgba(13,242,13,0.3)] hover:shadow-[0_0_40px_rgba(13,242,13,0.5)] disabled:opacity-50"
-                            >
-                                {loading ? 'Publishing...' : 'Publish Event'}
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => router.push('/events')}
-                                className="flex-1 bg-background-dark text-slate-400 px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all text-center border border-border-dark hover:text-white hover:bg-surface-dark"
-                            >
-                                Cancel
-                            </button>
+                        <div>
+                            <label htmlFor="slots" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Number of Slots</label>
+                            <input
+                                type="number"
+                                id="slots"
+                                name="slots"
+                                required
+                                min="1"
+                                className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none"
+                                placeholder="e.g., 10"
+                            />
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div>
+                        <label htmlFor="location" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Venue/Location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            required
+                            className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none"
+                            placeholder="e.g., Downtown Courts, Main St."
+                        />
+                    </div>
+
+                    <div className="pt-2">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full bg-primary hover:brightness-105 text-[color:var(--color-on-primary)] text-lg font-black py-5 rounded-2xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                            {loading ? 'Publishing...' : 'CREATE EVENT'}
+                            <span className="material-symbols-outlined">bolt</span>
+                        </button>
+                    </div>
+                </form>
             </main>
         </div>
     );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
+import { ThemeProvider } from "@/lib/theme-context";
 
 const lexend = Lexend({
   variable: "--font-lexend",
@@ -14,6 +15,16 @@ export const metadata: Metadata = {
   description: "Find a game or court",
 };
 
+const themeInitScript = `
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.classList.remove('light','dark');
+      document.documentElement.classList.add(theme);
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,11 +34,14 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning={true}>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
-        className={`${lexend.variable} antialiased bg-background-dark text-white min-h-screen`}
+        className={`${lexend.variable} antialiased bg-[color:var(--color-background)] text-[color:var(--color-text)] min-h-screen`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
