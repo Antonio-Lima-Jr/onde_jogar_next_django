@@ -8,6 +8,8 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+from .services import UserService
+
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
@@ -15,12 +17,18 @@ class RegisterView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        token, created = Token.objects.get_or_create(user=user)
+        
+        user, token = UserService.register_user(
+            username=serializer.validated_data['username'],
+            email=serializer.validated_data.get('email', ''),
+            password=serializer.validated_data['password']
+        )
+        
         return Response({
             "user": UserSerializer(user).data,
-            "token": token.key
+            "token": token
         }, status=status.HTTP_201_CREATED)
+
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -41,4 +49,9 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        # Instead of generic serializer.save(), we use our service
+        UserService.update_user_profile(self.get_object(), serializer.validated_data)
+
 

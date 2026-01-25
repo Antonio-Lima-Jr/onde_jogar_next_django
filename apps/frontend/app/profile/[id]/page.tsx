@@ -1,10 +1,12 @@
 import TopNav from "@/app/components/ui/TopNav";
 import Footer from "@/app/components/ui/Footer";
-import { fetchUser, fetchEvents } from "@/lib/api";
+import { fetchUser } from "@/lib/api";
+import { Event } from "@/types/event";
 import Link from "next/link";
 import EventCard from "@/app/components/EventCard";
 import EditProfileButton from "@/app/components/EditProfileButton";
 import AddSportButton from "@/app/components/AddSportButton";
+
 
 interface UserProfile {
     id: number;
@@ -14,10 +16,11 @@ interface UserProfile {
     avatar_url?: string;
     favorite_sports?: string[];
     games_played_count: number;
+    upcoming_events: Event[];
+    past_events: Event[];
 }
 
-
-async function getUser(id: string) {
+async function getUser(id: string): Promise<UserProfile | null> {
     try {
         return await fetchUser(id);
     } catch (error) {
@@ -28,12 +31,15 @@ async function getUser(id: string) {
 
 export default async function ProfilePage({
     params,
+    searchParams,
 }: {
     params: Promise<{ id: string }>;
+    searchParams: Promise<{ tab?: string }>;
 }) {
     const { id } = await params;
+    const { tab } = await searchParams;
     const user = await getUser(id);
-    const events = await fetchEvents(); // Mocking some events for now
+    const activeTab = tab || "upcoming";
 
     if (!user) {
         return (
@@ -47,6 +53,9 @@ export default async function ProfilePage({
             </div>
         );
     }
+
+    const currentEvents = activeTab === "upcoming" ? user.upcoming_events : user.past_events;
+
 
     return (
         <div className="min-h-screen bg-background-dark text-[#f1f5f0] font-display">
@@ -129,23 +138,42 @@ export default async function ProfilePage({
                 {/* Events Section */}
                 <section>
                     <div className="flex border-b border-border-dark mb-8">
-                        <button className="px-8 py-4 border-b-2 border-primary text-white font-black text-sm uppercase tracking-widest bg-white/5">Upcoming Games</button>
-                        <button className="px-8 py-4 text-slate-500 font-bold text-sm uppercase tracking-widest hover:text-white transition-colors">Past History</button>
+                        <Link
+                            href={`?tab=upcoming`}
+                            className={`px-8 py-4 border-b-2 font-black text-sm uppercase tracking-widest transition-all ${activeTab === 'upcoming'
+                                    ? 'border-primary text-white bg-white/5'
+                                    : 'border-transparent text-slate-500 hover:text-white'
+                                }`}
+                        >
+                            Upcoming Games
+                        </Link>
+                        <Link
+                            href={`?tab=past`}
+                            className={`px-8 py-4 border-b-2 font-black text-sm uppercase tracking-widest transition-all ${activeTab === 'past'
+                                    ? 'border-primary text-white bg-white/5'
+                                    : 'border-transparent text-slate-500 hover:text-white'
+                                }`}
+                        >
+                            Past History
+                        </Link>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {events.slice(0, 2).map((event) => (
+                        {currentEvents.map((event: Event) => (
                             <EventCard key={event.id} event={event} />
                         ))}
                     </div>
 
-                    {events.length === 0 && (
+                    {currentEvents.length === 0 && (
                         <div className="text-center py-20 bg-surface-dark rounded-3xl border border-dashed border-border-dark">
                             <span className="material-symbols-outlined text-5xl text-slate-700 mb-4 block">event_busy</span>
-                            <p className="text-slate-400 font-medium tracking-tight">No upcoming events yet.</p>
+                            <p className="text-slate-400 font-medium tracking-tight">
+                                No {activeTab} events found.
+                            </p>
                         </div>
                     )}
                 </section>
+
             </main>
             <Footer />
         </div>

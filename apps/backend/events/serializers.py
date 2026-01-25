@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from .models import Event, Participation
-from users.serializers import UserSerializer
+from users.serializers import UserSafeSerializer
 
 class ParticipationSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSafeSerializer(read_only=True)
     
     class Meta:
         model = Participation
@@ -11,10 +11,11 @@ class ParticipationSerializer(serializers.ModelSerializer):
         read_only_fields = ('joined_at',)
 
 class EventSerializer(serializers.ModelSerializer):
-    created_by = UserSerializer(read_only=True)
+    created_by = UserSafeSerializer(read_only=True)
     is_authenticated_user_joined = serializers.SerializerMethodField()
     participants_count = serializers.SerializerMethodField()
     participations = ParticipationSerializer(many=True, read_only=True)
+
 
     class Meta:
         model = Event
