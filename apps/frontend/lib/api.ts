@@ -92,3 +92,15 @@ export async function register(data: any): Promise<any> {
     }
     return response.json();
 }
+
+export async function fetchUser(id: string, token?: string): Promise<any> {
+    const response = await fetch(`${API_BASE_URL}/api/users/profile/${id}/`, {
+        headers: getHeaders(token),
+        cache: 'no-store'
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch user profile');
+    }
+    return response.json();
+}
+

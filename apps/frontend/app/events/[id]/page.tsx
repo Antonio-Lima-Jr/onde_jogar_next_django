@@ -3,6 +3,7 @@ import EventActions from "./actions";
 import Footer from "@/app/components/ui/Footer";
 import DiscussionSection from "./discussion";
 import SidebarActions from "./sidebar_actions";
+import Link from "next/link";
 
 interface Participation {
     id: number;
@@ -173,9 +174,12 @@ export default async function EventDetailPage({
                                     </div>
                                 </div>
                                 <div className="flex flex-col">
-                                    <h4 className="text-xl font-bold leading-tight">
-                                        {event.created_by.username}
-                                    </h4>
+                                    <Link href={`/profile/${event.created_by.id}`} className="hover:text-primary transition-colors">
+                                        <h4 className="text-xl font-bold leading-tight">
+                                            {event.created_by.username}
+                                        </h4>
+                                    </Link>
+
                                     <div className="flex items-center gap-1.5 mt-1">
                                         <span className="text-[10px] text-primary font-black tracking-widest uppercase">
                                             Pro Organizer

@@ -102,8 +102,18 @@ export default function EventCard({ event }: EventCardProps) {
                             </div>
                             <div>
                                 <h4 className="text-base font-bold text-white leading-tight">{event.title}</h4>
-                                <p className="text-xs font-medium text-primary mt-1">{event.description.substring(0, 30)}...</p>
+                                <div className="flex items-center gap-1 mt-1">
+                                    <span className="text-[10px] text-slate-500 uppercase font-bold">By</span>
+                                    <Link
+                                        href={`/profile/${event.created_by.id}`}
+                                        className="text-[10px] text-primary font-black uppercase tracking-widest hover:underline"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        {event.created_by.username}
+                                    </Link>
+                                </div>
                             </div>
+
                         </div>
                         <div className="text-right">
                             <p className="text-xs font-bold text-white">{time}</p>

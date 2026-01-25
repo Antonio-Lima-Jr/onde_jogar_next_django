@@ -108,11 +108,19 @@ export default function TopNav() {
                                 >
                                     Logout
                                 </button>
-                                <div
-                                    className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary shadow-[0_0_10px_rgba(13,242,13,0.3)] bg-slate-800"
-                                ></div>
+                                <Link
+                                    href={`/profile/${localStorage.getItem('user_id')}`}
+                                    className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary shadow-[0_0_10px_rgba(13,242,13,0.3)] bg-slate-800 transition-transform hover:scale-110 active:scale-95 overflow-hidden"
+                                >
+                                    <img
+                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${localStorage.getItem('username') || 'user'}`}
+                                        alt="Profile"
+                                        className="w-full h-full"
+                                    />
+                                </Link>
                             </div>
                         ) : (
+
                             <Link
                                 href="/login"
                                 className="flex items-center justify-center px-6 rounded-full h-10 bg-primary text-black text-xs font-black hover:bg-primary/90 transition-all shadow-[0_0_15px_rgba(13,242,13,0.3)]"

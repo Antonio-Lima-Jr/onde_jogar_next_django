@@ -21,6 +21,8 @@ export default function LoginPage() {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user_id', data.user_id.toString());
             localStorage.setItem('user_email', data.email);
+            localStorage.setItem('username', data.username);
+
 
             router.push('/events');
             router.refresh();
