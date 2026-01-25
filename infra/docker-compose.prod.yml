@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: onde-jogar-db-prod
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: apps/frontend/Dockerfile.prod
+    container_name: onde-jogar-frontend-prod
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - db
+
+volumes:
+  .pgdata:

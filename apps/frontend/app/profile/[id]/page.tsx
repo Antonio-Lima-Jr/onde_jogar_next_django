@@ -1,6 +1,6 @@
 import TopNav from "@/app/components/ui/TopNav";
 import Footer from "@/app/components/ui/Footer";
-import { fetchUserStatic } from "@/lib/api";
+import { fetchUser } from "@/lib/api";
 import { Event } from "@/types/event";
 import Link from "next/link";
 import EventCard from "@/app/components/EventCard";
@@ -22,14 +22,12 @@ interface UserProfile {
 
 async function getUser(id: string): Promise<UserProfile | null> {
     try {
-        return await fetchUserStatic(id);
+        return await fetchUser(id);
     } catch (error) {
         console.error("Error fetching user:", error);
         return null;
     }
 }
-
-export const revalidate = 600;
 
 export default async function ProfilePage({
     params,

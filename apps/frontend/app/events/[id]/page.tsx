@@ -4,7 +4,7 @@ import Footer from "@/app/components/ui/Footer";
 import DiscussionSection from "./discussion";
 import SidebarActions from "./sidebar_actions";
 import Link from "next/link";
-import { fetchEventStatic } from "@/lib/api";
+import { fetchEvent } from "@/lib/api";
 
 interface Participation {
     id: number;
@@ -34,10 +34,8 @@ interface EventData {
 }
 
 async function getEvent(id: string): Promise<EventData> {
-    return await fetchEventStatic(id);
+    return await fetchEvent(id);
 }
-
-export const revalidate = 60;
 
 export default async function EventDetailPage({
     params,

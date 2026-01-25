@@ -95,6 +95,14 @@ def frontend_build():
     run_command("npm run build", cwd="apps/frontend")
 
 
+@frontend_app.command("prod")
+def frontend_prod(skip_build: bool = typer.Option(False, "--skip-build", help="Pula o build antes de iniciar se já estiver pronto.")):
+    """Executa o frontend em modo produção para ativar o cache do Next."""
+    if not skip_build:
+        frontend_build()
+    run_command("NODE_ENV=production npm run start", cwd="apps/frontend")
+
+
 # --- Interactive Menu ---
 
 
@@ -154,6 +162,7 @@ def interactive_menu():
                         "Instalar Dependências (npm install)",
                         "Rodar Dev (npm run dev)",
                         "Build Projeto",
+                        "Executar Produção (npm run start)",
                         "Voltar",
                     ],
                 ).ask()
@@ -166,6 +175,8 @@ def interactive_menu():
                     frontend_dev()
                 elif action == "Build Projeto":
                     frontend_build()
+                elif action == "Executar Produção (npm run start)":
+                    frontend_prod()
 
 
 @app.callback(invoke_without_command=True)

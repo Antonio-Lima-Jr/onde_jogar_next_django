@@ -13,7 +13,8 @@ class EventViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        EventService.create_event(self.request.user, serializer.validated_data)
+        event = EventService.create_event(self.request.user, serializer.validated_data)
+        serializer.instance = event
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def join(self, request, pk=None):
@@ -32,4 +33,3 @@ class EventViewSet(viewsets.ModelViewSet):
             return Response({"detail": "Successfully left the event."}, status=status.HTTP_204_NO_CONTENT)
         except ValueError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-

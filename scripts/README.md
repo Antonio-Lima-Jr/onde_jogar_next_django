@@ -113,6 +113,7 @@ python scripts/cli.py backend create-app NOME_APP  # Cria novo app Django
 python scripts/cli.py frontend install     # Instala dependências (npm install)
 python scripts/cli.py frontend dev         # Inicia servidor de desenvolvimento
 python scripts/cli.py frontend build       # Cria build de produção
+python scripts/cli.py frontend prod        # Inicia o Next em modo produção (start)
 ```
 
 ### Exemplos de Uso Comum
@@ -159,6 +160,17 @@ python scripts/cli.py backend migrate
 - **Feedback Visual**: Usa Rich para output colorido e organizado
 - **Interrupção Segura**: Ctrl+C interrompe operações sem quebrar o estado
 - **Integração**: Comandos do backend garantem que o banco esteja rodando quando necessário
+- **Modo Produção do Frontend**: O submenu do frontend agora inclui a opção de rodar `npm run start` com `NODE_ENV=production` (cache ativo e ISR funcionando). O comando `frontend prod` também está disponível para execução direta.
+
+## Modo Produção Local do Frontend
+
+1. Prepare o build com `python scripts/cli.py frontend build`.
+2. Execute `python scripts/cli.py frontend prod` (ou use o menu interativo) para subir o Next.js no modo produção.
+3. O Next expõe a porta `3000` e respeita os tempos de `revalidate`, permitindo validar ISR/caching antes de enviar para um host real.
+
+Para testar o stack completo em containers, utilize `docker compose -f infra/docker-compose.prod.yml up --build`. Esse compose levanta o PostgreSQL local e o frontend containerizado com `apps/frontend/Dockerfile.prod`.
+
+Caso precise de um ambiente rápido sem containers, o comando `frontend prod` usa o build local e dá o mesmo comportamento de cache que o deploy usaria.
 
 ## Estrutura do Código
 

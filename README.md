@@ -181,6 +181,13 @@ python scripts/cli.py backend migrate      # Aplica migrations
 # Frontend
 python scripts/cli.py frontend dev         # Inicia o servidor Next.js
 python scripts/cli.py frontend install     # Instala dependências
+python scripts/cli.py frontend prod        # Executa Next no modo produção
 ```
 
 Para mais detalhes sobre o CLI, incluindo o menu interativo, consulte [scripts/README.md](scripts/README.md).
+
+### Modo Produção Local
+
+Para testar o comportamento completo do Next.js (ISR, cache de produção e middleware) use o comando `frontend prod`, que roda o `npm run start` já com o build preparado e o `NODE_ENV=production`. Isso garante que o HTML entregue à primeira visita esteja cacheado e só seja regenerado conforme os tempos definidos pelas páginas.
+
+Caso queira replicar o ambiente todo em containers, há um `infra/docker-compose.prod.yml` pronto que levanta o PostgreSQL e o frontend em modo produção via a imagem criada em `apps/frontend/Dockerfile.prod`. Esse compose serve como referência para deploys locais e para validar o cache do Next antes de subir para um host real.
