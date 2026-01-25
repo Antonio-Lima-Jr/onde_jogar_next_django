@@ -4,6 +4,7 @@ import Footer from "@/app/components/ui/Footer";
 import DiscussionSection from "./discussion";
 import SidebarActions from "./sidebar_actions";
 import Link from "next/link";
+import { fetchEventStatic } from "@/lib/api";
 
 interface Participation {
     id: number;
@@ -33,16 +34,10 @@ interface EventData {
 }
 
 async function getEvent(id: string): Promise<EventData> {
-    const res = await fetch(`http://localhost:8000/api/events/${id}/`, {
-        cache: "no-store",
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch event");
-    }
-
-    return res.json();
+    return await fetchEventStatic(id);
 }
+
+export const revalidate = 60;
 
 export default async function EventDetailPage({
     params,

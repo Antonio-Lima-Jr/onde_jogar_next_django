@@ -29,6 +29,18 @@ export async function fetchEvent(id: string, token?: string): Promise<any> {
     return response.json();
 }
 
+// Static version for ISR pages - allows caching for performance
+export async function fetchEventStatic(id: string, token?: string): Promise<any> {
+    const response = await fetch(`${API_BASE_URL}/api/events/${id}/`, {
+        headers: getHeaders(token),
+        // No cache: 'no-store' to enable ISR caching
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch event');
+    }
+    return response.json();
+}
+
 export async function joinEvent(eventId: number, token: string): Promise<any> {
     const response = await fetch(`${API_BASE_URL}/api/events/${eventId}/join/`, {
         method: 'POST',
@@ -101,6 +113,18 @@ export async function fetchUser(id: string, token?: string): Promise<any> {
     const response = await fetch(`${API_BASE_URL}/api/users/profile/${id}/`, {
         headers: getHeaders(token),
         cache: 'no-store'
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch user profile');
+    }
+    return response.json();
+}
+
+// Static version for ISR pages - allows caching for performance
+export async function fetchUserStatic(id: string, token?: string): Promise<any> {
+    const response = await fetch(`${API_BASE_URL}/api/users/profile/${id}/`, {
+        headers: getHeaders(token),
+        // No cache: 'no-store' to enable ISR caching
     });
     if (!response.ok) {
         throw new Error('Failed to fetch user profile');

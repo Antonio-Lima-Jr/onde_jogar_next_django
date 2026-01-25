@@ -3,6 +3,8 @@ import EventCard from '../components/EventCard';
 import { fetchEvents } from '@/lib/api';
 import { Event } from '@/types/event';
 
+export const revalidate = 300;
+
 export default async function EventsPage() {
     let events: Event[] = [];
 
