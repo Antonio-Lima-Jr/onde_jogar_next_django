@@ -8,7 +8,12 @@ interface UserProfile {
     id: number;
     username: string;
     email: string;
+    bio?: string;
+    avatar_url?: string;
+    favorite_sports?: string[];
+    games_played_count: number;
 }
+
 
 async function getUser(id: string) {
     try {
@@ -59,17 +64,19 @@ export default async function ProfilePage({
                     <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative">
                         <div
                             className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 ring-4 ring-primary shadow-[0_0_30px_rgba(89,242,13,0.3)] bg-slate-800"
-                            style={{ backgroundImage: 'url("https://api.dicebear.com/7.x/avataaars/svg?seed=' + user.username + '")' }}
+                            style={{ backgroundImage: `url("${user.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user.username}")` }}
                         ></div>
 
                         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-                            <div className="flex items-center gap-3 mb-1">
+                            <div className="flex items-center gap-2 mb-1">
                                 <h1 className="text-white text-3xl font-extrabold leading-tight tracking-tight">{user.username}</h1>
                                 <span className="material-symbols-outlined text-primary text-2xl filled-icon">verified</span>
                             </div>
-                            <p className="text-primary text-lg font-bold">@{user.username.toLowerCase().replace(/\s/g, '_')}</p>
+                            <div className="flex items-center gap-2 mb-1">
+                                <p className="text-primary text-lg font-bold">@{user.username.toLowerCase().replace(/\s/g, '_')}</p>
+                            </div>
                             <p className="text-slate-400 mt-4 max-w-md text-base leading-relaxed font-medium">
-                                Sports enthusiast & amateur athlete. Always looking for a pickup game or a training buddy!
+                                {user.bio || "Sports enthusiast & amateur athlete. Always looking for a pickup game or a training buddy!"}
                             </p>
                         </div>
 
@@ -83,46 +90,38 @@ export default async function ProfilePage({
                         </div>
                     </div>
 
-                    {/* Stats */}
                     <div className="flex flex-wrap gap-4 mt-10 pt-8 border-t border-white/5">
                         <div className="flex-1 min-w-[120px] flex flex-col gap-1 rounded-2xl border border-white/5 p-4 items-center bg-black/20 hover:border-primary/20 transition-colors">
-                            <p className="text-primary text-2xl font-black">1.2k</p>
+                            <p className="text-primary text-2xl font-black">0</p>
                             <p className="text-slate-500 text-[10px] uppercase tracking-widest font-black">Followers</p>
                         </div>
                         <div className="flex-1 min-w-[120px] flex flex-col gap-1 rounded-2xl border border-white/5 p-4 items-center bg-black/20 hover:border-primary/20 transition-colors">
-                            <p className="text-primary text-2xl font-black">850</p>
+                            <p className="text-primary text-2xl font-black">0</p>
                             <p className="text-slate-500 text-[10px] uppercase tracking-widest font-black">Following</p>
                         </div>
                         <div className="flex-1 min-w-[120px] flex flex-col gap-1 rounded-2xl border border-white/5 p-4 items-center bg-black/20 hover:border-primary/20 transition-colors">
-                            <p className="text-primary text-2xl font-black">{events.length + 5}</p>
+                            <p className="text-primary text-2xl font-black">{user.games_played_count}</p>
                             <p className="text-slate-500 text-[10px] uppercase tracking-widest font-black">Games Played</p>
                         </div>
                     </div>
                 </section>
 
-                {/* Favorite Sports */}
                 <section className="mb-10">
                     <h3 className="text-white text-lg font-bold mb-5 flex items-center gap-3">
                         <span className="material-symbols-outlined text-primary">workspace_premium</span>
                         Favorite Sports
                     </h3>
                     <div className="flex flex-wrap gap-3">
-                        <div className="flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-5 py-2.5 text-primary">
-                            <span className="material-symbols-outlined text-xl">directions_run</span>
-                            <span className="font-bold text-sm tracking-tight">Running</span>
-                        </div>
-                        <div className="flex items-center gap-2 bg-surface-dark border border-border-dark rounded-full px-5 py-2.5 text-slate-400 hover:border-primary/20 transition-all cursor-pointer">
-                            <span className="material-symbols-outlined text-xl">sports_basketball</span>
-                            <span className="font-bold text-sm tracking-tight text-white/80">Basketball</span>
-                        </div>
-                        <div className="flex items-center gap-2 bg-surface-dark border border-border-dark rounded-full px-5 py-2.5 text-slate-400 hover:border-primary/20 transition-all cursor-pointer">
-                            <span className="material-symbols-outlined text-xl">sports_tennis</span>
-                            <span className="font-bold text-sm tracking-tight text-white/80">Tennis</span>
-                        </div>
-                        <div className="flex items-center gap-2 bg-surface-dark border border-border-dark rounded-full px-5 py-2.5 text-slate-400 hover:border-primary/20 transition-all cursor-pointer">
-                            <span className="material-symbols-outlined text-xl">sports_soccer</span>
-                            <span className="font-bold text-sm tracking-tight text-white/80">Soccer</span>
-                        </div>
+                        {user.favorite_sports && user.favorite_sports.length > 0 ? (
+                            user.favorite_sports.map((sport: string, index: number) => (
+                                <div key={index} className="flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-5 py-2.5 text-primary">
+                                    <span className="material-symbols-outlined text-xl">sports_score</span>
+                                    <span className="font-bold text-sm tracking-tight">{sport}</span>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-slate-500 text-sm font-medium italic">No favorite sports listed yet.</p>
+                        )}
                         <button className="flex items-center justify-center size-11 rounded-full border border-dashed border-slate-700 text-slate-500 hover:text-primary hover:border-primary/50 transition-all">
                             <span className="material-symbols-outlined">add</span>
                         </button>
