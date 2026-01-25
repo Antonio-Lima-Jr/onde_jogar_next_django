@@ -146,3 +146,41 @@ onde-jogar/
 ├── pnpm-workspace.yaml
 ├── turbo.json
 └── README.md                    # Project overview
+
+```
+
+---
+
+## 🛠️ CLI Tool
+
+Para facilitar o desenvolvimento, o projeto inclui um CLI personalizado localizado em `scripts/cli.py`. Ele permite gerenciar o backend (Django) e frontend (Next.js) de forma simplificada.
+
+### Instalação Rápida
+
+Execute o script de setup para preparar o ambiente:
+
+```bash
+./scripts/setup.sh
+```
+
+### Uso Rápido
+
+Rode o CLI sem argumentos para abrir o menu interativo:
+
+```bash
+python scripts/cli.py
+```
+
+Ou use comandos diretos:
+
+```bash
+# Backend
+python scripts/cli.py backend run          # Inicia o servidor Django
+python scripts/cli.py backend migrate      # Aplica migrations
+
+# Frontend
+python scripts/cli.py frontend dev         # Inicia o servidor Next.js
+python scripts/cli.py frontend install     # Instala dependências
+```
+
+Para mais detalhes sobre o CLI, incluindo o menu interativo, consulte [scripts/README.md](scripts/README.md).
