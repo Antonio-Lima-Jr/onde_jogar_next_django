@@ -62,7 +62,11 @@ export async function createEvent(data: any, token: string): Promise<any> {
     });
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Failed to create event');
+        const errorMessage = errorData.detail ||
+            (errorData.date ? `Date error: ${errorData.date[0]}` : null) ||
+            Object.values(errorData).flat()[0] ||
+            'Failed to create event';
+        throw new Error(errorMessage as string);
     }
     return response.json();
 }

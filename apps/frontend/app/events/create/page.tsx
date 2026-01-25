@@ -1,27 +1,53 @@
+'use client';
+
 import TopNav from '@/app/components/ui/TopNav';
 import { createEvent } from '@/lib/api';
-import { redirect } from 'next/navigation';
-
-async function handleCreateEvent(formData: FormData) {
-    'use server';
-
-    const title = formData.get('title') as string;
-    const description = formData.get('description') as string;
-    const date = formData.get('date') as string;
-    const location = formData.get('location') as string;
-    const slots = parseInt(formData.get('slots') as string);
-
-    // In a real Server Action with auth, we'd get the token here.
-    // For MVP, if we don't have auth middleware yet, we might need a client component for this form.
-    // But let's assume we can handle it or the user is prompted in the client.
-
-    // Actually, 'use server' actions can't easily access localStorage.
-    // I should probably convert this to a Client Component to use the token from localStorage.
-}
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function CreateEventPage() {
-    // For MVP consistency with other pages, I'll convert this to a client component
-    // in a separate step if needed. For now, let's just fix the import to stop the build error.
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+    const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            router.push('/login');
+            return;
+        }
+        setToken(storedToken);
+    }, [router]);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!token) return;
+
+        setLoading(true);
+        const formData = new FormData(e.currentTarget);
+
+        const dateValue = formData.get('date') as string;
+        const isoDate = dateValue ? new Date(dateValue).toISOString() : null;
+
+        const data = {
+            title: formData.get('title'),
+            description: formData.get('description'),
+            date: isoDate,
+            location: formData.get('location'),
+            slots: parseInt(formData.get('slots') as string),
+        };
+
+        try {
+            await createEvent(data, token);
+            router.push('/events');
+            router.refresh();
+        } catch (error: any) {
+            alert(error.message || 'Failed to create event');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="flex flex-col h-screen overflow-hidden bg-background-dark font-display">
             <TopNav />
@@ -32,7 +58,7 @@ export default function CreateEventPage() {
                         <p className="text-slate-400 font-medium text-lg">Organize your next game and find players near you.</p>
                     </div>
 
-                    <form className="bg-surface-dark rounded-[2rem] p-8 md:p-12 border border-border-dark shadow-2xl relative overflow-hidden">
+                    <form onSubmit={handleSubmit} className="bg-surface-dark rounded-[2rem] p-8 md:p-12 border border-border-dark shadow-2xl relative overflow-hidden">
                         <div className="absolute -top-24 -right-24 size-48 bg-primary/5 rounded-full blur-3xl"></div>
 
                         <div className="space-y-8 relative">
@@ -118,16 +144,18 @@ export default function CreateEventPage() {
                         <div className="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-border-dark relative">
                             <button
                                 type="submit"
-                                className="flex-1 bg-primary text-background-dark px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all transform active:scale-[0.98] shadow-[0_0_30px_rgba(13,242,13,0.3)] hover:shadow-[0_0_40px_rgba(13,242,13,0.5)]"
+                                disabled={loading}
+                                className="flex-1 bg-primary text-background-dark px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all transform active:scale-[0.98] shadow-[0_0_30px_rgba(13,242,13,0.3)] hover:shadow-[0_0_40px_rgba(13,242,13,0.5)] disabled:opacity-50"
                             >
-                                Publish Event
+                                {loading ? 'Publishing...' : 'Publish Event'}
                             </button>
-                            <a
-                                href="/events"
+                            <button
+                                type="button"
+                                onClick={() => router.push('/events')}
                                 className="flex-1 bg-background-dark text-slate-400 px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest transition-all text-center border border-border-dark hover:text-white hover:bg-surface-dark"
                             >
                                 Cancel
-                            </a>
+                            </button>
                         </div>
                     </form>
                 </div>

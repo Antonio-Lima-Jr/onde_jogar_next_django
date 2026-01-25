@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import AuthModal from "../AuthModal";
 
 export default function TopNav() {
     const router = useRouter();
+    const pathname = usePathname();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -20,14 +21,6 @@ export default function TopNav() {
         router.push("/login");
         router.refresh();
     };
-
-    const handleProtectedAction = (e: React.MouseEvent, href: string) => {
-        if (!isLoggedIn) {
-            e.preventDefault();
-            setIsAuthModalOpen(true);
-        }
-    };
-
     return (
         <>
             <header className="flex items-center justify-between whitespace-nowrap border-b border-border-dark px-4 md:px-10 py-3 sticky top-0 bg-background-dark/90 backdrop-blur-xl z-50">
@@ -40,31 +33,28 @@ export default function TopNav() {
                     </Link>
                     <div className="hidden lg:flex items-center gap-9 font-display">
                         <Link
-                            className="text-white text-sm font-semibold border-b-2 border-primary pb-1"
+                            className={`text-sm font-semibold transition-colors hover:text-primary ${pathname === "/events"
+                                ? "text-white border-b-2 border-primary pb-1"
+                                : "text-slate-400"
+                                }`}
                             href="/events"
                         >
                             Explore
                         </Link>
                         <Link
-                            className="text-slate-400 text-sm font-medium hover:text-primary transition-colors"
-                            href="#"
-                            onClick={(e) => handleProtectedAction(e, "/my-events")}
+                            className={`text-sm font-semibold transition-colors hover:text-primary ${pathname === "/events/create"
+                                ? "text-white border-b-2 border-primary pb-1"
+                                : "text-slate-400"
+                                }`}
+                            href="/events/create"
+                            onClick={(e) => {
+                                if (!isLoggedIn) {
+                                    e.preventDefault();
+                                    setIsAuthModalOpen(true);
+                                }
+                            }}
                         >
-                            My Events
-                        </Link>
-                        <Link
-                            className="text-slate-400 text-sm font-medium hover:text-primary transition-colors"
-                            href="#"
-                            onClick={(e) => handleProtectedAction(e, "/groups")}
-                        >
-                            Groups
-                        </Link>
-                        <Link
-                            className="text-slate-400 text-sm font-medium hover:text-primary transition-colors"
-                            href="#"
-                            onClick={(e) => handleProtectedAction(e, "/venues")}
-                        >
-                            Venues
+                            Create Event
                         </Link>
                     </div>
                 </div>
@@ -136,7 +126,7 @@ export default function TopNav() {
                 isOpen={isAuthModalOpen}
                 onClose={() => setIsAuthModalOpen(false)}
                 title="Account Required"
-                message="Please login or sign up to access My Events, Groups, and other features."
+                message="Please login or sign up to access all features."
             />
         </>
     );
