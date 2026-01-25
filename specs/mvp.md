@@ -193,12 +193,12 @@ Now the most important part: **execution order**.
 
 ### 🧱 Phase 3 — Domain (Day 3)
 
-- [ ]  Create models:
+- [x]  Create models:
   - User
   - Event
   - Participation
-- [ ]  Run migrations
-- [ ]  Admin configured
+- [x]  Run migrations
+- [x]  Admin configured
 
 👉 Still no frontend.
 
@@ -206,9 +206,9 @@ Now the most important part: **execution order**.
 
 ### 🧱 Phase 4 — API (Day 4)
 
-- [ ]  Event endpoints
-- [ ]  Participation endpoints
-- [ ]  Auth protecting actions
+- [x]  Event endpoints
+- [x]  Participation endpoints
+- [x]  Auth protecting actions
 
 👉 Full API.
 
