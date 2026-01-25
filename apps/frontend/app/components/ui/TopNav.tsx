@@ -4,19 +4,23 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import AuthModal from "../AuthModal";
+import { useAuth } from "@/lib/auth-context";
 
 export default function TopNav() {
     const router = useRouter();
     const pathname = usePathname();
+    const { auth, ready, clearAuth } = useAuth();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
     useEffect(() => {
-        setIsLoggedIn(!!localStorage.getItem("token"));
-    }, []);
+        if (ready) {
+            setIsLoggedIn(!!auth.token);
+        }
+    }, [ready, auth.token]);
 
     const handleLogout = () => {
-        localStorage.clear();
+        clearAuth();
         setIsLoggedIn(false);
         router.push("/login");
         router.refresh();
@@ -99,11 +103,11 @@ export default function TopNav() {
                                     Logout
                                 </button>
                                 <Link
-                                    href={`/profile/${localStorage.getItem('user_id')}`}
+                                    href={`/profile/${auth.userId}`}
                                     className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary shadow-[0_0_10px_rgba(13,242,13,0.3)] bg-slate-800 transition-transform hover:scale-110 active:scale-95 overflow-hidden"
                                 >
                                     <img
-                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${localStorage.getItem('username') || 'user'}`}
+                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${auth.username || 'user'}`}
                                         alt="Profile"
                                         className="w-full h-full"
                                     />

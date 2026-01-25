@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import TopNav from "@/app/components/ui/TopNav";
 import Footer from "@/app/components/ui/Footer";
 import { fetchUser, updateProfile } from "@/lib/api";
+import { useRequireAuth } from "@/lib/use-require-auth";
+import { useAuth } from "@/lib/auth-context";
 
 export default function EditProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     const router = useRouter();
+    const { auth, ready } = useRequireAuth();
+    const { clearAuth } = useAuth();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
@@ -21,8 +25,7 @@ export default function EditProfilePage({ params }: { params: Promise<{ id: stri
     const [newSport, setNewSport] = useState("");
 
     useEffect(() => {
-        const loggedInUserId = localStorage.getItem("user_id");
-        if (loggedInUserId !== id) {
+        if (ready && auth.userId && auth.userId.toString() !== id) {
             router.push(`/profile/${id}`);
             return;
         }
@@ -44,16 +47,17 @@ export default function EditProfilePage({ params }: { params: Promise<{ id: stri
             }
         };
 
-        loadUser();
-    }, [id, router]);
+        if (ready) {
+            loadUser();
+        }
+    }, [id, router, ready, auth.userId]);
 
     const handleSave = async () => {
         setError("");
         setSaving(true);
         try {
-            const token = localStorage.getItem("token");
-            if (!token) throw new Error("Authentication required. Please login again.");
-            await updateProfile(id, formData, token);
+            if (!auth.token) throw new Error("Authentication required. Please login again.");
+            await updateProfile(id, formData, auth.token);
             router.push(`/profile/${id}`);
         } catch (err: any) {
             setError(err.message || "Failed to update profile");
@@ -115,7 +119,7 @@ export default function EditProfilePage({ params }: { params: Promise<{ id: stri
                             </button>
                             <button
                                 onClick={() => {
-                                    localStorage.clear();
+                                    clearAuth();
                                     router.push("/login");
                                 }}
                                 className="flex items-center gap-3 px-4 py-3 text-[#6e8a60] hover:text-red-400 hover:bg-surface-dark rounded-xl font-medium transition-colors mt-8 text-left"

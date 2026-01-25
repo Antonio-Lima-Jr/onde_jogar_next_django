@@ -2,14 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import AuthModal from '@/app/components/AuthModal';
+import { useAuth } from '@/lib/auth-context';
 
 export default function SidebarActions() {
+    const { auth, ready } = useAuth();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
     useEffect(() => {
-        setIsLoggedIn(!!localStorage.getItem('token'));
-    }, []);
+        if (ready) {
+            setIsLoggedIn(!!auth.token);
+        }
+    }, [ready, auth.token]);
 
     const handleProtectedClick = () => {
         if (!isLoggedIn) {

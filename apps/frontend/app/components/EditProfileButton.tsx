@@ -2,20 +2,23 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/lib/auth-context";
 
 interface EditProfileButtonProps {
     profileId: string;
 }
 
 export default function EditProfileButton({ profileId }: EditProfileButtonProps) {
+    const { auth, ready } = useAuth();
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
-        const loggedInUserId = localStorage.getItem("user_id");
-        if (loggedInUserId === profileId) {
+        if (ready && auth.userId && auth.userId.toString() === profileId) {
             setIsOwner(true);
+        } else {
+            setIsOwner(false);
         }
-    }, [profileId]);
+    }, [profileId, ready, auth.userId]);
 
     if (!isOwner) return null;
 

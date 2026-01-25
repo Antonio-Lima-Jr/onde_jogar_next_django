@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { joinEvent, leaveEvent } from '@/lib/api';
 import { Event } from '@/types/event';
 import AuthModal from './AuthModal';
+import { useAuth } from '@/lib/auth-context';
 
 interface EventCardProps {
     event: Event;
@@ -47,14 +48,8 @@ function formatDate(dateString: string) {
 export default function EventCard({ event }: EventCardProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [userId, setUserId] = useState<string | null>(null);
-    const [token, setToken] = useState<string | null>(null);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-
-    useEffect(() => {
-        setToken(localStorage.getItem('token'));
-        setUserId(localStorage.getItem('user_id'));
-    }, []);
+    const { auth } = useAuth();
 
     const sportStyle = getSportIcon(event.title);
     const { time, day } = formatDate(event.date);
@@ -64,14 +59,14 @@ export default function EventCard({ event }: EventCardProps) {
 
     // Check if user is joined either from server data or by checking the participations list with client-side userId
     const isJoined = event.is_authenticated_user_joined ||
-        (userId && event.participations?.some(p => p.user.id.toString() === userId));
+        (auth.userId && event.participations?.some(p => p.user.id === auth.userId));
 
 
     const handleAction = async (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
 
-        if (!token) {
+        if (!auth.token) {
             setIsAuthModalOpen(true);
             return;
         }
@@ -79,9 +74,9 @@ export default function EventCard({ event }: EventCardProps) {
         setLoading(true);
         try {
             if (isJoined) {
-                await leaveEvent(event.id, token);
+                await leaveEvent(event.id, auth.token);
             } else {
-                await joinEvent(event.id, token);
+                await joinEvent(event.id, auth.token);
             }
             router.refresh();
         } catch (error: any) {

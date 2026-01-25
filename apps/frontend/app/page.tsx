@@ -1,16 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AuthModal from './components/AuthModal';
+import { useAuth } from '@/lib/auth-context';
 
 export default function LandingPage() {
+  const { auth, ready } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem('token'));
-  }, []);
+    if (ready) {
+      setIsLoggedIn(!!auth.token);
+    }
+  }, [ready, auth.token]);
 
   const handleCreateEventClick = (e: React.MouseEvent) => {
     if (!isLoggedIn) {

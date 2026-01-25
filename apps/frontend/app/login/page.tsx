@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { login } from '@/lib/api';
+import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
 
 export default function LoginPage() {
@@ -10,6 +11,7 @@ export default function LoginPage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { setAuth } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,11 +20,12 @@ export default function LoginPage() {
 
         try {
             const data = await login(formData);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user_id', data.user_id.toString());
-            localStorage.setItem('user_email', data.email);
-            localStorage.setItem('username', data.username);
-
+            setAuth({
+                token: data.token,
+                userId: data.user_id,
+                email: data.email,
+                username: data.username,
+            });
 
             router.push('/events');
             router.refresh();

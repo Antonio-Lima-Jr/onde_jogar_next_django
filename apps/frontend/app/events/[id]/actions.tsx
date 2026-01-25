@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { joinEvent, leaveEvent } from "@/lib/api";
 import AuthModal from "@/app/components/AuthModal";
+import { useAuth } from "@/lib/auth-context";
 
 interface EventActionsProps {
     eventId: number;
@@ -13,32 +14,22 @@ interface EventActionsProps {
 export default function EventActions({ eventId, initialParticipations }: EventActionsProps) {
     const [participations, setParticipations] = useState<number[]>(initialParticipations);
     const [loading, setLoading] = useState(false);
-    const [userId, setUserId] = useState<number | null>(null);
-    const [token, setToken] = useState<string | null>(null);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const router = useRouter();
+    const { auth } = useAuth();
 
-    useEffect(() => {
-        // Retrieve auth info from localStorage on mount
-        const storedUserId = localStorage.getItem("user_id");
-        const storedToken = localStorage.getItem("token");
-
-        if (storedUserId) setUserId(parseInt(storedUserId));
-        if (storedToken) setToken(storedToken);
-    }, []);
-
-    const isJoined = userId ? participations.includes(userId) : false;
+    const isJoined = auth.userId ? participations.includes(auth.userId) : false;
 
     const handleJoin = async () => {
-        if (!token || !userId) {
+        if (!auth.token || !auth.userId) {
             setIsAuthModalOpen(true);
             return;
         }
 
         setLoading(true);
         try {
-            await joinEvent(eventId, token);
-            setParticipations([...participations, userId]);
+            await joinEvent(eventId, auth.token);
+            setParticipations([...participations, auth.userId]);
             router.refresh();
         } catch (error: any) {
             console.error(error);
@@ -49,12 +40,12 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
     };
 
     const handleLeave = async () => {
-        if (!token || !userId) return;
+        if (!auth.token || !auth.userId) return;
 
         setLoading(true);
         try {
-            await leaveEvent(eventId, token);
-            setParticipations(participations.filter(id => id !== userId));
+            await leaveEvent(eventId, auth.token);
+            setParticipations(participations.filter(id => id !== auth.userId));
             router.refresh();
         } catch (error: any) {
             console.error(error);
@@ -84,7 +75,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
                 </button>
             )}
             <button
-                onClick={() => !token && setIsAuthModalOpen(true)}
+                onClick={() => !auth.token && setIsAuthModalOpen(true)}
                 className="flex items-center justify-center rounded-full h-16 w-16 bg-surface-dark border border-border-dark hover:border-red-500/50 hover:text-red-500 transition-colors group"
             >
                 <span className="material-symbols-outlined text-[28px] group-hover:filled-icon">

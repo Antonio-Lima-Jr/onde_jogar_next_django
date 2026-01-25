@@ -2,26 +2,18 @@
 
 import TopNav from '@/app/components/ui/TopNav';
 import { createEvent } from '@/lib/api';
+import { useRequireAuth } from '@/lib/use-require-auth';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function CreateEventPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [token, setToken] = useState<string | null>(null);
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (!storedToken) {
-            router.push('/login');
-            return;
-        }
-        setToken(storedToken);
-    }, [router]);
+    const { auth } = useRequireAuth();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!token) return;
+        if (!auth.token) return;
 
         setLoading(true);
         const formData = new FormData(e.currentTarget);
@@ -38,7 +30,7 @@ export default function CreateEventPage() {
         };
 
         try {
-            await createEvent(data, token);
+            await createEvent(data, auth.token);
             router.push('/events');
             router.refresh();
         } catch (error: any) {

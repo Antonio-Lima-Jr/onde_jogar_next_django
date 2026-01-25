@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { register } from '@/lib/api';
+import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
 
 export default function RegisterPage() {
@@ -10,6 +11,7 @@ export default function RegisterPage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { setAuth } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,9 +20,12 @@ export default function RegisterPage() {
 
         try {
             const data = await register(formData);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user_id', data.user.id.toString());
-            localStorage.setItem('user_email', data.user.email);
+            setAuth({
+                token: data.token,
+                userId: data.user.id,
+                email: data.user.email,
+                username: data.user.username,
+            });
 
             router.push('/events');
             router.refresh();
