@@ -5,6 +5,7 @@ import { Event } from "@/types/event";
 import Link from "next/link";
 import EventCard from "@/app/components/EventCard";
 import EditProfileButton from "@/app/components/EditProfileButton";
+import FollowProfileButton from "@/app/components/FollowProfileButton";
 import AddSportButton from "@/app/components/AddSportButton";
 
 
@@ -92,9 +93,7 @@ export default async function ProfilePage({
                         </div>
 
                         <div className="flex flex-row md:flex-col gap-3 w-full md:w-auto">
-                            <button className="flex-1 md:flex-none min-w-[140px] cursor-pointer items-center justify-center rounded-full h-12 px-8 bg-primary text-[color:var(--color-on-primary)] text-base font-black transition-all hover:brightness-105 active:scale-95 shadow-lg shadow-primary/20">
-                                FOLLOW
-                            </button>
+                            <FollowProfileButton profileId={id} />
                             <EditProfileButton profileId={id} />
                         </div>
                     </div>
