@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16
+    image: postgis/postgis:16-3.4
     container_name: onde-jogar-db
     environment:
       POSTGRES_DB: postgres
@@ -10,6 +10,24 @@ services:
       - "5432:5432"
     volumes:
       - .pgdata:/var/lib/postgresql/data
+  backend:
+    build:
+      context: ..
+      dockerfile: apps/backend/Dockerfile.dev
+    container_name: onde-jogar-backend
+    working_dir: /app/apps/backend
+    command: sleep infinity
+    env_file:
+      - ../apps/backend/.env
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      - db
+    ports:
+      - "8971:8971"
+    volumes:
+      - ..:/app
 
 volumes:
   .pgdata:

@@ -155,7 +155,8 @@ export default function LandingPage() {
               {[
                 {
                   title: 'Friday Night 5-a-side',
-                  location: 'PowerLeague Shoreditch',
+                  latitude: 51.5246,
+                  longitude: -0.0793,
                   time: '8:00 PM Tonight',
                   price: '$8.00',
                   tag: 'Soccer',
@@ -164,7 +165,8 @@ export default function LandingPage() {
                 },
                 {
                   title: 'Advanced Mixed Doubles',
-                  location: "Regent's Park Tennis",
+                  latitude: 51.5313,
+                  longitude: -0.1569,
                   time: '10:00 AM Sat',
                   price: 'FREE',
                   tag: 'Tennis',
@@ -173,7 +175,8 @@ export default function LandingPage() {
                 },
                 {
                   title: 'City Run Club',
-                  location: 'Central London',
+                  latitude: 51.5074,
+                  longitude: -0.1278,
                   time: '7:30 AM Daily',
                   price: 'FREE',
                   tag: 'Running',
@@ -198,7 +201,7 @@ export default function LandingPage() {
                     <h3 className="text-xl font-bold text-[color:var(--color-heading)] transition-colors group-hover:text-primary">{event.title}</h3>
                     <div className="flex items-center gap-2 text-sm text-[color:var(--color-muted)]">
                       <span className="material-symbols-outlined text-[18px]">location_on</span>
-                      {event.location}
+                      {`${event.latitude.toFixed(4)}, ${event.longitude.toFixed(4)}`}
                     </div>
                     <div className="flex items-center justify-between border-t border-[color:var(--color-border)] pt-4">
                       <div className="flex -space-x-2">

@@ -119,7 +119,11 @@ export default function EventCard({ event }: EventCardProps) {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-[color:var(--color-muted)]">
                     <span className="material-symbols-outlined text-lg text-primary">location_on</span>
-                    <span className="truncate">{event.location}</span>
+                    <span className="truncate">
+                        {event.latitude != null && event.longitude != null
+                            ? `${event.latitude.toFixed(4)}, ${event.longitude.toFixed(4)}`
+                            : 'No location'}
+                    </span>
                 </div>
                 <div className="flex items-center justify-between mt-2 pt-4 border-t border-[color:var(--color-border)]">
                     <div className="flex flex-col gap-1 w-1/2">

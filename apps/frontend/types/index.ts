@@ -9,7 +9,9 @@ export interface Event {
     title: string;
     description: string;
     date: string;
-    location: string;
+    location?: { type: "Point"; coordinates: [number, number] } | null;
+    latitude?: number | null;
+    longitude?: number | null;
     sport_type: string;
     skill_level: string;
     slots: number;

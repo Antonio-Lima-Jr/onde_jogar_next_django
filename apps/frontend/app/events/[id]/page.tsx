@@ -212,9 +212,15 @@ export default async function EventDetailPage({
                                         <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">
                                             Venue
                                         </p>
-                                        <p className="font-bold text-lg leading-tight">{event.location}</p>
+                                        <p className="font-bold text-lg leading-tight">
+                                            {event.latitude != null && event.longitude != null
+                                                ? `${event.latitude.toFixed(4)}, ${event.longitude.toFixed(4)}`
+                                                : 'No location'}
+                                        </p>
                                         <p className="text-sm text-slate-400 mb-6">
-                                            {event.location}
+                                            {event.latitude != null && event.longitude != null
+                                                ? `${event.latitude.toFixed(4)}, ${event.longitude.toFixed(4)}`
+                                                : 'No location'}
                                         </p>
                                         <div className="w-full aspect-[4/3] rounded-2xl relative overflow-hidden bg-black border border-border-dark group cursor-pointer">
                                             <div

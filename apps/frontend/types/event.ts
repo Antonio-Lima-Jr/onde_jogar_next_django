@@ -16,7 +16,9 @@ export interface Event {
     title: string;
     description: string;
     date: string;
-    location: string;
+    location?: { type: "Point"; coordinates: [number, number] } | null;
+    latitude?: number | null;
+    longitude?: number | null;
     slots: number;
     created_by: User;
     created_at: string;
@@ -25,4 +27,3 @@ export interface Event {
     is_authenticated_user_joined?: boolean;
     participations?: Participation[];
 }
-

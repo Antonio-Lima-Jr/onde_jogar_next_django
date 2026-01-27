@@ -25,7 +25,6 @@ export default function CreateEventPage() {
             title: formData.get('title'),
             description: formData.get('description'),
             date: isoDate,
-            location: formData.get('location'),
             slots: parseInt(formData.get('slots') as string),
         };
 
@@ -113,18 +112,6 @@ export default function CreateEventPage() {
                                 placeholder="e.g., 10"
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor="location" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Venue/Location</label>
-                        <input
-                            type="text"
-                            id="location"
-                            name="location"
-                            required
-                            className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none"
-                            placeholder="e.g., Downtown Courts, Main St."
-                        />
                     </div>
 
                     <div className="pt-2">

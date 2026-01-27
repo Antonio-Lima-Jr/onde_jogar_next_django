@@ -4,7 +4,7 @@ from .models import Event, Participation
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'location', 'slots', 'created_by')
-    search_fields = ('title', 'location')
+    search_fields = ('title',)
     list_filter = ('date',)
 
 @admin.register(Participation)

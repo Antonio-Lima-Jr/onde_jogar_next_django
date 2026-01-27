@@ -32,6 +32,12 @@ def run_command(command: str, cwd: str = "."):
 
 # --- Backend Commands ---
 
+def backend_exec(command: str):
+    """Executa um comando dentro do container backend."""
+    db_up()
+    # -T avoids TTY issues when piping output in non-interactive contexts.
+    run_command(f"docker compose exec -T backend sh -lc \"{command}\"", cwd="infra")
+
 
 @backend_app.command("db-up")
 def db_up():
@@ -48,9 +54,7 @@ def db_down():
 @backend_app.command("run")
 def backend_run():
     """Inicia o servidor de desenvolvimento do Django."""
-    # Garante que o banco está rodando antes
-    db_up()
-    run_command("python manage.py runserver 8971", cwd="apps/backend")
+    backend_exec("python manage.py runserver 0.0.0.0:8971")
 
 
 @backend_app.command("makemigrations")
@@ -59,19 +63,19 @@ def makemigrations(name: Optional[str] = typer.Option(None, help="Nome da migrat
     cmd = "python manage.py makemigrations"
     if name:
         cmd += f" --name {name}"
-    run_command(cmd, cwd="apps/backend")
+    backend_exec(cmd)
 
 
 @backend_app.command("migrate")
 def migrate():
     """Aplica as migrations no banco de dados."""
-    run_command("python manage.py migrate", cwd="apps/backend")
+    backend_exec("python manage.py migrate")
 
 
 @backend_app.command("create-app")
 def create_app(name: str = typer.Argument(..., help="Nome do novo app")):
     """Cria um novo app Django dentro da pasta apps/backend."""
-    run_command(f"python manage.py startapp {name}", cwd="apps/backend")
+    backend_exec(f"python manage.py startapp {name}")
 
 
 # --- Frontend Commands ---
