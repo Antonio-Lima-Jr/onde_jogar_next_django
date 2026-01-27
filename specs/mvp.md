@@ -2,6 +2,11 @@
 
 **Allow users to create public sports events and allow other people to find and participate in these events.**
 
+Agora o MVP também é **location-aware**:
+- eventos podem ter localização
+- explore inclui mapa e filtros geográficos
+- eventos podem declarar skills necessárias e opcionais
+
 Nothing beyond that.
 
 ---
@@ -106,11 +111,18 @@ I will split it into **6 blocks**, from the most structural to the most visible.
 - Validate basic data:
   - future date
   - slots > 0
+- Add event location:
+  - latitude/longitude + city
+  - selection via map during creation
+- Add event skills:
+  - required skills
+  - optional skills
 
 📌 **Done criteria**
 
 - Event appears in the list
 - Event has its own page
+- Event can be created with location via map
 
 ---
 
@@ -155,11 +167,14 @@ I will split it into **6 blocks**, from the most structural to the most visible.
 - Public event page
 - Public profile page
 - Server-side rendering
+- Map view on explore
+- Geographic filters on explore
 
 📌 **Done criteria**
 
 - Logged-out user can see events
 - URLs are shareable
+- Explore supports map + geographic filters
 
 ---
 

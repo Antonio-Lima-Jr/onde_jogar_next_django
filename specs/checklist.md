@@ -23,6 +23,11 @@
 - [ ] `/events/[id]` visível para anônimos.
 - [ ] `/profile/[id]` visível para anônimos.
 - [ ] SEO/SSR mantidos para páginas públicas.
+- [ ] Explore mostra eventos em mapa.
+- [ ] Botão “usar minha localização” funciona.
+- [ ] Filtro por distância só aparece quando localização estiver ativa.
+- [ ] Geolocalização é opt-in (não obrigatória).
+- [ ] Filtros avançam progressivamente (não exigir tudo de uma vez).
 
 ## 5) Infra e CLI (infra/, scripts/)
 - [ ] CLI intacto (sem regressões).
@@ -33,7 +38,5 @@
 - [ ] Páginas públicas continuam acessíveis.
 - [ ] UX não expõe ações inválidas.
 - [ ] Nada fora do escopo do MVP é adicionado.
-
-## 7) Melhorias sugeridas (não implementadas)
-- [ ] Frontend com tratamento explícito de 403 (mensagem simples).
-- [ ] Testes de permissão para update profile, update/delete event e leave.
+- [ ] Evento pode ser criado com localização no mapa.
+- [ ] Evento suporta skills necessárias e opcionais.
