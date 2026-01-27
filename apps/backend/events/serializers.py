@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Event, Participation
 from users.serializers import UserSafeSerializer
-from django.contrib.gis.geos import Point
+from .services import EventService, LocationService
 
 class ParticipationSerializer(serializers.ModelSerializer):
     user = UserSafeSerializer(read_only=True)
@@ -16,50 +16,47 @@ class EventSerializer(serializers.ModelSerializer):
     is_authenticated_user_joined = serializers.SerializerMethodField()
     participants_count = serializers.SerializerMethodField()
     participations = ParticipationSerializer(many=True, read_only=True)
-    latitude = serializers.FloatField(required=False, allow_null=True)
-    longitude = serializers.FloatField(required=False, allow_null=True)
+    latitude = serializers.FloatField(required=False)
+    longitude = serializers.FloatField(required=False)
 
 
     class Meta:
         model = Event
         fields = (
-            'id', 'title', 'description', 'date', 'location',
+            'id', 'title', 'description', 'date', 'city', 'location',
             'latitude', 'longitude',
             'created_by', 'slots', 'created_at', 'updated_at',
             'is_authenticated_user_joined', 'participants_count',
             'participations'
         )
         read_only_fields = ('created_at', 'updated_at', 'created_by')
+        extra_kwargs = {
+            'location': {'required': False},
+        }
 
-    def _coerce_point(self, validated_data):
-        has_lat = 'latitude' in self.initial_data
-        has_lon = 'longitude' in self.initial_data
-        if not (has_lat or has_lon):
-            return None, False
+    def validate(self, attrs):
+        require_coordinates = self.instance is None
+        point, has_coords_input = LocationService.coerce_point(
+            initial_data=self.initial_data,
+            attrs=attrs,
+            require_coordinates=require_coordinates,
+        )
 
-        lat = validated_data.pop('latitude', None)
-        lon = validated_data.pop('longitude', None)
+        if has_coords_input:
+            attrs['location'] = point
 
-        if lat is None and lon is None:
-            return None, True
-        if lat is None or lon is None:
-            raise serializers.ValidationError("Both latitude and longitude are required.")
-        if not (-90 <= lat <= 90):
-            raise serializers.ValidationError("Latitude must be between -90 and 90.")
-        if not (-180 <= lon <= 180):
-            raise serializers.ValidationError("Longitude must be between -180 and 180.")
-        return Point(lon, lat, srid=4326), True
+        if 'city' in attrs:
+            attrs['city'] = LocationService.normalize_city(attrs.get('city'))
+
+        return attrs
 
     def create(self, validated_data):
-        point, has_coords = self._coerce_point(validated_data)
-        if has_coords:
-            validated_data['location'] = point
-        return super().create(validated_data)
+        created_by = validated_data.pop('created_by')
+        return EventService.create_event(created_by, validated_data)
 
     def update(self, instance, validated_data):
-        point, has_coords = self._coerce_point(validated_data)
-        if has_coords:
-            validated_data['location'] = point
+        if 'city' in validated_data:
+            validated_data['city'] = LocationService.normalize_city(validated_data.get('city'))
         return super().update(instance, validated_data)
 
     def to_representation(self, instance):
@@ -68,8 +65,9 @@ class EventSerializer(serializers.ModelSerializer):
         data['location'] = (
             {"type": "Point", "coordinates": [point.x, point.y]} if point else None
         )
-        data['latitude'] = point.y if point else None
-        data['longitude'] = point.x if point else None
+        lat, lng = LocationService.point_to_lat_lng(point)
+        data['latitude'] = lat
+        data['longitude'] = lng
         return data
 
     def get_is_authenticated_user_joined(self, obj):

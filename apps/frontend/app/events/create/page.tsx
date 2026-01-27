@@ -1,15 +1,53 @@
 'use client';
 
 import TopNav from '@/app/components/ui/TopNav';
+import EventMap from '@/app/components/Map';
 import { createEvent } from '@/lib/api';
 import { useRequireAuth } from '@/lib/use-require-auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+type CreateEventPayload = {
+    title: FormDataEntryValue | null;
+    description: FormDataEntryValue | null;
+    date: string | null;
+    slots: number;
+    latitude?: number;
+    longitude?: number;
+};
+
 export default function CreateEventPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [geoLoading, setGeoLoading] = useState(false);
+    const [latitude, setLatitude] = useState<number | null>(null);
+    const [longitude, setLongitude] = useState<number | null>(null);
     const { auth } = useRequireAuth();
+
+    const hasCoords = latitude !== null && longitude !== null;
+
+    const handleFindNearMe = () => {
+        if (!navigator.geolocation) {
+            alert('Geolocation is not supported by your browser.');
+            return;
+        }
+
+        setGeoLoading(true);
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude: lat, longitude: lng } = position.coords;
+                setLatitude(lat);
+                setLongitude(lng);
+                setGeoLoading(false);
+            },
+            (error) => {
+                console.error(error);
+                alert('Unable to fetch your location.');
+                setGeoLoading(false);
+            },
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,19 +59,25 @@ export default function CreateEventPage() {
         const dateValue = formData.get('date') as string;
         const isoDate = dateValue ? new Date(dateValue).toISOString() : null;
 
-        const data = {
+        const data: CreateEventPayload = {
             title: formData.get('title'),
             description: formData.get('description'),
             date: isoDate,
             slots: parseInt(formData.get('slots') as string),
         };
 
+        if (hasCoords) {
+            data.latitude = latitude;
+            data.longitude = longitude;
+        }
+
         try {
             await createEvent(data, auth.token);
             router.push('/events');
             router.refresh();
-        } catch (error: any) {
-            alert(error.message || 'Failed to create event');
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : 'Failed to create event';
+            alert(message);
         } finally {
             setLoading(false);
         }
@@ -86,6 +130,39 @@ export default function CreateEventPage() {
                             className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none resize-none"
                             placeholder="What players should know about the game..."
                         />
+                    </div>
+
+                    <div>
+                        <div className="flex justify-between items-end mb-2">
+                            <label className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-0 block">
+                                Location
+                            </label>
+                            <button
+                                type="button"
+                                onClick={handleFindNearMe}
+                                disabled={geoLoading}
+                                className="text-xs font-bold text-[color:var(--color-text)] hover:text-primary transition-colors disabled:opacity-60"
+                            >
+                                {geoLoading ? 'Locating...' : 'Find near me'}
+                            </button>
+                        </div>
+
+                        <div className="relative w-full h-64 rounded-xl overflow-hidden border border-[color:var(--color-border)]">
+                            <EventMap
+                                latitude={latitude}
+                                longitude={longitude}
+                                onSelectLocation={(lat, lng) => {
+                                    setLatitude(lat);
+                                    setLongitude(lng);
+                                }}
+                            />
+                        </div>
+
+                        <p className="mt-2 text-xs font-semibold text-[color:var(--color-muted)]">
+                            {hasCoords
+                                ? `Selected: ${latitude?.toFixed(6)}, ${longitude?.toFixed(6)}`
+                                : 'Click on the map to set the event location.'}
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

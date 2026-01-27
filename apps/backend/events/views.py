@@ -2,9 +2,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-from django.shortcuts import get_object_or_404
 from .models import Event, Participation
-from .serializers import EventSerializer, ParticipationSerializer
+from .serializers import EventSerializer
 
 from .services import EventService
 
@@ -23,8 +22,7 @@ class EventViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsEventCreatorOrReadOnly]
 
     def perform_create(self, serializer):
-        event = EventService.create_event(self.request.user, serializer.validated_data)
-        serializer.instance = event
+        serializer.save(created_by=self.request.user)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def join(self, request, pk=None):

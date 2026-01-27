@@ -34,7 +34,6 @@ def run_command(command: str, cwd: str = "."):
 
 def backend_exec(command: str):
     """Executa um comando dentro do container backend."""
-    db_up()
     # -T avoids TTY issues when piping output in non-interactive contexts.
     run_command(f"docker compose exec -T backend sh -lc \"{command}\"", cwd="infra")
 
