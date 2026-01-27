@@ -50,7 +50,7 @@ def backend_run():
     """Inicia o servidor de desenvolvimento do Django."""
     # Garante que o banco está rodando antes
     db_up()
-    run_command("python manage.py runserver", cwd="apps/backend")
+    run_command("python manage.py runserver 8971", cwd="apps/backend")
 
 
 @backend_app.command("makemigrations")

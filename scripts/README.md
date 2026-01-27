@@ -184,7 +184,7 @@ O CLI é construído com:
 
 - **Erro de dependências**: Certifique-se de ativar o ambiente virtual: `source .venv/bin/activate`
 - **Docker não encontrado**: Instale Docker e Docker Compose
-- **Portas ocupadas**: Verifique se as portas 8000 (Django) e 3000 (Next.js) estão livres
+- **Portas ocupadas**: Verifique se as portas 8971 (Django) e 3000 (Next.js) estão livres
 - **Permissões**: Execute `chmod +x scripts/setup.sh` se houver problemas com o script
 
 Para mais informações sobre o projeto, consulte o [README.md](../README.md) da raiz.</content>
