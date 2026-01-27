@@ -19,35 +19,11 @@ type CreateEventPayload = {
 export default function CreateEventPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [geoLoading, setGeoLoading] = useState(false);
     const [latitude, setLatitude] = useState<number | null>(null);
     const [longitude, setLongitude] = useState<number | null>(null);
     const { auth } = useRequireAuth();
 
     const hasCoords = latitude !== null && longitude !== null;
-
-    const handleFindNearMe = () => {
-        if (!navigator.geolocation) {
-            alert('Geolocation is not supported by your browser.');
-            return;
-        }
-
-        setGeoLoading(true);
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude: lat, longitude: lng } = position.coords;
-                setLatitude(lat);
-                setLongitude(lng);
-                setGeoLoading(false);
-            },
-            (error) => {
-                console.error(error);
-                alert('Unable to fetch your location.');
-                setGeoLoading(false);
-            },
-            { enableHighAccuracy: true, timeout: 10000 }
-        );
-    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -133,19 +109,9 @@ export default function CreateEventPage() {
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-end mb-2">
-                            <label className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-0 block">
-                                Location
-                            </label>
-                            <button
-                                type="button"
-                                onClick={handleFindNearMe}
-                                disabled={geoLoading}
-                                className="text-xs font-bold text-[color:var(--color-text)] hover:text-primary transition-colors disabled:opacity-60"
-                            >
-                                {geoLoading ? 'Locating...' : 'Find near me'}
-                            </button>
-                        </div>
+                        <label className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">
+                            Location
+                        </label>
 
                         <div className="relative w-full h-64 rounded-xl overflow-hidden border border-[color:var(--color-border)]">
                             <EventMap

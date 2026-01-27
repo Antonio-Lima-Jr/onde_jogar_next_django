@@ -1,5 +1,6 @@
 import TopNav from '../components/ui/TopNav';
 import EventCard from '../components/EventCard';
+import EventsMapPanel from '../components/EventsMapPanel';
 import { fetchEvents } from '@/lib/api';
 import { Event } from '@/types/event';
 
@@ -62,62 +63,7 @@ export default async function EventsPage() {
 
                 {/* Right Section - Map */}
                 <div className="flex-1 relative bg-[color:var(--color-background)]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--color-surface)] to-[color:var(--color-background)] opacity-60"></div>
-                    <div className="relative w-full h-full flex items-center justify-center">
-                        {/* Map Search */}
-                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-[320px] shadow-2xl z-10">
-                            <div className="flex w-full items-stretch rounded-full h-12 bg-[color:var(--color-surface)] px-2 border border-[color:var(--color-border)]">
-                                <div className="text-primary flex items-center justify-center pl-3">
-                                    <span className="material-symbols-outlined">near_me</span>
-                                </div>
-                                <input
-                                    className="form-input flex w-full border-none bg-transparent focus:ring-0 h-full text-sm font-medium text-[color:var(--color-text)] placeholder-[color:var(--color-muted)]"
-                                    placeholder="Search this area..."
-                                />
-                            </div>
-                        </div>
-
-                        {/* Map Placeholder */}
-                        <div className="text-center text-[color:var(--color-muted)]">
-                            <span className="material-symbols-outlined text-6xl mb-4 block">map</span>
-                            <p className="text-lg font-semibold text-[color:var(--color-text)]">Map View</p>
-                            <p className="text-sm">Coming soon</p>
-                        </div>
-
-                        {/* Map Controls */}
-                        <div className="absolute bottom-10 right-10 flex flex-col gap-3">
-                            <div className="flex flex-col bg-[color:var(--color-surface)] rounded-full shadow-2xl border border-[color:var(--color-border)] overflow-hidden">
-                                <button className="p-3 hover:bg-[color:var(--color-border)] transition-colors border-b border-[color:var(--color-border)]">
-                                    <span className="material-symbols-outlined text-[color:var(--color-text)]">add</span>
-                                </button>
-                                <button className="p-3 hover:bg-[color:var(--color-border)] transition-colors">
-                                    <span className="material-symbols-outlined text-[color:var(--color-text)]">remove</span>
-                                </button>
-                            </div>
-                            <button className="size-12 bg-[color:var(--color-surface)] rounded-full shadow-2xl border border-[color:var(--color-border)] flex items-center justify-center hover:bg-[color:var(--color-border)] transition-colors">
-                                <span className="material-symbols-outlined text-primary">my_location</span>
-                            </button>
-                        </div>
-
-                        {/* Map Legend */}
-                        <div className="absolute bottom-10 left-10 bg-[color:var(--color-surface)]/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-2xl border border-[color:var(--color-border)]">
-                            <p className="text-[10px] font-bold text-[color:var(--color-muted)] uppercase tracking-widest mb-2">Map Legend</p>
-                            <div className="flex gap-4">
-                                <div className="flex items-center gap-2">
-                                    <span className="size-2 rounded-full bg-orange-500 shadow-[0_0_5px_rgba(249,115,22,0.5)]"></span>
-                                    <span className="text-xs font-medium text-[color:var(--color-text)]">Ball Sports</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="size-2 rounded-full bg-blue-500 shadow-[0_0_5px_rgba(59,130,246,0.5)]"></span>
-                                    <span className="text-xs font-medium text-[color:var(--color-text)]">Racket</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="size-2 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]"></span>
-                                    <span className="text-xs font-medium text-[color:var(--color-text)]">Fitness</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <EventsMapPanel events={events} />
                 </div>
             </main>
         </div>
