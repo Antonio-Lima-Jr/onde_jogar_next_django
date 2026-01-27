@@ -5,6 +5,7 @@ import DiscussionSection from "./discussion";
 import SidebarActions from "./sidebar_actions";
 import Link from "next/link";
 import { fetchEvent } from "@/lib/api";
+import EventMap from "@/app/components/Map";
 
 interface Participation {
     id: number;
@@ -22,6 +23,8 @@ interface EventData {
     description: string;
     date: string;
     location: string;
+    latitude?: number | null;
+    longitude?: number | null;
     created_by: {
         id: number;
         username: string;
@@ -222,31 +225,18 @@ export default async function EventDetailPage({
                                                 ? `${event.latitude.toFixed(4)}, ${event.longitude.toFixed(4)}`
                                                 : 'No location'}
                                         </p>
-                                        <div className="w-full aspect-[4/3] rounded-2xl relative overflow-hidden bg-black border border-border-dark group cursor-pointer">
-                                            <div
-                                                className="absolute inset-0 opacity-40 mix-blend-screen grayscale brightness-75 contrast-125 transition-transform duration-700 group-hover:scale-110"
-                                                style={{
-                                                    backgroundImage:
-                                                        'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDml0zGxmWpsYHv58JqKcrr8OPwX5PJhy8tkQ7l8oJicklSrY4pVnqDDbJEKnLidtA_Psc_nnqNuW8T1l88se0_v2-JfH-M6QtwfqpsxHOA_cb_THMMTWGw44GRFBhzyJF_BywJkaOWcHuwUJCT31nLpoa3xOQGRV7Y38zzKbGjXtyUbLfDA-fpwx0FzM1fvDU_07p9j2FNVTJxNdlaCUklO86lOBUwLP9YwVtfgupdLwr3iw2RPPlp0H247wbrKwgDEY25InpRsos")',
-                                                    backgroundSize: "cover",
-                                                    backgroundPosition: "center",
-                                                }}
-                                            ></div>
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="relative">
-                                                    <span className="material-symbols-outlined text-primary text-5xl animate-bounce drop-shadow-[0_0_15px_rgba(13,242,13,0.8)]">
-                                                        location_on
-                                                    </span>
-                                                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-1.5 bg-black/60 blur-sm rounded-full"></div>
+                                        <div className="w-full aspect-[4/3] rounded-2xl relative overflow-hidden bg-black border border-border-dark">
+                                            {event.latitude != null && event.longitude != null ? (
+                                                <EventMap
+                                                    latitude={event.latitude}
+                                                    longitude={event.longitude}
+                                                    showControls={false}
+                                                />
+                                            ) : (
+                                                <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-slate-400">
+                                                    No coordinates available
                                                 </div>
-                                            </div>
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                            <button className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 bg-primary/90 text-black border border-primary/20 rounded-full text-[11px] font-black uppercase tracking-wider flex items-center gap-2 backdrop-blur-sm hover:bg-primary transition-all">
-                                                Open in Maps{" "}
-                                                <span className="material-symbols-outlined text-[16px]">
-                                                    open_in_new
-                                                </span>
-                                            </button>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

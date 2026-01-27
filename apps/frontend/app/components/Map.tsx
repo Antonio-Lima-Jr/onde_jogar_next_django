@@ -17,12 +17,14 @@ type EventMapProps = {
   latitude?: number | null;
   longitude?: number | null;
   onSelectLocation?: (lat: number, lng: number) => void;
+  showControls?: boolean;
 };
 
 export default function EventMap({
   latitude,
   longitude,
   onSelectLocation,
+  showControls = true,
 }: EventMapProps) {
   const mapRef = useRef<MapRef | null>(null);
   const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -116,13 +118,15 @@ export default function EventMap({
         ) : null}
       </Map>
 
-      <div className="pointer-events-auto absolute bottom-4 right-4 z-10">
-        <MapControls
-          onZoomIn={handleZoomIn}
-          onZoomOut={handleZoomOut}
-          onMyLocation={handleMyLocation}
-        />
-      </div>
+      {showControls ? (
+        <div className="pointer-events-auto absolute bottom-4 right-4 z-10">
+          <MapControls
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onMyLocation={handleMyLocation}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
