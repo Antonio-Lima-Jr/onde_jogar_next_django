@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { AuthSnapshot, AuthStorage } from "./auth-storage";
+import { refreshAccess } from "./api";
 
 type AuthContextValue = {
     auth: AuthSnapshot;
@@ -22,8 +23,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
-        setAuthState(AuthStorage.getAuth());
-        setReady(true);
+        const stored = AuthStorage.getAuth();
+        setAuthState(stored);
+        const hydrate = async () => {
+            try {
+                const data = await refreshAccess();
+                setAuthState({
+                    ...stored,
+                    token: data.access,
+                });
+            } catch (error) {
+                // ignore refresh errors
+            } finally {
+                setReady(true);
+            }
+        };
+        hydrate();
     }, []);
 
     const setAuth = (snapshot: AuthSnapshot) => {

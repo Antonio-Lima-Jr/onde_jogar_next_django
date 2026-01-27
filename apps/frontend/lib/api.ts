@@ -5,7 +5,7 @@ function getHeaders(token?: string) {
         'Content-Type': 'application/json',
     };
     if (token) {
-        headers['Authorization'] = `Token ${token}`;
+        headers['Authorization'] = `Bearer ${token}`;
     }
     return headers;
 }
@@ -74,7 +74,7 @@ export async function createEvent(data: any, token: string): Promise<any> {
 }
 
 export async function login(data: any): Promise<any> {
-    const response = await fetch(`${API_BASE_URL}/api/users/login/`, {
+    const response = await fetch(`/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -87,7 +87,7 @@ export async function login(data: any): Promise<any> {
 }
 
 export async function register(data: any): Promise<any> {
-    const response = await fetch(`${API_BASE_URL}/api/users/register/`, {
+    const response = await fetch(`/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -97,6 +97,25 @@ export async function register(data: any): Promise<any> {
         throw new Error(Object.values(errorData)[0] as string || 'Registration failed');
     }
     return response.json();
+}
+
+export async function refreshAccess(): Promise<any> {
+    const response = await fetch(`/api/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Refresh failed');
+    }
+    return response.json();
+}
+
+export async function logout(): Promise<void> {
+    await fetch(`/api/auth/logout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    });
 }
 
 export async function fetchUser(id: string, token?: string): Promise<any> {

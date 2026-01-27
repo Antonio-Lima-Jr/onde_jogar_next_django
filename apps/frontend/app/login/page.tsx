@@ -21,10 +21,10 @@ export default function LoginPage() {
         try {
             const data = await login(formData);
             setAuth({
-                token: data.token,
-                userId: data.user_id,
-                email: data.email,
-                username: data.username,
+                token: data.access,
+                userId: data.user?.id ?? null,
+                email: data.user?.email ?? null,
+                username: data.user?.username ?? null,
             });
 
             router.push('/events');

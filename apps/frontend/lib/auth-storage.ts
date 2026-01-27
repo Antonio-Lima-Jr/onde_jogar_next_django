@@ -14,13 +14,12 @@ export const AuthStorage = {
         if (!isBrowser()) {
             return { token: null, userId: null, username: null, email: null };
         }
-        const token = localStorage.getItem("token");
         const userIdRaw = localStorage.getItem("user_id");
         const userId = userIdRaw ? Number(userIdRaw) : null;
         const username = localStorage.getItem("username");
         const email = localStorage.getItem("user_email");
         return {
-            token,
+            token: null,
             userId: Number.isNaN(userId) ? null : userId,
             username,
             email,
@@ -28,9 +27,6 @@ export const AuthStorage = {
     },
     setAuth(snapshot: AuthSnapshot) {
         if (!isBrowser()) return;
-        if (snapshot.token) {
-            localStorage.setItem("token", snapshot.token);
-        }
         if (snapshot.userId !== null) {
             localStorage.setItem("user_id", snapshot.userId.toString());
         }
@@ -43,7 +39,6 @@ export const AuthStorage = {
     },
     clear() {
         if (!isBrowser()) return;
-        localStorage.removeItem("token");
         localStorage.removeItem("user_id");
         localStorage.removeItem("username");
         localStorage.removeItem("user_email");

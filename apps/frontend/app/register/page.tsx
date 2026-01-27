@@ -21,10 +21,10 @@ export default function RegisterPage() {
         try {
             const data = await register(formData);
             setAuth({
-                token: data.token,
-                userId: data.user.id,
-                email: data.user.email,
-                username: data.user.username,
+                token: data.access,
+                userId: data.user?.id ?? null,
+                email: data.user?.email ?? null,
+                username: data.user?.username ?? null,
             });
 
             router.push('/events');

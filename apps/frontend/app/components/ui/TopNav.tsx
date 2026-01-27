@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import AuthModal from "../AuthModal";
 import { useAuth } from "@/lib/auth-context";
+import { logout } from "@/lib/api";
 
 export default function TopNav() {
     const router = useRouter();
@@ -19,7 +20,8 @@ export default function TopNav() {
         }
     }, [ready, auth.token]);
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        await logout();
         clearAuth();
         setIsLoggedIn(false);
         router.push("/login");

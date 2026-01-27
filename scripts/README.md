@@ -188,4 +188,4 @@ O CLI é construído com:
 - **Permissões**: Execute `chmod +x scripts/setup.sh` se houver problemas com o script
 
 Para mais informações sobre o projeto, consulte o [README.md](../README.md) da raiz.</content>
-<parameter name="filePath">/home/dev/Projects/onde-jogar-2/scripts/README.md
+<parameter name="filePath">README.md

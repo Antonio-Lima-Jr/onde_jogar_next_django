@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from rest_framework.authtoken.models import Token
 from django.db import transaction
 
 User = get_user_model()
@@ -13,8 +12,7 @@ class UserService:
             email=email,
             password=password
         )
-        token, _ = Token.objects.get_or_create(user=user)
-        return user, token.key
+        return user
 
     @staticmethod
     def update_user_profile(user, data):

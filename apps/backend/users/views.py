@@ -1,10 +1,12 @@
 from rest_framework import generics, status, permissions
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import RegisterSerializer, UserSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import RegisterSerializer, UserSerializer, UserSafeSerializer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -28,31 +30,43 @@ class RegisterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
-        user, token = UserService.register_user(
+        user = UserService.register_user(
             username=serializer.validated_data['username'],
             email=serializer.validated_data.get('email', ''),
             password=serializer.validated_data['password']
         )
-        
+        refresh = RefreshToken.for_user(user)
         return Response({
-            "user": UserSerializer(user).data,
-            "token": token
+            "user": UserSafeSerializer(user).data,
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
         }, status=status.HTTP_201_CREATED)
 
 
-class CustomAuthToken(ObtainAuthToken):
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data["user"] = UserSafeSerializer(self.user).data
+        return data
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+
+class LogoutView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({
-            'token': token.key,
-            'user_id': user.pk,
-            'email': user.email,
-            'username': user.username
-        })
+        refresh_token = request.data.get("refresh")
+        if not refresh_token:
+            return Response({"detail": "Refresh token required."}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except Exception:
+            return Response({"detail": "Invalid refresh token."}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
