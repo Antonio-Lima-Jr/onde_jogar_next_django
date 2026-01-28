@@ -7,6 +7,7 @@ import EventCard from "@/app/components/EventCard";
 import EditProfileButton from "@/app/components/EditProfileButton";
 import FollowProfileButton from "@/app/components/FollowProfileButton";
 import AddSportButton from "@/app/components/AddSportButton";
+import { notFound } from "next/navigation";
 
 
 interface UserProfile {
@@ -43,16 +44,7 @@ export default async function ProfilePage({
     const activeTab = tab || "upcoming";
 
     if (!user) {
-        return (
-            <div className="min-h-screen bg-[color:var(--color-background)] text-[color:var(--color-text)]">
-                <TopNav />
-                <main className="max-w-[1200px] mx-auto px-4 py-20 text-center">
-                    <h1 className="text-4xl font-bold mb-4">User Not Found</h1>
-                    <Link href="/events" className="text-primary hover:underline">Back to Events</Link>
-                </main>
-                <Footer />
-            </div>
-        );
+        notFound();
     }
 
     const currentEvents = activeTab === "upcoming" ? user.upcoming_events : user.past_events;

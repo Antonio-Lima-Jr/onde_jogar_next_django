@@ -6,6 +6,7 @@ import SidebarActions from "./sidebar_actions";
 import Link from "next/link";
 import { fetchEvent } from "@/lib/api";
 import EventMap from "@/app/components/Map";
+import { notFound } from "next/navigation";
 
 interface Participation {
     id: number;
@@ -36,8 +37,13 @@ interface EventData {
     is_authenticated_user_joined: boolean;
 }
 
-async function getEvent(id: string): Promise<EventData> {
-    return await fetchEvent(id);
+async function getEvent(id: string): Promise<EventData | null> {
+    try {
+        return await fetchEvent(id);
+    } catch (error) {
+        console.error("Failed to fetch event:", error);
+        return null;
+    }
 }
 
 export default async function EventDetailPage({
@@ -47,6 +53,9 @@ export default async function EventDetailPage({
 }) {
     const { id } = await params;
     const event = await getEvent(id);
+    if (!event) {
+        notFound();
+    }
 
     // Format date
     const eventDate = new Date(event.date);

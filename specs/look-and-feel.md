@@ -98,3 +98,13 @@ Permitir troca de tema **sem backend**, com **persistência em localStorage**, *
 - Nenhum endpoint de backend é necessário.
 - Sem Tailwind `dark:` variants.
 - O tema atual escuro continua idêntico visualmente após a Fase B.
+
+---
+
+## 7) Melhorias de baixa prioridade (futuro)
+
+- Padronizar tokens de cores neutras em componentes que ainda usam `text-white`, `bg-black` e `text-slate-*`.
+- Revisar contrastes no tema claro para elementos secundários (ícones, labels e placeholders).
+- Refinar sombras e bordas para consistência entre cards, modais e inputs.
+- Introduzir tokens específicos para estados (hover, focus, disabled) em componentes-chave.
+- Documentar decisões visuais por página (landing, auth, eventos, perfil) com screenshots atualizados.

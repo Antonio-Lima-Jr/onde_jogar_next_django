@@ -7,13 +7,7 @@ import { Event } from '@/types/event';
 export const dynamic = 'force-dynamic';
 
 export default async function EventsPage() {
-    let events: Event[] = [];
-
-    try {
-        events = await fetchEvents();
-    } catch (error) {
-        console.error('Failed to fetch events:', error);
-    }
+    const events: Event[] = await fetchEvents();
 
     return (
         <div className="flex flex-col h-screen overflow-hidden">

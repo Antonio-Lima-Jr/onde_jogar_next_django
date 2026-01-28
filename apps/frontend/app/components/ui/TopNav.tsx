@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -108,9 +109,11 @@ export default function TopNav() {
                                     href={`/profile/${auth.userId}`}
                                     className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary shadow-[0_0_10px_rgba(13,242,13,0.3)] bg-[color:var(--color-surface)] transition-transform hover:scale-110 active:scale-95 overflow-hidden"
                                 >
-                                    <img
+                                    <Image
                                         src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${auth.username || 'user'}`}
                                         alt="Profile"
+                                        width={40}
+                                        height={40}
                                         className="w-full h-full"
                                     />
                                 </Link>
