@@ -1,42 +1,46 @@
-# Auth & Permissions (estado atual)
+# Auth & Permissions (current state)
 
-## Visão geral
-- **Auth**: JWT (SimpleJWT) com access curto e refresh em cookie httpOnly via BFF no Next.
-- **Permissão global**: `IsAuthenticatedOrReadOnly`.
-- **Autorização por objeto**: **ativa** para perfil e eventos.
-- **Admin**: superuser bypass em endpoints protegidos.
-
----
-
-## Matriz de permissões (atual)
-
-👤 Usuários  
-Ação | Anônimo | Autenticado | Dono do perfil  
-Ver perfil | ✅ | ✅ | ✅  
-Criar usuário | ✅ | — | —  
-Atualizar perfil | ❌ | ❌ | ✅  
-
-Regra: `request.user == profile.user` (superuser bypass).
-
-📅 Eventos  
-Ação        | Anônimo   | Autenticado   | Criador do evento  
-Listar      | ✅        | ✅            | ✅  
-Ver         | ✅        | ✅            | ✅  
-Criar       | ❌        | ✅            | ✅  
-Atualizar   | ❌        | ❌            | ✅  
-Deletar     | ❌        | ❌            | ✅  
-
-Regra: `request.user == event.created_by` (superuser bypass).
-
-🤝 Participação (join / leave)  
-Ação | Anônimo | Autenticado | Dono da participação  
-Entrar | ❌ | ✅ | ✅  
-Sair | ❌ | ✅* | ✅  
-
-*Sair: o próprio usuário **ou** o criador do evento (ou superuser).
+## Overview
+- **Auth**: JWT (SimpleJWT) with short access and refresh in httpOnly cookie via Next BFF.
+- **Global permission**: `IsAuthenticatedOrReadOnly`.
+- **Object-level authorization**: **enabled** for profile and events.
+- **Admin**: superuser bypass on protected endpoints.
 
 ---
 
-## Melhorias sugeridas (não implementadas)
-- **Frontend**: tratamento claro de 403 (mensagem simples).
-- **Testes**: cobrir permissões de update profile, update/delete event e leave.
+## Permission matrix (current)
+
+👤 Users  
+Action | Anonymous | Authenticated | Profile owner  
+View profile | ✅ | ✅ | ✅  
+Create user | ✅ | — | —  
+Update profile | ❌ | ❌ | ✅  
+
+Rule: `request.user == profile.user` (superuser bypass).
+
+📅 Events  
+Action | Anonymous | Authenticated | Event owner  
+List | ✅ | ✅ | ✅  
+View | ✅ | ✅ | ✅  
+Create | ❌ | ✅ | ✅  
+Update | ❌ | ❌ | ✅  
+Delete | ❌ | ❌ | ✅  
+
+Rule: `request.user == event.created_by` (superuser bypass).
+
+🏷️ Event categories  
+Action | Anonymous | Authenticated  
+List categories | ✅ | ✅  
+
+🤝 Participation (join / leave)  
+Action | Anonymous | Authenticated | Participation owner  
+Join | ❌ | ✅ | ✅  
+Leave | ❌ | ✅* | ✅  
+
+*Leave: the user **or** the event owner (or superuser).
+
+---
+
+## Suggested improvements (not implemented)
+- **Frontend**: clear 403 handling (simple message).
+- **Tests**: cover update profile, update/delete event, and leave permissions.

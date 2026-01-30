@@ -1,30 +1,30 @@
-# Plano curto — ajustes finais do MVP
+# Short plan — final MVP adjustments
 
-Baseado em: `specs/mvp.md`, `specs/checklist.md`, `specs/auth.md`, `specs/auth_jwt.md`.
+Based on: `specs/mvp.md`, `specs/checklist.md`, `specs/auth.md`, `specs/auth_jwt.md`.
 
-## Objetivo
-Fechar o MVP com fluxo completo funcional e UX mínima consistente, sem expandir o escopo.
+## Goal
+Close the MVP with a complete functional flow and consistent minimal UX, without expanding scope.
 
-## Passos (ordem sugerida)
+## Steps (suggested order)
 
-1) **Fluxo completo manual (end-to-end)**
-- Cadastro → login → criar evento → listar → detalhe → entrar/sair.
-- Registrar problemas encontrados e corrigir apenas o necessário.
+1) **Manual end-to-end flow**
+- Register → login → create event (with category) → list → detail → join/leave.
+- Record issues found and fix only what is necessary.
 
-2) **Permissões + UX alinhadas**
-- Garantir regras de `specs/auth.md` em profile/event/participation.
-- Esconder/desabilitar ações inválidas.
-- Mensagem simples para 403 no frontend.
+2) **Permissions + UX alignment**
+- Enforce `specs/auth.md` rules on profile/event/participation.
+- Hide/disable invalid actions.
+- Simple 403 message on the frontend.
 
-3) **Páginas públicas / SSR**
-- Confirmar acesso anônimo em `/events`, `/events/[id]`, `/profile/[id]`.
-- Verificar SEO/SSR nas páginas públicas.
+3) **Public pages / SSR**
+- Confirm anonymous access to `/events`, `/events/[id]`, `/profile/[id]`.
+- Verify SEO/SSR on public pages.
 
-4) **Dados de demonstração**
-- Criar fake data via admin para validar navegação e listagens.
+4) **Demo data**
+- Create fake data via admin to validate navigation and lists.
 
-5) **Checklist de aceite**
-- Marcar itens de `specs/checklist.md` conforme validações acima.
+5) **Acceptance checklist**
+- Mark items in `specs/checklist.md` according to the validations above.
 
-## Fora do escopo
-Qualquer feature nova não listada em `specs/mvp.md` deve passar pelo `mvp-scope-analyzer`.
+## Out of scope
+Any new feature not listed in `specs/mvp.md` must go through `mvp-scope-analyzer`.

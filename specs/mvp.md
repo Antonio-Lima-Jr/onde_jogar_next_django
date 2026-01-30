@@ -1,11 +1,12 @@
 # 🎯 MVP — frozen vision (1 sentence)
 
-**Allow users to create public sports events and allow other people to find and participate in these events.**
+**Allow users to create public events (sports and non-sports) and allow other people to find and participate in these events.**
 
-Agora o MVP também é **location-aware**:
-- eventos podem ter localização
-- explore inclui mapa e filtros geográficos
-- eventos podem declarar skills necessárias e opcionais
+The MVP is also **location-aware**:
+- events can have a location
+- explore includes a map and geographic filters
+
+Events must also have a **category** (sports, family, work, social, study, other).
 
 Nothing beyond that.
 
@@ -111,18 +112,18 @@ I will split it into **6 blocks**, from the most structural to the most visible.
 - Validate basic data:
   - future date
   - slots > 0
+- Add event category:
+  - category is required
+  - categories are managed server-side
 - Add event location:
   - latitude/longitude + city
   - selection via map during creation
-- Add event skills:
-  - required skills
-  - optional skills
 
 📌 **Done criteria**
 
 - Event appears in the list
 - Event has its own page
-- Event can be created with location via map
+- Event can be created with category and location via map
 
 ---
 

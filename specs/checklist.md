@@ -1,42 +1,41 @@
-# ✅ Checklist técnico — MVP (alinhado a README.md, mvp.md, auth.md)
+# ✅ Technical checklist — MVP (aligned to README.md, mvp.md, auth.md)
 
-## 1) Escopo e documentação (specs/)
-- [ ] `specs/mvp.md` continua refletindo apenas o escopo do MVP.
-- [ ] `specs/auth.md` é a fonte oficial das regras de autorização.
-- [ ] `specs/auth_jwt.md` descreve o fluxo JWT implementado.
+## 1) Scope and docs (specs/)
+- [ ] `specs/mvp.md` reflects only the MVP scope.
+- [ ] `specs/auth.md` is the source of truth for authorization rules.
+- [ ] `specs/auth_jwt.md` describes the JWT flow in place.
 
-## 2) Backend — autorização por objeto (apps/backend/)
-- [ ] **Perfil**: update permitido somente ao próprio usuário.
-- [ ] **Eventos**: update/delete permitido somente ao criador do evento.
-- [ ] **Participações**: remover participação permitido ao próprio usuário **ou** ao criador do evento.
-- [ ] **Admin**: superuser pode tudo (bypass).
-- [ ] Respostas 403/404 coerentes e previsíveis.
+## 2) Backend — object-level authorization (apps/backend/)
+- [ ] **Profile**: update allowed only to the owner.
+- [ ] **Events**: update/delete allowed only to the event owner.
+- [ ] **Participations**: remove participation allowed to the user **or** the event owner.
+- [ ] **Admin**: superuser can do anything (bypass).
+- [ ] 403/404 responses are consistent and predictable.
 
-## 3) Frontend — UX alinhada às permissões (apps/frontend/)
-- [ ] Botões de **Edit Profile** somente para dono do perfil.
-- [ ] Botões de **Follow** somente para outros usuários.
-- [ ] Ações proibidas escondidas ou desabilitadas (sem quebrar UX).
-- [ ] Tratamento claro de 403 (mensagem simples).
+## 3) Frontend — UX aligned with permissions (apps/frontend/)
+- [ ] **Edit Profile** button only for the profile owner.
+- [ ] **Follow** button only for other users.
+- [ ] Forbidden actions hidden or disabled (no UX break).
+- [ ] Clear 403 handling (simple message).
 
-## 4) Páginas públicas (apps/frontend/)
-- [ ] `/events` visível para anônimos.
-- [ ] `/events/[id]` visível para anônimos.
-- [ ] `/profile/[id]` visível para anônimos.
-- [ ] SEO/SSR mantidos para páginas públicas.
-- [ ] Explore mostra eventos em mapa.
-- [ ] Botão “usar minha localização” funciona.
-- [ ] Filtro por distância só aparece quando localização estiver ativa.
-- [ ] Geolocalização é opt-in (não obrigatória).
-- [ ] Filtros avançam progressivamente (não exigir tudo de uma vez).
+## 4) Public pages (apps/frontend/)
+- [ ] `/events` visible to anonymous users.
+- [ ] `/events/[id]` visible to anonymous users.
+- [ ] `/profile/[id]` visible to anonymous users.
+- [ ] SEO/SSR preserved for public pages.
+- [ ] Explore shows events on the map.
+- [ ] “Use my location” button works.
+- [ ] Distance filter appears only when location is active.
+- [ ] Geolocation is opt-in (not mandatory).
+- [ ] Filters progress gradually (do not require everything at once).
 
-## 5) Infra e CLI (infra/, scripts/)
-- [ ] CLI intacto (sem regressões).
-- [ ] README atualizado se alguma regra/fluxo mudar.
+## 5) Infra and CLI (infra/, scripts/)
+- [ ] CLI intact (no regressions).
+- [ ] README updated if any rule/flow changes.
 
-## 6) Critérios de aceite (global)
-- [ ] Usuário autenticado **não** edita conteúdo de terceiros.
-- [ ] Páginas públicas continuam acessíveis.
-- [ ] UX não expõe ações inválidas.
-- [ ] Nada fora do escopo do MVP é adicionado.
-- [ ] Evento pode ser criado com localização no mapa.
-- [ ] Evento suporta skills necessárias e opcionais.
+## 6) Acceptance criteria (global)
+- [ ] Authenticated user **cannot** edit other users' content.
+- [ ] Public pages remain accessible.
+- [ ] UX does not expose invalid actions.
+- [ ] Nothing outside the MVP scope is added.
+- [ ] Event can be created with category and map location.
