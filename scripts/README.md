@@ -78,8 +78,8 @@ O menu é hierárquico e guiará você pelas opções disponíveis. Aqui está u
 3. **Menu Frontend:**
    ```
    Ações de Frontend:
-   ❯ Instalar Dependências (npm install)
-     Rodar Dev (npm run dev)
+   ❯ Instalar Dependências (pnpm install)
+     Rodar Dev (pnpm dev)
      Build Projeto
      Voltar
    ```
@@ -112,7 +112,7 @@ python scripts/cli.py backend create-app NOME_APP  # Cria novo app Django
 #### Frontend (Next.js)
 
 ```bash
-python scripts/cli.py frontend install     # Instala dependências (npm install)
+python scripts/cli.py frontend install     # Instala dependências (pnpm install)
 python scripts/cli.py frontend dev         # Inicia servidor de desenvolvimento
 python scripts/cli.py frontend build       # Cria build de produção
 python scripts/cli.py frontend prod        # Inicia o Next em modo produção (start)
@@ -162,7 +162,7 @@ python scripts/cli.py backend migrate
 - **Feedback Visual**: Usa Rich para output colorido e organizado
 - **Interrupção Segura**: Ctrl+C interrompe operações sem quebrar o estado
 - **Integração**: Comandos do backend garantem que o banco esteja rodando quando necessário
-- **Modo Produção do Frontend**: O submenu do frontend agora inclui a opção de rodar `npm run start` com `NODE_ENV=production` (cache ativo e ISR funcionando). O comando `frontend prod` também está disponível para execução direta.
+- **Modo Produção do Frontend**: O submenu do frontend agora inclui a opção de rodar `pnpm start` com `NODE_ENV=production` (cache ativo e ISR funcionando). O comando `frontend prod` também está disponível para execução direta.
 
 ## Modo Produção Local do Frontend
 

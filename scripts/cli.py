@@ -89,20 +89,20 @@ def create_app(name: str = typer.Argument(..., help="Nome do novo app")):
 
 @frontend_app.command("install")
 def frontend_install():
-    """Instala as dependências do frontend (npm install)."""
-    run_command("npm install", cwd="apps/frontend")
+    """Instala as dependências do frontend (pnpm install)."""
+    run_command("pnpm install", cwd="apps/frontend")
 
 
 @frontend_app.command("dev")
 def frontend_dev():
     """Inicia o servidor de desenvolvimento do Next.js."""
-    run_command("npm run dev", cwd="apps/frontend")
+    run_command("pnpm dev", cwd="apps/frontend")
 
 
 @frontend_app.command("build")
 def frontend_build():
     """Cria a build de produção do frontend."""
-    run_command("npm run build", cwd="apps/frontend")
+    run_command("pnpm build", cwd="apps/frontend")
 
 
 @frontend_app.command("prod")
@@ -110,7 +110,7 @@ def frontend_prod(skip_build: bool = typer.Option(False, "--skip-build", help="P
     """Executa o frontend em modo produção para ativar o cache do Next."""
     if not skip_build:
         frontend_build()
-    run_command("NODE_ENV=production npm run start", cwd="apps/frontend")
+    run_command("NODE_ENV=production pnpm start", cwd="apps/frontend")
 
 
 # --- Interactive Menu ---
@@ -172,23 +172,23 @@ def interactive_menu():
                 action = questionary.select(
                     "Ações de Frontend:",
                     choices=[
-                        "Instalar Dependências (npm install)",
-                        "Rodar Dev (npm run dev)",
+                        "Instalar Dependências (pnpm install)",
+                        "Rodar Dev (pnpm dev)",
                         "Build Projeto",
-                        "Executar Produção (npm run start)",
+                        "Executar Produção (pnpm start)",
                         "Voltar",
                     ],
                 ).ask()
 
                 if action == "Voltar":
                     break
-                elif action == "Instalar Dependências (npm install)":
+                elif action == "Instalar Dependências (pnpm install)":
                     frontend_install()
-                elif action == "Rodar Dev (npm run dev)":
+                elif action == "Rodar Dev (pnpm dev)":
                     frontend_dev()
                 elif action == "Build Projeto":
                     frontend_build()
-                elif action == "Executar Produção (npm run start)":
+                elif action == "Executar Produção (pnpm start)":
                     frontend_prod()
 
 
