@@ -2,8 +2,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-from .models import Event, Participation
-from .serializers import EventSerializer
+from .models import Event, Participation, EventCategory
+from .serializers import EventSerializer, EventCategorySerializer
 
 from .services import EventService
 
@@ -32,6 +32,12 @@ class EventViewSet(viewsets.ModelViewSet):
             return Response({"detail": "Successfully joined the event."}, status=status.HTTP_201_CREATED)
         except ValueError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EventCategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = EventCategory.objects.filter(is_active=True).order_by("name")
+    serializer_class = EventCategorySerializer
+    permission_classes = [permissions.AllowAny]
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def leave(self, request, pk=None):

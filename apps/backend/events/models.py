@@ -9,6 +9,11 @@ class Event(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     date = models.DateTimeField()
+    category = models.ForeignKey(
+        'EventCategory',
+        on_delete=models.PROTECT,
+        related_name='events',
+    )
     # Auxiliary metadata for simple filters (no reverse geocoding in MVP).
     city = models.CharField(max_length=120, blank=True, default="")
     # Geographic point (lon/lat) stored in PostGIS for distance queries.
@@ -44,3 +49,19 @@ class Participation(models.Model):
 
     def __str__(self):
         return f"{self.user} -> {self.event.title}"
+
+
+class EventCategory(models.Model):
+    name = models.CharField(max_length=80)
+    slug = models.SlugField(max_length=80, unique=True)
+    description = models.TextField(blank=True, default="")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Event categories"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name

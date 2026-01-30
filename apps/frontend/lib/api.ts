@@ -20,6 +20,16 @@ export async function fetchEvents(): Promise<any[]> {
     return response.json();
 }
 
+export async function fetchEventCategories(): Promise<any[]> {
+    const response = await fetch(`${API_BASE_URL}/api/events/categories/`, {
+        cache: 'no-store',
+    });
+    if (!response.ok) {
+        throw new Error('Failed to fetch event categories');
+    }
+    return response.json();
+}
+
 export async function fetchEvent(id: string, token?: string): Promise<any> {
     const response = await fetch(`${API_BASE_URL}/api/events/${id}/`, {
         headers: getHeaders(token),

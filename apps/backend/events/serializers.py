@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Event, Participation
+from .models import Event, Participation, EventCategory
 from users.serializers import UserSafeSerializer
 from .services import EventService, LocationService
 
@@ -11,6 +11,11 @@ class ParticipationSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'event', 'joined_at')
         read_only_fields = ('joined_at',)
 
+class EventCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventCategory
+        fields = ('id', 'name', 'slug', 'description')
+
 class EventSerializer(serializers.ModelSerializer):
     created_by = UserSafeSerializer(read_only=True)
     is_authenticated_user_joined = serializers.SerializerMethodField()
@@ -18,12 +23,20 @@ class EventSerializer(serializers.ModelSerializer):
     participations = ParticipationSerializer(many=True, read_only=True)
     latitude = serializers.FloatField(required=False)
     longitude = serializers.FloatField(required=False)
+    category = EventCategorySerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(
+        source='category',
+        queryset=EventCategory.objects.filter(is_active=True),
+        write_only=True,
+        required=True,
+    )
 
 
     class Meta:
         model = Event
         fields = (
-            'id', 'title', 'description', 'date', 'city', 'location',
+            'id', 'title', 'description', 'date', 'category', 'category_id',
+            'city', 'location',
             'latitude', 'longitude',
             'created_by', 'slots', 'created_at', 'updated_at',
             'is_authenticated_user_joined', 'participants_count',

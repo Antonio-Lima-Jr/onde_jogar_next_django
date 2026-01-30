@@ -2,16 +2,18 @@
 
 import TopNav from '@/app/components/ui/TopNav';
 import EventMap from '@/app/components/Map';
-import { createEvent } from '@/lib/api';
+import { createEvent, fetchEventCategories } from '@/lib/api';
 import { useRequireAuth } from '@/lib/use-require-auth';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { EventCategory } from '@/types/event';
 
 type CreateEventPayload = {
     title: FormDataEntryValue | null;
     description: FormDataEntryValue | null;
     date: string | null;
     slots: number;
+    category_id?: number;
     latitude?: number;
     longitude?: number;
 };
@@ -21,9 +23,34 @@ export default function CreateEventPage() {
     const [loading, setLoading] = useState(false);
     const [latitude, setLatitude] = useState<number | null>(null);
     const [longitude, setLongitude] = useState<number | null>(null);
+    const [categories, setCategories] = useState<EventCategory[]>([]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<number | ''>('');
+    const [categoriesLoading, setCategoriesLoading] = useState(true);
     const { auth } = useRequireAuth();
 
     const hasCoords = latitude !== null && longitude !== null;
+
+    useEffect(() => {
+        let isMounted = true;
+        fetchEventCategories()
+            .then((data) => {
+                if (!isMounted) return;
+                setCategories(data);
+                if (data.length > 0) {
+                    setSelectedCategoryId(data[0].id);
+                }
+                setCategoriesLoading(false);
+            })
+            .catch((error) => {
+                console.error('Failed to load categories', error);
+                if (isMounted) {
+                    setCategoriesLoading(false);
+                }
+            });
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -41,6 +68,11 @@ export default function CreateEventPage() {
             date: isoDate,
             slots: parseInt(formData.get('slots') as string),
         };
+
+        const categoryValue = formData.get('category');
+        if (categoryValue) {
+            data.category_id = parseInt(categoryValue as string, 10);
+        }
 
         if (hasCoords) {
             data.latitude = latitude;
@@ -94,6 +126,38 @@ export default function CreateEventPage() {
                             className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none"
                             placeholder="e.g. Saturday Morning 3v3 Scrimmage"
                         />
+                    </div>
+
+                    <div>
+                        <label htmlFor="category" className="text-sm font-bold text-[color:var(--color-muted)] uppercase tracking-wider mb-2 block">Event Category</label>
+                        <select
+                            id="category"
+                            name="category"
+                            required
+                            value={selectedCategoryId}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                setSelectedCategoryId(value ? parseInt(value, 10) : '');
+                            }}
+                            disabled={categoriesLoading || categories.length === 0}
+                            className="w-full bg-[color:var(--color-background)] border-[color:var(--color-border)] border rounded-xl px-4 py-3 text-[color:var(--color-text)] focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none"
+                        >
+                            {categoriesLoading && (
+                                <option value="" disabled>
+                                    Loading categories...
+                                </option>
+                            )}
+                            {!categoriesLoading && categories.length === 0 && (
+                                <option value="" disabled>
+                                    No categories available
+                                </option>
+                            )}
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div>

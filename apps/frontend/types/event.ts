@@ -11,11 +11,19 @@ export interface Participation {
     joined_at: string;
 }
 
+export interface EventCategory {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+}
+
 export interface Event {
     id: number;
     title: string;
     description: string;
     date: string;
+    category?: EventCategory | null;
     location?: { type: "Point"; coordinates: [number, number] } | null;
     latitude?: number | null;
     longitude?: number | null;
