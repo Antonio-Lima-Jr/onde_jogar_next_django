@@ -68,6 +68,7 @@ O menu é hierárquico e guiará você pelas opções disponíveis. Aqui está u
    ❯ Rodar Banco (Docker Up)
      Parar Banco (Docker Down)
      Rodar Servidor (Runserver)
+     Parar Servidor (Docker Stop)
      Criar Migrations (Makemigrations)
      Aplicar Migrations (Migrate)
      Criar Novo App
@@ -97,7 +98,8 @@ python scripts/cli.py backend db-up        # Inicia o banco via Docker
 python scripts/cli.py backend db-down      # Para o banco
 
 # Servidor
-python scripts/cli.py backend run          # Inicia o servidor Django (também inicia o DB)
+python scripts/cli.py backend run          # Inicia o servidor Django (sobe o container se estiver parado)
+python scripts/cli.py backend stop         # Para o container do servidor backend
 
 # Migrations
 python scripts/cli.py backend makemigrations [--name NOME]  # Cria migrations

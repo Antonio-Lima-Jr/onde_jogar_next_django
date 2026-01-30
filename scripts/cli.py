@@ -53,7 +53,14 @@ def db_down():
 @backend_app.command("run")
 def backend_run():
     """Inicia o servidor de desenvolvimento do Django."""
+    run_command("docker compose up -d backend", cwd="infra")
     backend_exec("python manage.py runserver 0.0.0.0:8971")
+
+
+@backend_app.command("stop")
+def backend_stop():
+    """Para o container do servidor backend."""
+    run_command("docker compose stop backend", cwd="infra")
 
 
 @backend_app.command("makemigrations")
@@ -132,6 +139,7 @@ def interactive_menu():
                         "Rodar Banco (Docker Up)",
                         "Parar Banco (Docker Down)",
                         "Rodar Servidor (Runserver)",
+                        "Parar Servidor (Docker Stop)",
                         "Criar Migrations (Makemigrations)",
                         "Aplicar Migrations (Migrate)",
                         "Criar Novo App",
@@ -147,6 +155,8 @@ def interactive_menu():
                     db_down()
                 elif action == "Rodar Servidor (Runserver)":
                     backend_run()
+                elif action == "Parar Servidor (Docker Stop)":
+                    backend_stop()
                 elif action == "Criar Migrations (Makemigrations)":
                     name = questionary.text("Nome da migration (opcional):").ask()
                     makemigrations(name=name if name else None)
