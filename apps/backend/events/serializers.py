@@ -90,6 +90,9 @@ class EventSerializer(serializers.ModelSerializer):
         return False
 
     def get_participants_count(self, obj):
+        annotated_count = getattr(obj, 'participants_count', None)
+        if annotated_count is not None:
+            return annotated_count
         return obj.participations.count()
 
     def validate_date(self, value):

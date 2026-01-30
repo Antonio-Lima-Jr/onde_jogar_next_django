@@ -10,8 +10,20 @@ function getHeaders(token?: string) {
     return headers;
 }
 
-export async function fetchEvents(): Promise<any[]> {
-    const response = await fetch(`${API_BASE_URL}/api/events/`, {
+export async function fetchEvents(
+    params?: Record<string, string | number | boolean | null | undefined>,
+    token?: string | null
+): Promise<any[]> {
+    const searchParams = new URLSearchParams();
+    if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+            if (value === undefined || value === null || value === '') return;
+            searchParams.set(key, String(value));
+        });
+    }
+    const query = searchParams.toString();
+    const response = await fetch(`${API_BASE_URL}/api/events/${query ? `?${query}` : ''}`, {
+        headers: getHeaders(token ?? undefined),
         cache: 'no-store',
     });
     if (!response.ok) {

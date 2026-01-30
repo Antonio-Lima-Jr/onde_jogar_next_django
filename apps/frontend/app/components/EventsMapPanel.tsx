@@ -129,6 +129,11 @@ export default function EventsMapPanel({ events }: EventsMapPanelProps) {
               longitude={event.longitude as number}
               anchor="bottom"
             >
+              {event.is_authenticated_user_joined && (
+                <span className="absolute -top-5 rounded-full bg-blue-500 text-white text-[8px] font-black px-2 py-0.5 shadow-[0_0_10px_rgba(59,130,246,0.6)]">
+                  Joined
+                </span>
+              )}
               <button
                 type="button"
                 aria-label={`Open event ${event.title}`}
@@ -140,10 +145,20 @@ export default function EventsMapPanel({ events }: EventsMapPanelProps) {
                 }}
                 className="flex flex-col items-center -translate-y-1"
               >
-                <span className="rounded-full bg-primary text-[color:var(--color-on-primary)] shadow-[0_0_12px_rgba(89,242,13,0.5)] border border-primary/60 px-2 py-1 text-[10px] font-black tracking-wide">
+                <span
+                  className={`rounded-full text-[color:var(--color-on-primary)] border px-2 py-1 text-[10px] font-black tracking-wide ${
+                    event.is_authenticated_user_joined
+                      ? "bg-blue-600 border-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.6)]"
+                      : "bg-primary border-primary/60 shadow-[0_0_12px_rgba(89,242,13,0.5)]"
+                  }`}
+                >
                   {event.id}
                 </span>
-                <span className="material-symbols-outlined text-primary drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)] -mt-1">
+                <span
+                  className={`material-symbols-outlined drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)] -mt-1 ${
+                    event.is_authenticated_user_joined ? "text-blue-500" : "text-primary"
+                  }`}
+                >
                   location_on
                 </span>
               </button>
@@ -180,23 +195,27 @@ export default function EventsMapPanel({ events }: EventsMapPanelProps) {
           <p className="text-[10px] font-bold text-[color:var(--color-muted)] uppercase tracking-widest mb-2">
             Map Legend
           </p>
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-orange-500 shadow-[0_0_5px_rgba(249,115,22,0.5)]" />
+              <span className="inline-flex items-center rounded-full bg-primary text-[color:var(--color-on-primary)] border border-primary/60 px-2 py-0.5 text-[10px] font-black shadow-[0_0_10px_rgba(89,242,13,0.4)]">
+                #
+              </span>
               <span className="text-xs font-medium text-[color:var(--color-text)]">
-                Ball Sports
+                Event
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center rounded-full bg-blue-600 text-white border border-blue-400 px-2 py-0.5 text-[10px] font-black shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                #
+              </span>
+              <span className="text-xs font-medium text-[color:var(--color-text)]">
+                Joined event
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-blue-500 shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
               <span className="text-xs font-medium text-[color:var(--color-text)]">
-                Racket
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.5)]" />
-              <span className="text-xs font-medium text-[color:var(--color-text)]">
-                Fitness
+                Your location
               </span>
             </div>
           </div>

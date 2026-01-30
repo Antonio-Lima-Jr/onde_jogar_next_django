@@ -10,6 +10,7 @@ import { useAuth } from '@/lib/auth-context';
 
 interface EventCardProps {
     event: Event;
+    onParticipationChange?: (eventId: number, isJoined: boolean) => void;
 }
 
 const sportIcons: Record<string, { icon: string; color: string; bgColor: string; borderColor: string }> = {
@@ -45,7 +46,7 @@ function formatDate(dateString: string) {
     return { time, day: date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) };
 }
 
-export default function EventCard({ event }: EventCardProps) {
+export default function EventCard({ event, onParticipationChange }: EventCardProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -78,6 +79,7 @@ export default function EventCard({ event }: EventCardProps) {
             } else {
                 await joinEvent(event.id, auth.token);
             }
+            onParticipationChange?.(event.id, !isJoined);
             router.refresh();
         } catch (error: any) {
             alert(error.message || 'Failed to update participation');
