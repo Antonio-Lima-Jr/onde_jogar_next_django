@@ -68,7 +68,7 @@ export default async function ProfilePage({
                     <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative">
                         <div
                             className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 ring-4 ring-primary shadow-lg shadow-primary/20 bg-[color:var(--color-surface)]"
-                            style={{ backgroundImage: `url("${user.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user.username}")` }}
+                            style={{ backgroundImage: `url("${user.avatar_url || '/avatar.svg'}")` }}
                         ></div>
 
                         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">

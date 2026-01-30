@@ -147,7 +147,7 @@ export default function EditProfilePage({ params }: { params: Promise<{ id: stri
                                         <div className="relative group cursor-pointer">
                                             <div
                                                 className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 ring-4 ring-white shadow-md transition-transform group-hover:scale-105"
-                                                style={{ backgroundImage: `url("${formData.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + formData.username}")` }}
+                                                style={{ backgroundImage: `url("${formData.avatar_url || '/avatar.svg'}")` }}
                                             ></div>
                                             <div className="absolute inset-0 bg-black/40 rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <span className="material-symbols-outlined text-white text-3xl mb-1">photo_camera</span>

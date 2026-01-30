@@ -110,10 +110,11 @@ export default function TopNav() {
                                     className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary shadow-[0_0_10px_rgba(13,242,13,0.3)] bg-[color:var(--color-surface)] transition-transform hover:scale-110 active:scale-95 overflow-hidden"
                                 >
                                     <Image
-                                        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${auth.username || 'user'}`}
+                                        src="/avatar.svg"
                                         alt="Profile"
                                         width={40}
                                         height={40}
+                                        unoptimized
                                         className="w-full h-full"
                                     />
                                 </Link>
