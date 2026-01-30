@@ -1,21 +1,17 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import EventCard from '@/app/components/EventCard';
 import EventsMapPanel from '@/app/components/EventsMapPanel';
-import { fetchEvents } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
+import { useEventsStore } from '@/lib/stores/events-store';
 import type { Event, EventCategory } from '@/types/event';
+import type { DateFilter, SortOption } from '@/lib/stores/events-store';
 
 type EventsListClientProps = {
     events: Event[];
     categories: EventCategory[];
 };
-
-type DateFilter = 'all' | 'today' | 'week' | 'month' | 'upcoming';
-
-type SortOption = 'popular' | 'soonest' | 'newest' | 'distance';
-type RequestParams = Record<string, string | number | boolean | null | undefined>;
 
 const DATE_FILTER_LABELS: Record<DateFilter, string> = {
     all: 'Any date',
@@ -30,20 +26,6 @@ const SORT_LABELS: Record<SortOption, string> = {
     soonest: 'Soonest',
     newest: 'Newest',
     distance: 'Nearest',
-};
-
-const DEFAULT_RADIUS_KM = 50;
-
-const startOfDay = (value: Date) => {
-    const copy = new Date(value);
-    copy.setHours(0, 0, 0, 0);
-    return copy;
-};
-
-const endOfDay = (value: Date) => {
-    const copy = new Date(value);
-    copy.setHours(23, 59, 59, 999);
-    return copy;
 };
 
 const toRadians = (value: number) => (value * Math.PI) / 180;
@@ -73,102 +55,38 @@ const getDistanceForEvent = (event: Event, lat: number, lng: number) => {
     return calculateDistanceKm(lat, lng, event.latitude, event.longitude);
 };
 
-const buildDateRange = (filter: DateFilter) => {
-    if (filter === 'all') return {};
-
-    const now = new Date();
-    if (filter === 'today') {
-        return {
-            dateFrom: startOfDay(now).toISOString(),
-            dateTo: endOfDay(now).toISOString(),
-        };
-    }
-
-    if (filter === 'upcoming') {
-        return {
-            dateFrom: startOfDay(now).toISOString(),
-        };
-    }
-
-    const end = new Date(now);
-    if (filter === 'week') {
-        end.setDate(now.getDate() + 7);
-    }
-
-    if (filter === 'month') {
-        end.setDate(now.getDate() + 30);
-    }
-
-    return {
-        dateFrom: startOfDay(now).toISOString(),
-        dateTo: endOfDay(end).toISOString(),
-    };
-};
-
-const buildRequestParams = ({
-    searchQuery,
-    categoryId,
-    dateFilter,
-    openSlotsOnly,
-    latitude,
-    longitude,
-    radiusKm,
-}: {
-    searchQuery: string;
-    categoryId: number | '';
-    dateFilter: DateFilter;
-    openSlotsOnly: boolean;
-    latitude: number | null;
-    longitude: number | null;
-    radiusKm: number | '';
-}): RequestParams => {
-    const { dateFrom, dateTo } = buildDateRange(dateFilter);
-    const hasCoords = latitude !== null && longitude !== null;
-    const effectiveRadiusKm = radiusKm === '' ? DEFAULT_RADIUS_KM : radiusKm;
-    return {
-        search: searchQuery.trim() || undefined,
-        category: categoryId || undefined,
-        date_from: dateFrom,
-        date_to: dateTo,
-        open_slots: openSlotsOnly || undefined,
-        lat: hasCoords ? latitude ?? undefined : undefined,
-        lng: hasCoords ? longitude ?? undefined : undefined,
-        radius_km: hasCoords ? effectiveRadiusKm : undefined,
-    };
-};
-
 export default function EventsListClient({ events, categories }: EventsListClientProps) {
     const { auth } = useAuth();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [categoryId, setCategoryId] = useState<number | ''>('');
-    const [dateFilter, setDateFilter] = useState<DateFilter>('all');
-    const [sortBy, setSortBy] = useState<SortOption>('popular');
-    const [openSlotsOnly, setOpenSlotsOnly] = useState(false);
-    const [radiusKm, setRadiusKm] = useState<number | ''>('');
-    const [latitude, setLatitude] = useState<number | null>(null);
-    const [longitude, setLongitude] = useState<number | null>(null);
-    const [isLocating, setIsLocating] = useState(false);
-    const [showDistanceControls, setShowDistanceControls] = useState(false);
-    const [locationError, setLocationError] = useState<string | null>(null);
-    const [hasUserRequestedLocation, setHasUserRequestedLocation] = useState(false);
 
-    const [remoteEvents, setRemoteEvents] = useState<Event[]>(events);
-    const [isFetching, setIsFetching] = useState(false);
-    const [fetchError, setFetchError] = useState<string | null>(null);
-    const [appliedParams, setAppliedParams] = useState<RequestParams>(() =>
-        buildRequestParams({
-            searchQuery: '',
-            categoryId: '',
-            dateFilter: 'all',
-            openSlotsOnly: false,
-            latitude: null,
-            longitude: null,
-            radiusKm: '',
-        })
-    );
+    const items = useEventsStore((state) => state.items);
+    const isFetching = useEventsStore((state) => state.isFetching);
+    const fetchError = useEventsStore((state) => state.error);
+    const searchQuery = useEventsStore((state) => state.searchQuery);
+    const categoryId = useEventsStore((state) => state.categoryId);
+    const dateFilter = useEventsStore((state) => state.dateFilter);
+    const openSlotsOnly = useEventsStore((state) => state.openSlotsOnly);
+    const sortBy = useEventsStore((state) => state.sortBy);
+    const radiusKm = useEventsStore((state) => state.radiusKm);
+    const latitude = useEventsStore((state) => state.latitude);
+    const longitude = useEventsStore((state) => state.longitude);
+    const isLocating = useEventsStore((state) => state.isLocating);
+    const showDistanceControls = useEventsStore((state) => state.showDistanceControls);
+    const locationError = useEventsStore((state) => state.locationError);
+
+    const hydrateEvents = useEventsStore((state) => state.hydrateEvents);
+    const setSearchQuery = useEventsStore((state) => state.setSearchQuery);
+    const setCategoryId = useEventsStore((state) => state.setCategoryId);
+    const setDateFilter = useEventsStore((state) => state.setDateFilter);
+    const setOpenSlotsOnly = useEventsStore((state) => state.setOpenSlotsOnly);
+    const setSortBy = useEventsStore((state) => state.setSortBy);
+    const setRadiusKm = useEventsStore((state) => state.setRadiusKm);
+    const setShowDistanceControls = useEventsStore((state) => state.setShowDistanceControls);
+    const applyFilters = useEventsStore((state) => state.applyFilters);
+    const clearFilters = useEventsStore((state) => state.clearFilters);
+    const requestLocation = useEventsStore((state) => state.requestLocation);
+    const updateParticipation = useEventsStore((state) => state.updateParticipation);
 
     const hasCoords = latitude !== null && longitude !== null;
-    const effectiveRadiusKm = radiusKm === '' ? DEFAULT_RADIUS_KM : radiusKm;
     const hasDistanceFilter = hasCoords;
 
     const hasActiveFilters =
@@ -179,100 +97,23 @@ export default function EventsListClient({ events, categories }: EventsListClien
         openSlotsOnly ||
         hasDistanceFilter;
 
-    const handleClearFilters = () => {
-        const clearedParams = buildRequestParams({
-            searchQuery: '',
-            categoryId: '',
-            dateFilter: 'all',
-            openSlotsOnly: false,
-            latitude: null,
-            longitude: null,
-            radiusKm: '',
-        });
-        setSearchQuery('');
-        setCategoryId('');
-        setDateFilter('all');
-        setSortBy('popular');
-        setOpenSlotsOnly(false);
-        setRadiusKm('');
-        setLatitude(null);
-        setLongitude(null);
-        setShowDistanceControls(false);
-        setLocationError(null);
-        setHasUserRequestedLocation(false);
-        setAppliedParams(clearedParams);
-    };
-
-    const draftParams = useMemo(
-        () =>
-            buildRequestParams({
-                searchQuery,
-                categoryId,
-                dateFilter,
-                openSlotsOnly,
-                latitude,
-                longitude,
-                radiusKm,
-            }),
-        [categoryId, dateFilter, latitude, longitude, openSlotsOnly, radiusKm, searchQuery]
-    );
-
-    const handleApplyFilters = () => {
-        setAppliedParams(draftParams);
-    };
+    const hasHydrated = useRef(false);
+    const hasRequestedLocation = useRef(false);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setIsFetching(true);
-            setFetchError(null);
-            try {
-                const data = await fetchEvents(appliedParams, auth.token);
-                setRemoteEvents(data as Event[]);
-            } catch (error) {
-                const message = error instanceof Error ? error.message : 'Failed to fetch events';
-                setFetchError(message);
-            } finally {
-                setIsFetching(false);
-            }
-        };
-
-        fetchData();
-    }, [appliedParams, auth.token]);
+        if (hasHydrated.current) return;
+        hydrateEvents(events);
+        hasHydrated.current = true;
+    }, [events, hydrateEvents]);
 
     useEffect(() => {
-        if (!navigator.geolocation) {
-            return;
-        }
-
-        setIsLocating(true);
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-                setShowDistanceControls(true);
-                setRadiusKm((current) => (current === '' ? DEFAULT_RADIUS_KM : current));
-                setAppliedParams(
-                    buildRequestParams({
-                        searchQuery: '',
-                        categoryId: '',
-                        dateFilter: 'all',
-                        openSlotsOnly: false,
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                        radiusKm: DEFAULT_RADIUS_KM,
-                    })
-                );
-                setIsLocating(false);
-            },
-            () => {
-                setIsLocating(false);
-            },
-            { enableHighAccuracy: true, timeout: 10000 }
-        );
-    }, []);
+        if (hasRequestedLocation.current) return;
+        hasRequestedLocation.current = true;
+        requestLocation({ auto: true, token: auth.token });
+    }, [auth.token, requestLocation]);
 
     const sortedEvents = useMemo(() => {
-        const base = [...remoteEvents];
+        const base = [...items];
         if (sortBy === 'popular') {
             return base.sort((a, b) => getParticipantsCount(b) - getParticipantsCount(a));
         }
@@ -290,34 +131,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
             );
         }
         return base;
-    }, [hasCoords, latitude, longitude, remoteEvents, sortBy]);
-
-    const handleUseMyLocation = () => {
-        if (!navigator.geolocation) {
-            setLocationError('Geolocation is not supported by your browser.');
-            return;
-        }
-
-        setIsLocating(true);
-        setShowDistanceControls(true);
-        setLocationError(null);
-        setHasUserRequestedLocation(true);
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-                setRadiusKm((current) => (current === '' ? DEFAULT_RADIUS_KM : current));
-                setIsLocating(false);
-            },
-            () => {
-                if (hasUserRequestedLocation) {
-                    setLocationError('Unable to fetch your location.');
-                }
-                setIsLocating(false);
-            },
-            { enableHighAccuracy: true, timeout: 10000 }
-        );
-    };
+    }, [hasCoords, items, latitude, longitude, sortBy]);
 
     return (
         <main className="flex flex-1 overflow-hidden">
@@ -367,7 +181,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
 
                         <button
                             type="button"
-                            onClick={() => setOpenSlotsOnly((prev) => !prev)}
+                            onClick={() => setOpenSlotsOnly(!openSlotsOnly)}
                             className={`h-9 rounded-full px-4 text-xs font-semibold transition-colors ${openSlotsOnly
                                 ? 'bg-primary/15 text-primary border border-primary/40'
                                 : 'bg-[color:var(--color-surface)] text-[color:var(--color-muted)] border border-[color:var(--color-border)]'
@@ -392,7 +206,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
 
                         <button
                             type="button"
-                            onClick={handleApplyFilters}
+                            onClick={() => applyFilters(auth.token)}
                             className="h-9 rounded-full px-4 text-xs font-semibold border border-primary/60 bg-primary/15 text-primary hover:bg-primary/25 transition-colors"
                         >
                             Apply filters
@@ -401,7 +215,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
                         {hasActiveFilters && (
                             <button
                                 type="button"
-                                onClick={handleClearFilters}
+                                onClick={() => clearFilters(auth.token)}
                                 className="h-9 rounded-full px-4 text-xs font-semibold text-[color:var(--color-text)] border border-[color:var(--color-border)] hover:border-primary transition-colors"
                             >
                                 Clear filters
@@ -416,7 +230,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
                         <div className="flex items-center gap-2">
                             <button
                                 type="button"
-                                onClick={handleUseMyLocation}
+                                onClick={() => requestLocation({ auto: false, token: auth.token })}
                                 disabled={isLocating}
                                 className="h-9 rounded-full px-4 text-xs font-semibold border border-[color:var(--color-border)] text-[color:var(--color-text)] hover:border-primary transition-colors disabled:opacity-50"
                             >
@@ -438,11 +252,20 @@ export default function EventsListClient({ events, categories }: EventsListClien
                         </div>
                         {hasCoords && (
                             <p className="text-[10px] text-[color:var(--color-muted)]">
-                                Using {latitude?.toFixed(3)}, {longitude?.toFixed(3)} • {effectiveRadiusKm}km
+                                Using {latitude?.toFixed(3)}, {longitude?.toFixed(3)}
                             </p>
                         )}
                         {locationError && (
                             <p className="text-[10px] text-red-500">{locationError}</p>
+                        )}
+                        {!showDistanceControls && (
+                            <button
+                                type="button"
+                                onClick={() => setShowDistanceControls(true)}
+                                className="text-[10px] font-semibold text-[color:var(--color-muted)] hover:text-primary"
+                            >
+                                Set distance radius
+                            </button>
                         )}
                     </div>
 
@@ -476,20 +299,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
                                 key={event.id}
                                 event={event}
                                 onParticipationChange={(eventId, isJoined) => {
-                                    setRemoteEvents((prev) =>
-                                        prev.map((item) => {
-                                            if (item.id !== eventId) return item;
-                                            const currentCount = item.participants_count ?? 0;
-                                            const nextCount = isJoined
-                                                ? currentCount + 1
-                                                : Math.max(0, currentCount - 1);
-                                            return {
-                                                ...item,
-                                                participants_count: nextCount,
-                                                is_authenticated_user_joined: isJoined,
-                                            };
-                                        })
-                                    );
+                                    updateParticipation(eventId, isJoined);
                                 }}
                             />
                         ))
