@@ -24,6 +24,12 @@ interface EventData {
     description: string;
     date: string;
     location: string;
+    category?: {
+        id: number;
+        name: string;
+        slug: string;
+        description: string;
+    } | null;
     latitude?: number | null;
     longitude?: number | null;
     created_by: {
@@ -45,6 +51,65 @@ async function getEvent(id: string): Promise<EventData | null> {
         return null;
     }
 }
+
+const getCategoryIcon = (slug?: string | null) => {
+    switch ((slug ?? "").toLowerCase()) {
+        case "esportivo":
+            return "sports_soccer";
+        case "familiar":
+            return "family_restroom";
+        case "trabalho":
+            return "work";
+        case "social":
+            return "groups";
+        case "estudo":
+            return "school";
+        case "outro":
+            return "category";
+        default:
+            return "event";
+    }
+};
+
+const getCategoryBanner = (slug?: string | null) => {
+    switch ((slug ?? "").toLowerCase()) {
+        case "esportivo":
+            return {
+                imageUrl: "/banners/esportivo.png",
+                gradient: "linear-gradient(0deg, rgba(5, 10, 5, 0.95) 0%, rgba(5, 10, 5, 0) 70%)",
+            };
+        case "familiar":
+            return {
+                imageUrl: "/banners/familia.png",
+                gradient: "linear-gradient(0deg, rgba(10, 12, 8, 0.92) 0%, rgba(10, 12, 8, 0) 70%)",
+            };
+        case "trabalho":
+            return {
+                imageUrl: "/banners/trabalho.png",
+                gradient: "linear-gradient(0deg, rgba(8, 12, 14, 0.95) 0%, rgba(8, 12, 14, 0) 70%)",
+            };
+        case "social":
+            return {
+                imageUrl: "/banners/social.jpg",
+                gradient: "linear-gradient(0deg, rgba(12, 8, 14, 0.95) 0%, rgba(12, 8, 14, 0) 70%)",
+            };
+        case "estudo":
+            return {
+                imageUrl: "/banners/estudo.jpg",
+                gradient: "linear-gradient(0deg, rgba(6, 10, 14, 0.93) 0%, rgba(6, 10, 14, 0) 70%)",
+            };
+        case "outro":
+            return {
+                imageUrl: "/banners/outro.jpg",
+                gradient: "linear-gradient(0deg, rgba(8, 10, 10, 0.9) 0%, rgba(8, 10, 10, 0) 70%)",
+            };
+        default:
+            return {
+                imageUrl: "/banners/default.jpg",
+                gradient: "linear-gradient(0deg, rgba(5, 10, 5, 0.95) 0%, rgba(5, 10, 5, 0) 70%)",
+            };
+    }
+};
 
 export default async function EventDetailPage({
     params,
@@ -70,6 +135,9 @@ export default async function EventDetailPage({
         hour12: true,
     });
 
+    const categoryIcon = getCategoryIcon(event.category?.slug);
+    const banner = getCategoryBanner(event.category?.slug);
+
     return (
         <>
             <TopNav />
@@ -80,22 +148,17 @@ export default async function EventDetailPage({
                         className="aspect-[21/9] w-full bg-cover bg-center rounded-2xl overflow-hidden shadow-2xl relative"
                         style={{
                             backgroundImage:
-                                'linear-gradient(0deg, rgba(5, 10, 5, 0.95) 0%, rgba(5, 10, 5, 0) 70%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8mI1lWgW6fjkHctpPHOueHLPJujw3w5FNjmKmzfvqVhiAGBlLvxCO-rBkpGp12WcagN07UJ6dX6xXQp9-B72B9jvg09FMBLB5sCrkNC70raOo1o3OyNSp4H5m4y8NaPyvtaEhlBSFlEF0PpjQH5l_UCs2fiGTPNiWm4hS_p2zPEr3byA6zTal0MSE226NJhpn2P6A0efn4RMmoShaRIsB0XQcduKQdNmHGe5zrCF1trmd771pc1nne6t0-IUq9DA5oWPYKVepkHo")',
+                                `${banner.gradient}, url("${banner.imageUrl}")`,
                         }}
                     >
                         <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 flex flex-col gap-4">
                             <div className="flex gap-3">
                                 <div className="flex h-8 items-center justify-center gap-x-2 rounded-full bg-primary px-4 shadow-[0_0_20px_rgba(13,242,13,0.6)]">
                                     <span className="material-symbols-outlined text-[18px] text-black filled-icon">
-                                        sports_soccer
+                                        {categoryIcon}
                                     </span>
                                     <p className="text-black text-xs font-black uppercase tracking-widest">
-                                        Soccer
-                                    </p>
-                                </div>
-                                <div className="flex h-8 items-center justify-center gap-x-2 rounded-full bg-white/10 backdrop-blur-md px-4 border border-white/20">
-                                    <p className="text-white text-xs font-bold uppercase tracking-widest">
-                                        Competitive
+                                        {event.category?.name ?? "Event"}
                                     </p>
                                 </div>
                             </div>
@@ -126,32 +189,6 @@ export default async function EventDetailPage({
                             </h3>
                             <div className="text-[color:var(--color-muted)] space-y-6 leading-relaxed font-normal">
                                 <p className="text-lg text-[color:var(--color-text)]">{event.description}</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
-                                        <span className="material-symbols-outlined text-primary text-sm">
-                                            check_circle
-                                        </span>
-                                        <span className="text-sm font-medium text-[color:var(--color-text)]">1-hour game session</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
-                                        <span className="material-symbols-outlined text-primary text-sm">
-                                            check_circle
-                                        </span>
-                                        <span className="text-sm font-medium text-[color:var(--color-text)]">Bibs and balls provided</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
-                                        <span className="material-symbols-outlined text-primary text-sm">
-                                            check_circle
-                                        </span>
-                                        <span className="text-sm font-medium text-[color:var(--color-text)]">Shower & Changing rooms</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 bg-[color:var(--color-background)]/70 p-4 rounded-xl border border-[color:var(--color-border)]">
-                                        <span className="material-symbols-outlined text-primary text-sm">
-                                            info
-                                        </span>
-                                        <span className="text-sm font-medium text-[color:var(--color-text)]">Strictly no slide tackling</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 

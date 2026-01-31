@@ -73,7 +73,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
                     disabled={loading}
                     className="flex-1 min-w-[200px] cursor-pointer items-center justify-center rounded-full h-16 px-8 bg-primary text-black text-xl font-black leading-normal tracking-tight shadow-[0_0_40px_rgba(13,242,13,0.4)] hover:shadow-[0_0_50px_rgba(13,242,13,0.6)] hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
                 >
-                    <span className="truncate">{loading ? "JOINING..." : "JOIN GAME"}</span>
+                    <span className="truncate">{loading ? "JOINING..." : "JOIN EVENT"}</span>
                 </button>
             ) : (
                 <button
@@ -81,7 +81,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
                     disabled={loading}
                     className="flex-1 min-w-[200px] cursor-pointer items-center justify-center rounded-full h-16 px-8 bg-red-500 text-white text-xl font-black leading-normal tracking-tight hover:bg-red-600 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
                 >
-                    <span className="truncate">{loading ? "LEAVING..." : "LEAVE GAME"}</span>
+                    <span className="truncate">{loading ? "LEAVING..." : "LEAVE EVENT"}</span>
                 </button>
             )}
             <button
