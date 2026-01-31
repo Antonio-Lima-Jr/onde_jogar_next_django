@@ -11,7 +11,12 @@ type RequestParams = Record<string, string | number | boolean | null | undefined
 
 type EventsState = {
     items: Event[];
+    totalCount: number;
+    offset: number;
+    limit: number;
+    hasMore: boolean;
     isFetching: boolean;
+    isFetchingMore: boolean;
     error: string | null;
     lastUpdated: number | null;
 
@@ -31,7 +36,7 @@ type EventsState = {
 
     appliedParams: RequestParams;
 
-    hydrateEvents: (events: Event[]) => void;
+    hydrateEvents: (events: Event[], totalCount?: number) => void;
     setSearchQuery: (value: string) => void;
     setCategoryId: (value: number | '') => void;
     setDateFilter: (value: DateFilter) => void;
@@ -44,11 +49,13 @@ type EventsState = {
 
     applyFilters: (token?: string | null) => Promise<void>;
     clearFilters: (token?: string | null) => Promise<void>;
+    loadMore: (token?: string | null) => Promise<void>;
     requestLocation: (options?: { auto?: boolean; token?: string | null }) => Promise<void>;
     updateParticipation: (eventId: number, isJoined: boolean) => void;
 };
 
 const DEFAULT_RADIUS_KM = 50;
+const DEFAULT_LIMIT = 10;
 
 const startOfDay = (value: Date) => {
     const copy = new Date(value);
@@ -113,7 +120,7 @@ const buildRequestParams = (state: Pick<EventsState, 'searchQuery' | 'categoryId
 
 const fetchEventsWithParams = async (params: RequestParams, token?: string | null) => {
     const data = await fetchEvents(params, token ?? undefined);
-    return data as Event[];
+    return data;
 };
 
 const defaultAppliedParams = buildRequestParams({
@@ -128,7 +135,12 @@ const defaultAppliedParams = buildRequestParams({
 
 export const useEventsStore = create<EventsState>((set, get) => ({
     items: [],
+    totalCount: 0,
+    offset: 0,
+    limit: DEFAULT_LIMIT,
+    hasMore: false,
     isFetching: false,
+    isFetchingMore: false,
     error: null,
     lastUpdated: null,
 
@@ -148,11 +160,16 @@ export const useEventsStore = create<EventsState>((set, get) => ({
 
     appliedParams: defaultAppliedParams,
 
-    hydrateEvents: (events) =>
+    hydrateEvents: (events, totalCount) => {
+        const resolvedTotal = totalCount ?? events.length;
         set({
             items: events,
+            totalCount: resolvedTotal,
+            offset: events.length,
+            hasMore: events.length < resolvedTotal,
             lastUpdated: Date.now(),
-        }),
+        });
+    },
 
     setSearchQuery: (value) => set({ searchQuery: value }),
     setCategoryId: (value) => set({ categoryId: value }),
@@ -167,10 +184,28 @@ export const useEventsStore = create<EventsState>((set, get) => ({
     applyFilters: async (token) => {
         const state = get();
         const params = buildRequestParams(state);
-        set({ appliedParams: params, isFetching: true, error: null });
+        const pagedParams = { ...params, limit: state.limit, offset: 0 };
+        set({
+            appliedParams: params,
+            isFetching: true,
+            isFetchingMore: false,
+            error: null,
+            items: [],
+            offset: 0,
+            hasMore: false,
+            totalCount: 0,
+        });
         try {
-            const events = await fetchEventsWithParams(params, token);
-            set({ items: events, lastUpdated: Date.now() });
+            const response = await fetchEventsWithParams(pagedParams, token);
+            const results = response.results ?? [];
+            const count = response.count ?? results.length;
+            set({
+                items: results,
+                totalCount: count,
+                offset: results.length,
+                hasMore: results.length < count,
+                lastUpdated: Date.now(),
+            });
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Failed to fetch events';
             set({ error: message });
@@ -193,24 +228,35 @@ export const useEventsStore = create<EventsState>((set, get) => ({
             locationError: null,
             hasUserRequestedLocation: false,
         });
-        const params = buildRequestParams({
-            searchQuery: '',
-            categoryId: '',
-            dateFilter: 'all',
-            openSlotsOnly: false,
-            latitude: null,
-            longitude: null,
-            radiusKm: '',
-        });
-        set({ appliedParams: params, isFetching: true, error: null });
+        await get().applyFilters(token);
+    },
+
+    loadMore: async (token) => {
+        const state = get();
+        if (state.isFetchingMore || !state.hasMore || state.isFetching) return;
+        const pagedParams = {
+            ...state.appliedParams,
+            limit: state.limit,
+            offset: state.offset,
+        };
+        set({ isFetchingMore: true, error: null });
         try {
-            const events = await fetchEventsWithParams(params, token);
-            set({ items: events, lastUpdated: Date.now() });
+            const response = await fetchEventsWithParams(pagedParams, token);
+            const results = response.results ?? [];
+            const count = response.count ?? state.totalCount;
+            const nextOffset = state.offset + results.length;
+            set({
+                items: [...state.items, ...results],
+                totalCount: count,
+                offset: nextOffset,
+                hasMore: nextOffset < count,
+                lastUpdated: Date.now(),
+            });
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Failed to fetch events';
             set({ error: message });
         } finally {
-            set({ isFetching: false });
+            set({ isFetchingMore: false });
         }
     },
 

@@ -11,6 +11,7 @@ from .serializers import EventSerializer, EventCategorySerializer
 
 from .services import EventService, LocationService
 from .filters import EventFilter
+from .pagination import EventLimitOffsetPagination
 
 
 class IsEventCreatorOrReadOnly(BasePermission):
@@ -25,6 +26,7 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all().order_by('date')
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsEventCreatorOrReadOnly]
+    pagination_class = EventLimitOffsetPagination
     filterset_class = EventFilter
     search_fields = ['title', 'description', 'category__name']
     ordering_fields = ['date', 'created_at']

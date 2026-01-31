@@ -16,7 +16,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
     const [loading, setLoading] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const router = useRouter();
-    const { auth } = useAuth();
+    const { auth, clearAuth } = useAuth();
 
     const isJoined = auth.userId ? participations.includes(auth.userId) : false;
 
@@ -32,6 +32,11 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
             setParticipations([...participations, auth.userId]);
             router.refresh();
         } catch (error: any) {
+            if (error?.status === 401) {
+                clearAuth();
+                setIsAuthModalOpen(true);
+                return;
+            }
             console.error(error);
             alert(error.message || "Failed to join event");
         } finally {
@@ -48,6 +53,11 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
             setParticipations(participations.filter(id => id !== auth.userId));
             router.refresh();
         } catch (error: any) {
+            if (error?.status === 401) {
+                clearAuth();
+                setIsAuthModalOpen(true);
+                return;
+            }
             console.error(error);
             alert(error.message || "Failed to leave event");
         } finally {

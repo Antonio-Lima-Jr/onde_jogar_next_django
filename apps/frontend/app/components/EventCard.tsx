@@ -50,7 +50,7 @@ export default function EventCard({ event, onParticipationChange }: EventCardPro
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-    const { auth } = useAuth();
+    const { auth, ready, clearAuth } = useAuth();
 
     const sportStyle = getSportIcon(event.title);
     const { time, day } = formatDate(event.date);
@@ -59,8 +59,11 @@ export default function EventCard({ event, onParticipationChange }: EventCardPro
     const percentage = (participationCount / event.slots) * 100;
 
     // Check if user is joined either from server data or by checking the participations list with client-side userId
-    const isJoined = event.is_authenticated_user_joined ||
-        (auth.userId && event.participations?.some(p => p.user.id === auth.userId));
+    const isJoined = ready
+        ? (auth.token
+            ? Boolean(event.is_authenticated_user_joined)
+            : Boolean(auth.userId && event.participations?.some((p) => p.user.id === auth.userId)))
+        : Boolean(auth.userId && event.participations?.some((p) => p.user.id === auth.userId));
 
 
     const handleAction = async (e: React.MouseEvent) => {
@@ -82,6 +85,11 @@ export default function EventCard({ event, onParticipationChange }: EventCardPro
             onParticipationChange?.(event.id, !isJoined);
             router.refresh();
         } catch (error: any) {
+            if (error?.status === 401) {
+                clearAuth();
+                setIsAuthModalOpen(true);
+                return;
+            }
             alert(error.message || 'Failed to update participation');
         } finally {
             setLoading(false);

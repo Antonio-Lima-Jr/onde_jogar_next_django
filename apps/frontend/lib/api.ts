@@ -10,10 +10,17 @@ function getHeaders(token?: string) {
     return headers;
 }
 
+export type PaginatedResponse<T> = {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: T[];
+};
+
 export async function fetchEvents(
     params?: Record<string, string | number | boolean | null | undefined>,
     token?: string | null
-): Promise<any[]> {
+): Promise<PaginatedResponse<any>> {
     const searchParams = new URLSearchParams();
     if (params) {
         Object.entries(params).forEach(([key, value]) => {
@@ -29,7 +36,16 @@ export async function fetchEvents(
     if (!response.ok) {
         throw new Error('Failed to fetch events');
     }
-    return response.json();
+    const data = await response.json();
+    if (Array.isArray(data)) {
+        return {
+            count: data.length,
+            next: null,
+            previous: null,
+            results: data,
+        };
+    }
+    return data;
 }
 
 export async function fetchEventCategories(): Promise<any[]> {
@@ -60,7 +76,9 @@ export async function joinEvent(eventId: number, token: string): Promise<any> {
     });
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Failed to join event');
+        const error = new Error(errorData.detail || 'Failed to join event');
+        (error as { status?: number }).status = response.status;
+        throw error;
     }
     return response.json();
 }
@@ -72,7 +90,9 @@ export async function leaveEvent(eventId: number, token: string): Promise<any> {
     });
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Failed to leave event');
+        const error = new Error(errorData.detail || 'Failed to leave event');
+        (error as { status?: number }).status = response.status;
+        throw error;
     }
     if (response.status === 204) return null;
     return response.json();

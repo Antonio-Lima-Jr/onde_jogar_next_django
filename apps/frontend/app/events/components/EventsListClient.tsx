@@ -11,6 +11,7 @@ import type { DateFilter, SortOption } from '@/lib/stores/events-store';
 type EventsListClientProps = {
     events: Event[];
     categories: EventCategory[];
+    totalCount: number;
 };
 
 const DATE_FILTER_LABELS: Record<DateFilter, string> = {
@@ -56,10 +57,12 @@ const getDistanceForEvent = (event: Event, lat: number, lng: number) => {
 };
 
 export default function EventsListClient({ events, categories }: EventsListClientProps) {
-    const { auth } = useAuth();
+    const { auth, ready } = useAuth();
 
     const items = useEventsStore((state) => state.items);
+    const totalCount = useEventsStore((state) => state.totalCount);
     const isFetching = useEventsStore((state) => state.isFetching);
+    const isFetchingMore = useEventsStore((state) => state.isFetchingMore);
     const fetchError = useEventsStore((state) => state.error);
     const searchQuery = useEventsStore((state) => state.searchQuery);
     const categoryId = useEventsStore((state) => state.categoryId);
@@ -72,6 +75,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
     const isLocating = useEventsStore((state) => state.isLocating);
     const showDistanceControls = useEventsStore((state) => state.showDistanceControls);
     const locationError = useEventsStore((state) => state.locationError);
+    const hasMore = useEventsStore((state) => state.hasMore);
 
     const hydrateEvents = useEventsStore((state) => state.hydrateEvents);
     const setSearchQuery = useEventsStore((state) => state.setSearchQuery);
@@ -85,6 +89,7 @@ export default function EventsListClient({ events, categories }: EventsListClien
     const clearFilters = useEventsStore((state) => state.clearFilters);
     const requestLocation = useEventsStore((state) => state.requestLocation);
     const updateParticipation = useEventsStore((state) => state.updateParticipation);
+    const loadMore = useEventsStore((state) => state.loadMore);
 
     const hasCoords = latitude !== null && longitude !== null;
     const hasDistanceFilter = hasCoords;
@@ -99,18 +104,42 @@ export default function EventsListClient({ events, categories }: EventsListClien
 
     const hasHydrated = useRef(false);
     const hasRequestedLocation = useRef(false);
+    const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (hasHydrated.current) return;
-        hydrateEvents(events);
+        hydrateEvents(events, totalCount);
         hasHydrated.current = true;
-    }, [events, hydrateEvents]);
+    }, [events, hydrateEvents, totalCount]);
 
     useEffect(() => {
         if (hasRequestedLocation.current) return;
         hasRequestedLocation.current = true;
         requestLocation({ auto: true, token: auth.token });
     }, [auth.token, requestLocation]);
+
+    useEffect(() => {
+        if (!ready || !auth.token) return;
+        applyFilters(auth.token);
+    }, [applyFilters, auth.token, ready]);
+
+    useEffect(() => {
+        const target = loadMoreRef.current;
+        if (!target) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (entry?.isIntersecting && hasMore && !isFetchingMore && !isFetching) {
+                    loadMore(auth.token);
+                }
+            },
+            { rootMargin: '120px' }
+        );
+
+        observer.observe(target);
+        return () => observer.disconnect();
+    }, [auth.token, hasMore, isFetching, isFetchingMore, loadMore]);
 
     const sortedEvents = useMemo(() => {
         const base = [...items];
@@ -204,23 +233,6 @@ export default function EventsListClient({ events, categories }: EventsListClien
                                 ))}
                         </select>
 
-                        <button
-                            type="button"
-                            onClick={() => applyFilters(auth.token)}
-                            className="h-9 rounded-full px-4 text-xs font-semibold border border-primary/60 bg-primary/15 text-primary hover:bg-primary/25 transition-colors"
-                        >
-                            Apply filters
-                        </button>
-
-                        {hasActiveFilters && (
-                            <button
-                                type="button"
-                                onClick={() => clearFilters(auth.token)}
-                                className="h-9 rounded-full px-4 text-xs font-semibold text-[color:var(--color-text)] border border-[color:var(--color-border)] hover:border-primary transition-colors"
-                            >
-                                Clear filters
-                            </button>
-                        )}
                     </div>
 
                     <div className="rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-surface)] p-3 space-y-2">
@@ -269,6 +281,26 @@ export default function EventsListClient({ events, categories }: EventsListClien
                         )}
                     </div>
 
+                    <div className="flex flex-wrap gap-2">
+                        <button
+                            type="button"
+                            onClick={() => applyFilters(auth.token)}
+                            className="h-9 rounded-full px-4 text-xs font-semibold border border-primary/60 bg-primary/15 text-primary hover:bg-primary/25 transition-colors"
+                        >
+                            Apply filters
+                        </button>
+
+                        {hasActiveFilters && (
+                            <button
+                                type="button"
+                                onClick={() => clearFilters(auth.token)}
+                                className="h-9 rounded-full px-4 text-xs font-semibold text-[color:var(--color-text)] border border-[color:var(--color-border)] hover:border-primary transition-colors"
+                            >
+                                Clear filters
+                            </button>
+                        )}
+                    </div>
+
                     {fetchError && (
                         <div className="text-xs font-semibold text-red-500">
                             {fetchError}
@@ -276,7 +308,9 @@ export default function EventsListClient({ events, categories }: EventsListClien
                     )}
 
                     <div className="text-[10px] font-semibold uppercase tracking-widest text-[color:var(--color-muted)]">
-                        {isFetching ? 'Updating results...' : `Showing ${sortedEvents.length} events`}
+                        {isFetching
+                            ? 'Updating results...'
+                            : `Showing ${sortedEvents.length} of ${totalCount} events`}
                     </div>
                 </div>
 
@@ -303,6 +337,23 @@ export default function EventsListClient({ events, categories }: EventsListClien
                                 }}
                             />
                         ))
+                    )}
+
+                    <div ref={loadMoreRef} className="h-6" />
+                    {isFetchingMore && (
+                        <div className="text-xs text-[color:var(--color-muted)] text-center">
+                            Loading more events...
+                        </div>
+                    )}
+                    {!isFetchingMore && hasMore && (
+                        <div className="text-[10px] text-[color:var(--color-muted)] text-center uppercase tracking-widest">
+                            Scroll to load more
+                        </div>
+                    )}
+                    {!isFetchingMore && !hasMore && items.length > 0 && (
+                        <div className="text-[10px] text-[color:var(--color-muted)] text-center uppercase tracking-widest">
+                            You reached the end
+                        </div>
                     )}
                 </div>
             </div>
