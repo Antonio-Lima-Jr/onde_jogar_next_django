@@ -98,6 +98,11 @@ def frontend_dev():
     """Inicia o servidor de desenvolvimento do Next.js."""
     run_command("pnpm dev", cwd="apps/frontend")
 
+@frontend_app.command("debug")
+def frontend_debug():
+    """Inicia o servidor de desenvolvimento do Next.js em modo debug."""
+    run_command("pnpm dev:debug", cwd="apps/frontend")
+
 
 @frontend_app.command("build")
 def frontend_build():
@@ -174,6 +179,7 @@ def interactive_menu():
                     choices=[
                         "Instalar Dependências (pnpm install)",
                         "Rodar Dev (pnpm dev)",
+                        "Rodar Debug (pnpm dev:debug)",
                         "Build Projeto",
                         "Executar Produção (pnpm start)",
                         "Voltar",
@@ -186,6 +192,8 @@ def interactive_menu():
                     frontend_install()
                 elif action == "Rodar Dev (pnpm dev)":
                     frontend_dev()
+                elif action == "Rodar Debug (pnpm dev:debug)":
+                    frontend_debug()
                 elif action == "Build Projeto":
                     frontend_build()
                 elif action == "Executar Produção (pnpm start)":
