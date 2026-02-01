@@ -129,3 +129,10 @@ class EventService:
 
         participation.delete()
         return True
+
+
+def generate_event_ranking(event_id: int) -> dict[str, int | bool]:
+    event = Event.objects.filter(id=event_id).only("id").first()
+    if not event:
+        raise ValueError("Event not found.")
+    return {"event_id": event_id, "generated": True}

@@ -14,6 +14,8 @@ import os
 import sys
 from pathlib import Path
 
+from kombu import Queue
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
@@ -45,9 +47,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
+    'django_celery_beat',
+    'django_celery_results',
     'monitoring',
     'users',
     'events',
+    'notifications',
+    'rankings',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
 ]
@@ -156,6 +162,31 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "amqp://guest:guest@rabbitmq-sd:5672//")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "django-db")
+
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+
+CELERY_TIMEZONE = "America/Sao_Paulo"
+CELERY_ENABLE_UTC = True
+
+CELERY_TASK_ACKS_LATE = True
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1
+
+CELERY_TASK_QUEUES = (
+    Queue("events"),
+    Queue("notifications"),
+    Queue("rankings"),
+)
+
+CELERY_TASK_ROUTES = {
+    "events.*": {"queue": "events"},
+    "notifications.*": {"queue": "notifications"},
+    "rankings.*": {"queue": "rankings"},
+}
 
 
 # Static files (CSS, JavaScript, Images)

@@ -65,13 +65,16 @@ O menu é hierárquico e guiará você pelas opções disponíveis. Aqui está u
 2. **Menu Backend:**
    ```
    Ações de Backend:
-   ❯ Rodar Banco (Docker Up)
+   ❯ Execute All (Docker Up)
      Parar Banco (Docker Down)
-     Rodar Servidor (Runserver)
+     Build Sem Cache (Docker)
+     Acompanhar Logs Backend (Runserver)
      Parar Servidor (Docker Stop)
      Criar Migrations (Makemigrations)
      Aplicar Migrations (Migrate)
+     Criar Superuser (Admin)
      Criar Novo App
+     Ver Logs (Backend/Worker/Beat/Rabbit/DB)
      Voltar
    ```
 
@@ -93,20 +96,27 @@ Para usuários avançados, você pode executar comandos diretamente via linha de
 #### Backend (Django)
 
 ```bash
-# Banco de dados
-python scripts/cli.py backend db-up        # Inicia o banco via Docker
-python scripts/cli.py backend db-down      # Para o banco
+# Serviços Docker
+python scripts/cli.py backend db-up        # Sobe todos os serviços (docker compose up -d)
+python scripts/cli.py backend db-down      # Para os serviços (docker compose down)
+python scripts/cli.py backend build-no-cache  # Build sem cache de todos os serviços
 
-# Servidor
-python scripts/cli.py backend run          # Inicia o servidor Django (sobe o container se estiver parado)
+# Logs do backend
+python scripts/cli.py backend run          # Acompanha logs do backend (runserver já sobe no compose)
 python scripts/cli.py backend stop         # Para o container do servidor backend
+python scripts/cli.py backend logs-backend # Logs do backend
+python scripts/cli.py backend logs-worker  # Logs do Celery worker
+python scripts/cli.py backend logs-beat    # Logs do Celery beat
+python scripts/cli.py backend logs-rabbitmq  # Logs do RabbitMQ
+python scripts/cli.py backend logs-db      # Logs do banco
 
 # Migrations
 python scripts/cli.py backend makemigrations [--name NOME]  # Cria migrations
 python scripts/cli.py backend migrate       # Aplica migrations
 
-# Apps
+# Apps / Admin
 python scripts/cli.py backend create-app NOME_APP  # Cria novo app Django
+python scripts/cli.py backend create-superuser     # Cria superuser do Django Admin
 ```
 
 #### Frontend (Next.js)
@@ -139,7 +149,10 @@ python scripts/cli.py frontend install
 #### Desenvolvimento Diário
 
 ```bash
-# Iniciar tudo (backend + banco)
+# Iniciar tudo (backend + banco + worker/beat)
+python scripts/cli.py backend db-up
+
+# Acompanhar logs do backend
 python scripts/cli.py backend run
 
 # Em outro terminal, iniciar frontend

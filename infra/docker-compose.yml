@@ -1,7 +1,7 @@
 services:
-  db:
+  db-sd:
     image: postgis/postgis:16-3.4
-    container_name: onde-jogar-db
+    container_name: db-sd
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
@@ -10,25 +10,60 @@ services:
       - "5432:5432"
     volumes:
       - .pgdata:/var/lib/postgresql/data
-  backend:
+  rabbitmq-sd:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-sd
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  backend-sd:
     build:
       context: ..
       dockerfile: apps/backend/Dockerfile.dev
-    container_name: onde-jogar-backend
+    container_name: backend-sd
     working_dir: /app/apps/backend
-    command: sleep infinity
+    command: python manage.py runserver 0.0.0.0:8971
     env_file:
       - ../apps/backend/.env
     environment:
-      POSTGRES_HOST: db
+      POSTGRES_HOST: db-sd
       POSTGRES_PORT: 5432
       WORKER_ID: 1
     depends_on:
-      - db
+      - db-sd
+      - rabbitmq-sd
     ports:
       - "8971:8971"
-    volumes:
-      - ..:/app
+
+  celery-worker-sd-1:
+    build:
+      context: ..
+      dockerfile: apps/backend/Dockerfile.dev
+    container_name: celery-worker-sd-1
+    working_dir: /app/apps/backend
+    command: celery -A config worker -l info
+    depends_on:
+      - backend-sd
+      - rabbitmq-sd
+    env_file:
+      - ../apps/backend/.env
+
+  celery-beat-sd:
+    build:
+      context: ..
+      dockerfile: apps/backend/Dockerfile.dev
+    container_name: celery-beat-sd
+    working_dir: /app/apps/backend
+    command: celery -A config beat -l info
+    depends_on:
+      - backend-sd
+      - rabbitmq-sd
+    env_file:
+      - ../apps/backend/.env
 
 volumes:
   .pgdata:

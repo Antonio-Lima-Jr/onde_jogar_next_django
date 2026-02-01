@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+    <li>
+        <a href="{% url 'admin:events_event_run_heal_check' %}" class="addlink">
+            Rodar heal_check
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'admin:events_event_run_refresh_rankings' %}" class="addlink">
+            Rodar refresh_rankings
+        </a>
+    </li>
+    {{ block.super }}
+{% endblock %}

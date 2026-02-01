@@ -16,5 +16,11 @@ psycopg==3.3.2
 # Environment
 python-dotenv==1.2.1
 
+# Celery + RabbitMQ
+celery>=5.3
+django-celery-beat>=2.5
+django-celery-results>=2.5
+kombu>=5.3
+
 # Internal shared packages (monorepo)
 -e packages/snowflake-id-lib/

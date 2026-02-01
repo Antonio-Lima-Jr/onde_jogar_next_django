@@ -12,9 +12,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     binutils \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /backend
+WORKDIR /app/apps/backend
 
-COPY apps/backend/requirements.txt requirements.txt
+COPY apps/backend/ /app/apps/backend/
 COPY packages/snowflake-id-lib packages/snowflake-id-lib
 RUN pip install --no-cache-dir -r requirements.txt
 
