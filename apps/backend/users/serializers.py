@@ -4,11 +4,14 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class UserSafeSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
+
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'avatar_url')
 
 class UserSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
     games_played_count = serializers.ReadOnlyField()
     upcoming_events = serializers.SerializerMethodField()
     past_events = serializers.SerializerMethodField()

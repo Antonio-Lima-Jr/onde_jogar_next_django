@@ -7,12 +7,12 @@ import AuthModal from "@/app/components/AuthModal";
 import { useAuth } from "@/lib/auth-context";
 
 interface EventActionsProps {
-    eventId: number;
-    initialParticipations: number[]; // List of user IDs
+    eventId: string;
+    initialParticipations: string[]; // List of user IDs
 }
 
 export default function EventActions({ eventId, initialParticipations }: EventActionsProps) {
-    const [participations, setParticipations] = useState<number[]>(initialParticipations);
+    const [participations, setParticipations] = useState<string[]>(initialParticipations);
     const [loading, setLoading] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const router = useRouter();
@@ -50,7 +50,7 @@ export default function EventActions({ eventId, initialParticipations }: EventAc
         setLoading(true);
         try {
             await leaveEvent(eventId, auth.token);
-            setParticipations(participations.filter(id => id !== auth.userId));
+        setParticipations(participations.filter((id) => id !== auth.userId));
             router.refresh();
         } catch (error: any) {
             if (error?.status === 401) {

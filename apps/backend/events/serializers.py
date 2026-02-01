@@ -4,6 +4,8 @@ from users.serializers import UserSafeSerializer
 from .services import EventService, LocationService
 
 class ParticipationSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
+    event = serializers.CharField(source="event_id", read_only=True)
     user = UserSafeSerializer(read_only=True)
     
     class Meta:
@@ -17,6 +19,7 @@ class EventCategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'slug', 'description')
 
 class EventSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
     created_by = UserSafeSerializer(read_only=True)
     is_authenticated_user_joined = serializers.SerializerMethodField()
     participants_count = serializers.SerializerMethodField()

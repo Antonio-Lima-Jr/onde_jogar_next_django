@@ -1,11 +1,11 @@
 export interface User {
-    id: number;
+    id: string;
     username: string;
     email: string;
 }
 
 export interface Event {
-    id: number;
+    id: string;
     title: string;
     description: string;
     date: string;
@@ -15,7 +15,7 @@ export interface Event {
     sport_type: string;
     skill_level: string;
     slots: number;
-    created_by: number; // or User object if expanded
-    participations: number[]; // IDs of users
+    created_by: string; // or User object if expanded
+    participations: string[]; // IDs of users
     // Add other fields as per model
 }

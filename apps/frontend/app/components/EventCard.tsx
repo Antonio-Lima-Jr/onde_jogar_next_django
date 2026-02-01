@@ -10,7 +10,7 @@ import { useAuth } from '@/lib/auth-context';
 
 interface EventCardProps {
     event: Event;
-    onParticipationChange?: (eventId: number, isJoined: boolean) => void;
+    onParticipationChange?: (eventId: string, isJoined: boolean) => void;
 }
 
 const sportIcons: Record<string, { icon: string; color: string; bgColor: string; borderColor: string }> = {

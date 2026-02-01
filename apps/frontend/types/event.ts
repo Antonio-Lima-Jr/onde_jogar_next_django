@@ -1,13 +1,13 @@
 export interface User {
-    id: number;
+    id: string;
     username: string;
     email: string;
 }
 
 export interface Participation {
-    id: number;
+    id: string;
     user: User;
-    event: number;
+    event: string;
     joined_at: string;
 }
 
@@ -19,7 +19,7 @@ export interface EventCategory {
 }
 
 export interface Event {
-    id: number;
+    id: string;
     title: string;
     description: string;
     date: string;

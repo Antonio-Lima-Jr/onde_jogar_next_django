@@ -69,7 +69,7 @@ export async function fetchEvent(id: string, token?: string): Promise<any> {
     return response.json();
 }
 
-export async function joinEvent(eventId: number, token: string): Promise<any> {
+export async function joinEvent(eventId: string, token: string): Promise<any> {
     const response = await fetch(`${API_BASE_URL}/api/events/${eventId}/join/`, {
         method: 'POST',
         headers: getHeaders(token),
@@ -83,7 +83,7 @@ export async function joinEvent(eventId: number, token: string): Promise<any> {
     return response.json();
 }
 
-export async function leaveEvent(eventId: number, token: string): Promise<any> {
+export async function leaveEvent(eventId: string, token: string): Promise<any> {
     const response = await fetch(`${API_BASE_URL}/api/events/${eventId}/leave/`, {
         method: 'POST',
         headers: getHeaders(token),

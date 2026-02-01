@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 
 
 interface UserProfile {
-    id: number;
+    id: string;
     username: string;
     email: string;
     bio?: string;

@@ -9,9 +9,9 @@ import EventMap from "@/app/components/Map";
 import { notFound } from "next/navigation";
 
 interface Participation {
-    id: number;
+    id: string;
     user: {
-        id: number;
+        id: string;
         username: string;
         email: string;
     };
@@ -19,7 +19,7 @@ interface Participation {
 }
 
 interface EventData {
-    id: number;
+    id: string;
     title: string;
     description: string;
     date: string;
@@ -33,7 +33,7 @@ interface EventData {
     latitude?: number | null;
     longitude?: number | null;
     created_by: {
-        id: number;
+        id: string;
         username: string;
         email: string;
     };

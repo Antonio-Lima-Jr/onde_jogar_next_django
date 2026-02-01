@@ -1,6 +1,6 @@
 export type AuthSnapshot = {
     token: string | null;
-    userId: number | null;
+    userId: string | null;
     username: string | null;
     email: string | null;
 };
@@ -14,13 +14,12 @@ export const AuthStorage = {
         if (!isBrowser()) {
             return { token: null, userId: null, username: null, email: null };
         }
-        const userIdRaw = localStorage.getItem("user_id");
-        const userId = userIdRaw ? Number(userIdRaw) : null;
+        const userId = localStorage.getItem("user_id");
         const username = localStorage.getItem("username");
         const email = localStorage.getItem("user_email");
         return {
             token: null,
-            userId: Number.isNaN(userId) ? null : userId,
+            userId,
             username,
             email,
         };
@@ -28,7 +27,7 @@ export const AuthStorage = {
     setAuth(snapshot: AuthSnapshot) {
         if (!isBrowser()) return;
         if (snapshot.userId !== null) {
-            localStorage.setItem("user_id", snapshot.userId.toString());
+            localStorage.setItem("user_id", snapshot.userId);
         }
         if (snapshot.username) {
             localStorage.setItem("username", snapshot.username);

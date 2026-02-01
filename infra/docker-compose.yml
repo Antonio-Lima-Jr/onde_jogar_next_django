@@ -22,6 +22,7 @@ services:
     environment:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
+      WORKER_ID: 1
     depends_on:
       - db
     ports:
