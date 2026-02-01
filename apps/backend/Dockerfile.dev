@@ -6,6 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # GeoDjango/PostGIS runtime dependencies (GDAL/GEOS/PROJ).
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gdal-bin \
+    git \
+    build-essential \
     libgdal-dev \
     libgeos-dev \
     libproj-dev \
@@ -15,7 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app/apps/backend
 
 COPY apps/backend/ /app/apps/backend/
-COPY packages/snowflake-id-lib packages/snowflake-id-lib
 RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["sleep", "infinity"]

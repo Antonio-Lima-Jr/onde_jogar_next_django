@@ -21,4 +21,5 @@ def generate_event_ranking_task(self, event_id: int):
     name="events.heal_check",
 )
 def heal_check(self):
-    print("Heal check executed")
+    print("Heal check executed - will retry")
+    raise Exception("Forçando retry")

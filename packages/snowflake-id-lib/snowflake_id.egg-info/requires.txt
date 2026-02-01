@@ -1,6 +1,0 @@
-
-[django]
-Django>=4.2
-
-[test]
-pytest>=7.0

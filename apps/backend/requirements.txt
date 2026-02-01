@@ -23,4 +23,4 @@ django-celery-results>=2.5
 kombu>=5.3
 
 # Internal shared packages (monorepo)
--e packages/snowflake-id-lib/
+git+https://github.com/Antonio-Lima-Jr/snowflake-id-core.git@v0.1.0
