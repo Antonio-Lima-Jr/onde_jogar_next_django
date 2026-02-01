@@ -57,7 +57,7 @@ const getDistanceForEvent = (event: Event, lat: number, lng: number) => {
 };
 
 export default function EventsListClient({ events, categories }: EventsListClientProps) {
-    const { auth, ready } = useAuth();
+    const { auth } = useAuth();
 
     const items = useEventsStore((state) => state.items);
     const totalCount = useEventsStore((state) => state.totalCount);
@@ -103,7 +103,6 @@ export default function EventsListClient({ events, categories }: EventsListClien
         hasDistanceFilter;
 
     const hasHydrated = useRef(false);
-    const hasRequestedLocation = useRef(false);
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -111,17 +110,6 @@ export default function EventsListClient({ events, categories }: EventsListClien
         hydrateEvents(events, totalCount);
         hasHydrated.current = true;
     }, [events, hydrateEvents, totalCount]);
-
-    useEffect(() => {
-        if (hasRequestedLocation.current) return;
-        hasRequestedLocation.current = true;
-        requestLocation({ auto: true, token: auth.token });
-    }, [auth.token, requestLocation]);
-
-    useEffect(() => {
-        if (!ready || !auth.token) return;
-        applyFilters(auth.token);
-    }, [applyFilters, auth.token, ready]);
 
     useEffect(() => {
         const target = loadMoreRef.current;
