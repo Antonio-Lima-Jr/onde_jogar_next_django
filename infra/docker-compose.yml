@@ -7,9 +7,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+        - "5432:5432"
     volumes:
       - .pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
   rabbitmq-sd:
     image: rabbitmq:3-management
     container_name: rabbitmq-sd
@@ -26,7 +31,13 @@ services:
       dockerfile: apps/backend/Dockerfile.dev
     container_name: backend-sd
     working_dir: /app/apps/backend
-    command: python manage.py runserver 0.0.0.0:8971
+    command: >
+      watchmedo auto-restart
+      --directory=/app/apps/backend
+      --pattern=*.py
+      --recursive
+      --
+      python manage.py runserver 0.0.0.0:8971
     env_file:
       - ../apps/backend/.env
     environment:
@@ -34,8 +45,10 @@ services:
       POSTGRES_PORT: 5432
       WORKER_ID: 1
     depends_on:
-      - db-sd
-      - rabbitmq-sd
+      db-sd:
+        condition: service_healthy
+      rabbitmq-sd:
+        condition: service_started
     ports:
       - "8971:8971"
     volumes:
@@ -47,10 +60,18 @@ services:
       dockerfile: apps/backend/Dockerfile.dev
     container_name: celery-worker-sd-1
     working_dir: /app/apps/backend
-    command: celery -A config worker -l info
+    command: >
+      watchmedo auto-restart
+      --directory=/app/apps/backend
+      --pattern=*.py
+      --recursive
+      --
+      celery -A config worker -l info
     depends_on:
-      - backend-sd
-      - rabbitmq-sd
+      backend-sd:
+        condition: service_started
+      rabbitmq-sd:
+        condition: service_started
     env_file:
       - ../apps/backend/.env
     volumes:
@@ -63,10 +84,18 @@ services:
       dockerfile: apps/backend/Dockerfile.dev
     container_name: celery-beat-sd
     working_dir: /app/apps/backend
-    command: celery -A config beat -l info
+    command: >
+      watchmedo auto-restart
+      --directory=/app/apps/backend
+      --pattern=*.py
+      --recursive
+      --
+      celery -A config beat -l info
     depends_on:
-      - backend-sd
-      - rabbitmq-sd
+      backend-sd:
+        condition: service_started
+      rabbitmq-sd:
+        condition: service_started
     env_file:
       - ../apps/backend/.env
     volumes:

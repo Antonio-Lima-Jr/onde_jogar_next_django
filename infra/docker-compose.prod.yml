@@ -38,6 +38,9 @@ services:
       - rabbitmq-sd
     ports:
       - "8000:8000"
+    volumes:
+      - ../apps/backend:/app/apps/backend
+    
 
   celery-worker-sd-1:
     build:
@@ -51,6 +54,8 @@ services:
       - rabbitmq-sd
     env_file:
       - ../apps/backend/.env
+    volumes:
+      - ../apps/backend:/app/apps/backend
 
   celery-beat-sd:
     build:
@@ -64,6 +69,8 @@ services:
       - rabbitmq-sd
     env_file:
       - ../apps/backend/.env
+    volumes:
+      - ../apps/backend:/app/apps/backend
 
   frontend:
     build:
@@ -77,6 +84,8 @@ services:
     depends_on:
       - db-sd
       - backend-sd
+    volumes:
+      - ../apps/backend:/app/apps/backend
 
 volumes:
   .pgdata:
